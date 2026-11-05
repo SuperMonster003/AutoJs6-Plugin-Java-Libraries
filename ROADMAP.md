@@ -1,6 +1,6 @@
 # Java Libraries 插件路线图
 
-更新: 2026-11-05 (立项). 本文件是 `AutoJs6-Plugin-Java-Libraries` (显示名 `Java Libraries`) 的唯一进度与决策记录. 插件把 AutoJs6 6.8.0 移除的纯 Java 库 (Apache Commons Lang3, Commons IO, Jackson) 装回设备, 让脚本再次直接使用 `org.apache.commons.lang3.StringUtils`, `com.fasterxml.jackson.databind.ObjectMapper` 等类, 写法与 6.8.0 之前相同.
+更新: 2026-11-05 (P0 / P1 完成, P2 进行中). 本文件是 `AutoJs6-Plugin-Java-Libraries` (显示名 `Java Libraries`) 的唯一进度与决策记录. 插件把 AutoJs6 6.8.0 移除的纯 Java 库 (Apache Commons Lang3, Commons IO, Jackson) 装回设备, 让脚本再次直接使用 `org.apache.commons.lang3.StringUtils`, `com.fasterxml.jackson.databind.ObjectMapper` 等类, 写法与 6.8.0 之前相同.
 
 立项基线: 宿主 AutoJs6 `master` `e195d5c7f8` (2026-11-05, `VERSION_NAME` 6.8.1 未发布, `VERSION_BUILD` 6640). 宿主已有 "官方插件导出 Java 包" 机制 (本地提交 `392746d017`, 第 4 节), 试点为 Pinyin4j 1.4.0 (插件本地提交 `c82d82e`, 等宿主 6.8.1 发布). 证据: 宿主 `docs/dev/evidence/plugin-java-packages-pilot-20261103.md`.
 
@@ -116,8 +116,8 @@
 | 阶段 | 版本 | 主题 | 状态 |
 | --- | --- | --- | --- |
 | P0 | 插件 1.0.0 | 仓库骨架: 依赖与 keep, 身份与信息服务, 启动页与图标, 测试与 CI, README / changelog | 完成 (jl-p0, 2026-11-05) |
-| P1 | 宿主 6.8.1 | 登记表 `Entry` 与 `RETIRED` 调整, 指引与测试, 设备 `states` 用例扩到 Java Libraries, changelog | 进行中 (P1.1 / P1.2 完成, 4af7048853; P1.3 待批次 2) |
-| P2 | 宿主 6.8.1 | 打包带入: 扫描与勾选, 载荷 zip, 成功对话框提示, 打包应用运行时加载, 设备检查 | 未开始 |
+| P1 | 宿主 6.8.1 | 登记表 `Entry` 与 `RETIRED` 调整, 指引与测试, 设备 `states` 用例扩到 Java Libraries, changelog | 完成 (jl-p1, 宿主 4af7048853 / 72fb799256) |
+| P2 | 宿主 6.8.1 | 打包带入: 扫描与勾选, 载荷 zip, 成功对话框提示, 打包应用运行时加载, 设备检查 | 进行中 (jl-p2) |
 | P3 | 插件 1.0.0 | 文档, 索引登记, 最低宿主回填, 发布 (等宿主 6.8.1) | 未开始 |
 
 依赖顺序:
@@ -190,7 +190,7 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ## P1: 宿主登记表与指引
 
-状态: 进行中. P1.1 / P1.2 完成 (宿主本地提交 4af7048853, 子会话 jl-p1, 未推送); P1.3 留给批次 2 (卡片 C). 宿主工作区多会话共用: 只提交自己的文件, 不推送, 不切分支, 构建与其他会话错开.
+状态: 完成 (jl-p1, 宿主 4af7048853 / 72fb799256, XQ-AT72 java-libraries 38 / retired 5 / Pinyin4j 38 全 PASS). 宿主本地提交, 未推送. 宿主工作区多会话共用: 只提交自己的文件, 不推送, 不切分支, 构建与其他会话错开.
 
 ### P1.1 登记表 (D9)
 
@@ -207,15 +207,15 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ### P1.3 设备用例
 
-- [ ] (测试) `device_java_packages_check.py` 加 Java Libraries 的状态用例 (未安装 / 已启用 / 插件中心关闭 / 卸载后各写法, 已启用时冒烟: `StringUtils.isBlank`, `IOUtils.toString`, `ObjectMapper` 序列化与反序列化, 类与加载器来自插件 APK), `retired` 用例中的 Commons 写法换成仍在 `RETIRED` 的库 (如 ICU4J).
+- [x] (测试) `device_java_packages_check.py` 加 Java Libraries 的状态用例 (未安装 / 已启用 / 插件中心关闭 / 卸载后各写法, 已启用时冒烟: `StringUtils.isBlank`, `IOUtils.toString`, `ObjectMapper` 序列化与反序列化, 类与加载器来自插件 APK), `retired` 用例中的 Commons 写法换成仍在 `RETIRED` 的库 (如 ICU4J).
 - 验收: XQ-AT72 (或当时空闲的 API 31+ 真机) 全部通过; 结果写进宿主证据文档新的一节.
-  - 备注 (2026-11-05, jl-p1): 未做, 留给批次 2 (卡片 C). 现有 `retired call` 用例用的 `org.apache.commons.lang3.StringUtils.isBlank` 在含 4af7048853 的宿主上会改报 Java Libraries 指引而 FAIL, 须按本条换成 ICU4J. 插件 debug 包现可用 (`./gradlew :app:assembleDebug`).
+  - 结果 (2026-11-05, jl-p1, 宿主本地提交 72fb799256): `device_java_packages_check.py` 按被测插件参数化, 加 `java-libraries` 子命令与 `bench/java_packages/functional_java_libraries.js`, `retired call` 改用 ICU4J `com.ibm.icu.text.Transliterator`; XQ-AT72 (debug 宿主 6640 + 本仓库 debug 插件) java-libraries PASS 38 (未安装 / 已启用 / 插件中心关闭 / 卸载后各 6 种写法, 功能 14 项, 三个库的类都来自插件 APK 的 `PathClassLoader`), retired PASS 5, Pinyin4j states 回归 PASS 38; 证据为宿主 `docs/dev/evidence/plugin-java-packages-pilot-20261103.md` 第 5 节.
 
 ---
 
 ## P2: 打包带入
 
-状态: 未开始. 开工前拍板附录 D Q2.
+状态: 进行中 (子会话 jl-p2, 2026-11-05 起). 附录 D Q2 已拍板 (a), 扫描通用于登记表全部导出插件.
 
 ### P2.1 打包流程 (D13, D15, D16)
 
@@ -270,6 +270,6 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 格式: 编号, 问题, 选项 (推荐项标 "(推荐)", 已先行的标 "(已先行)"), 影响, 改选返工. 拍板后在此改写结论与日期, 同步看板.
 
-- Q1 图标源图 | (a) 维护者提供亮 / 暗两张源图, 子会话用 Icon Studio 生成 (推荐, 与 3-Tally Sheet 等一致) / (b) 子会话以文字标志派生一版, 维护者验收 | 影响: P0.3 | 改选返工: 小 | 状态: 已拍板 (2026-11-05, 维护者选: 由子会话设计并用 Icon Studio 生成, 维护者验收; 三个候选中维护者选 A 花括号夹三块库模块, 见 P0.3)
-- Q2 打包扫描的范围 | (a) 通用于登记表中全部导出插件 (Pinyin4j 1.4.0 也随之可带入; 载荷含 Java 资源, pinyin4j 的拼音数据在其中) (推荐) / (b) 只做 Java Libraries | 影响: P2.1, P2.3 | 改选返工: 小 (过滤条件一处, 用例少一组) | 状态: 已拍板 (2026-11-05, 维护者选 (a) 通用于登记表全部导出插件)
-- Q3 是否加 tag 触发的 CI 发布工作流 | (a) 照 Bundled Libraries: 本地签名发布 (`verifySignedReleaseArtifacts` / `appendDigestToReleasedFiles`, 再 `gh release create` 上传摘要包), CI 只构建未签名 release 并校验 dex (推荐, 已先行) / (b) 加 tag 触发的发布工作流, 由 CI 签名并创建 Release (需在 GitHub 配置签名 secrets, 维护者建仓后设置) | 影响: P0.5, P3.4 | 改选返工: 小 (照 ImGui 的 tag 工作流加一个 workflow 文件, 配 4 个 secrets) | 状态: 需拍板 (jl-p0 按 (a) 先行, 未加发布工作流)
+- Q1 图标源图 | (a) 维护者提供亮 / 暗两张源图, 子会话用 Icon Studio 生成 (推荐, 与 3-Tally Sheet 等一致) / (b) 子会话以文字标志派生一版, 维护者验收 | 影响: P0.3 | 改选返工: 小 | 状态: 已拍板 2026-11-05: 由子会话设计, 维护者选 A 花括号 + 三块, 已实施 (6f5f8f7)
+- Q2 打包扫描的范围 | (a) 通用于登记表中全部导出插件 (Pinyin4j 1.4.0 也随之可带入; 载荷含 Java 资源, pinyin4j 的拼音数据在其中) (推荐) / (b) 只做 Java Libraries | 影响: P2.1, P2.3 | 改选返工: 小 (过滤条件一处, 用例少一组) | 状态: 已拍板 2026-11-05: (a) 通用于登记表全部导出插件
+- Q3 是否加 tag 触发的 CI 发布工作流 | (a) 照 Bundled Libraries: 本地签名发布 (`verifySignedReleaseArtifacts` / `appendDigestToReleasedFiles`, 再 `gh release create` 上传摘要包), CI 只构建未签名 release 并校验 dex (推荐, 已先行) / (b) 加 tag 触发的发布工作流, 由 CI 签名并创建 Release (需在 GitHub 配置签名 secrets, 维护者建仓后设置) | 影响: P0.5, P3.4 | 改选返工: 小 (照 ImGui 的 tag 工作流加一个 workflow 文件, 配 4 个 secrets) | 状态: 已拍板 2026-11-05: 保持 (a), 本地签名发布, CI 不发布
