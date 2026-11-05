@@ -39,7 +39,7 @@ junit = "4.13.2"
 [libraries]
 
 apache-commons-compress = { module = "org.apache.commons:commons-compress", version.ref = "commons-compress" }
-commons-io ={ module = "commons-io:commons-io", version.ref = "commons-io" }
+commons-io = { module = "commons-io:commons-io", version.ref = "commons-io" }
 commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3" }
 desugar = { module = "com.android.tools:desugar_jdk_libs_nio", version.ref = "desugar" }
 jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson-annotations" }

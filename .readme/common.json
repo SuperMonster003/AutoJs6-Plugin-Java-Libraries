@@ -1,0 +1,48 @@
+{
+  "repo_url": "https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries",
+  "repo_slug": "SuperMonster003/AutoJs6-Plugin-Java-Libraries",
+  "icon_alt": "autojs6-plugin-java-libraries-ic-launcher",
+  "license_url": "https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries/blob/master/LICENSE",
+  "roadmap_url": "https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries/blob/master/ROADMAP.md",
+  "notices_url": "https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries/blob/master/THIRD_PARTY_NOTICES.md",
+  "autojs6_url": "https://github.com/SuperMonster003/AutoJs6",
+  "plugin_application_id": "io.github.supermonster003.autojs6.plugin.java.libraries",
+  "plugin_id": "java-libraries",
+  "plugin_engine": "java-libraries",
+  "info_action": "org.autojs.plugin.INFO",
+  "wake_action": "org.autojs.plugin.action.WAKE",
+  "exports_meta_data": "org.autojs.plugin.javaPackages.EXPORTS",
+  "exported_packages": "`org.apache.commons.lang3`, `org.apache.commons.io`, `com.fasterxml.jackson`",
+  "required_host_version_code": "6640",
+  "required_host_version_name": "6.8.1",
+  "android_min_sdk": "24",
+  "min_android_version": "7.0",
+  "release_apk_size_mb": "1.0",
+  "libraries": [
+    {
+      "name": "Apache Commons Lang",
+      "url": "https://commons.apache.org/proper/commons-lang/",
+      "artifacts": ["org.apache.commons:commons-lang3"],
+      "package": "org.apache.commons.lang3",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "Apache Commons IO",
+      "url": "https://commons.apache.org/proper/commons-io/",
+      "artifacts": ["commons-io:commons-io"],
+      "package": "org.apache.commons.io",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "Jackson",
+      "url": "https://github.com/FasterXML/jackson",
+      "artifacts": [
+        "com.fasterxml.jackson.core:jackson-databind",
+        "com.fasterxml.jackson.core:jackson-core",
+        "com.fasterxml.jackson.core:jackson-annotations"
+      ],
+      "package": "com.fasterxml.jackson",
+      "license": "Apache-2.0"
+    }
+  ]
+}

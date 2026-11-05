@@ -1,0 +1,86 @@
+{
+  "$name": "Français",
+  "text_current_lowercase": "actuel",
+  "text_plugin_synopsis": "Apache Commons Lang3, Commons IO et Jackson à utiliser directement comme classes Java dans les scripts AutoJs6",
+  "h3_languages_with_ascii": "Langues (Languages)",
+  "p_languages_all_supported_for_readme": "Le README.md actuel prend en charge les langues suivantes",
+  "h3_introduction": "Introduction",
+  "p_introduction_what": "Java Libraries remet sur l'appareil les trois bibliothèques Java qu'AutoJs6 intégrait autrefois: Apache Commons Lang3, Apache Commons IO et Jackson. Depuis AutoJs6 6.8.0, le paquet d'AutoJs6 ne les contient plus; une fois ce plugin installé et activé dans AutoJs6 {{ required_host_version_name }} ou ultérieur, les scripts utilisent par leur nom complet des classes comme `org.apache.commons.lang3.StringUtils`, `org.apache.commons.io.IOUtils` ou `com.fasterxml.jackson.databind.ObjectMapper`, exactement comme avec AutoJs6 6.7.0 et les versions antérieures.",
+  "p_introduction_how": "Le plugin n'est qu'un paquet de ressources: AutoJs6 charge les classes directement depuis le paquet du plugin, les scripts ne démarrent jamais le processus du plugin et le plugin ne demande aucune autorisation. Les scripts qui n'utilisent pas ces classes ne sont pas concernés, et les classes inutilisées ne sont jamais chargées; elles n'occupent que de la place dans le paquet.",
+  "h3_libraries": "Bibliothèques incluses",
+  "p_libraries_intro": "Les classes de chaque bibliothèque se trouvent dans le paquet Java du tableau ci-dessous, dans les versions qu'intégrait AutoJs6 6.7.0. Les licences et fichiers NOTICE des bibliothèques figurent dans [THIRD_PARTY_NOTICES.md]({{ notices_url }}), et la page du plugin les affiche aussi.",
+  "th_library": "Bibliothèque",
+  "th_artifacts": "Artefacts Maven et versions",
+  "th_package": "Paquet Java",
+  "th_license": "Licence",
+  "h3_usage": "Utilisation",
+  "usage_steps": [
+    "Utilisez AutoJs6 {{ required_host_version_name }} (build {{ required_host_version_code }}) ou ultérieur.",
+    "Installez Java Libraries depuis le Centre des plugins d'AutoJs6 (ou téléchargez l'APK depuis [Releases]({{ repo_url }}/releases)) et vérifiez que le plugin est activé.",
+    "Utilisez les classes des bibliothèques par leur nom complet dans les scripts (ou après `importClass` ou `importPackage`), par exemple:"
+  ],
+  "p_usage_note": "Il n'existe qu'un seul paquet universel, sans bibliothèque native, pour les appareils sous Android {{ min_android_version }} (API {{ android_min_sdk }}) ou ultérieur.",
+  "h3_packaged_apps": "Applications empaquetées",
+  "p_packaged_apps_intro": "Quand AutoJs6 empaquette des scripts en application autonome, il peut emporter les classes de ce plugin, afin que l'application empaquetée puisse utiliser les bibliothèques sur les appareils sans le plugin",
+  "packaged_points": [
+    "Pendant l'empaquetage, AutoJs6 analyse les scripts du projet et emporte les classes dès qu'il trouve un nom qui commence par {{ exported_packages }} (les scripts chiffrés et les fichiers de plus de 4 Mo ne sont pas analysés).",
+    "Quand un nom est assemblé à partir de chaînes et que l'analyse ne le trouve pas, cochez Java Libraries dans la liste des bibliothèques de la page d'empaquetage.",
+    "Emporter les classes demande que le plugin soit installé et activé sur l'appareil qui empaquette l'application; si ce n'est pas possible, l'empaquetage se termine quand même et la boîte de dialogue finale indique les plugins laissés de côté et la marche à suivre.",
+    "L'application empaquetée utilise d'abord la copie qu'elle emporte, et le plugin installé sur l'appareil quand elle n'en emporte pas."
+  ],
+  "h3_unavailable": "Quand le plugin est indisponible",
+  "p_unavailable_intro": "Quand le plugin n'est pas installé, pas autorisé, désactivé dans le Centre des plugins ou trop ancien, les scripts ne peuvent pas utiliser ces classes",
+  "unavailable_points": [
+    "Nommer une classe n'est pas une erreur en soi (Rhino traite un nom introuvable comme un paquet Java); l'erreur survient quand un script appelle une méthode, construit un objet ou passe le nom à `importClass`.",
+    "Quand un script se termine sur une telle erreur, AutoJs6 affiche dans la console, après l'erreur, des indications pour installer, autoriser, activer ou mettre à jour le plugin; les erreurs que le script intercepte lui-même n'en reçoivent pas.",
+    "Quand une application empaquetée n'emporte aucune copie et que son appareil n'a pas non plus de plugin utilisable, les indications demandent d'installer et d'activer le plugin sur l'appareil."
+  ],
+  "h3_compatibility": "Compatibilité",
+  "compatibility_points": [
+    "Nécessite AutoJs6 {{ required_host_version_name }} (build {{ required_host_version_code }}) ou ultérieur. AutoJs6 6.7.0 et les versions antérieures intègrent eux-mêmes ces bibliothèques et n'ont pas besoin du plugin; AutoJs6 6.8.0 ne peut pas utiliser le plugin.",
+    "Prend en charge Android {{ min_android_version }} (API {{ android_min_sdk }}) ou ultérieur, avec un seul paquet pour toutes les architectures de processeur.",
+    "Les versions des bibliothèques sont celles qu'intégrait AutoJs6 6.7.0: les scripts existants n'ont rien à changer.",
+    "Comme dans AutoJs6 6.7.0, les bibliothèques passent par le core library desugaring: les méthodes avec des paramètres ou résultats `java.time` utilisent les types désucrés `j$.time`.",
+    "`java.lang.Class.forName` ne trouve pas les classes du plugin par leur nom; référencez-les par leur nom complet ou utilisez `importClass`."
+  ],
+  "h3_size": "Taille Du Paquet",
+  "p_size": "Le paquet release fait environ {{ release_apk_size_mb }} Mo. Les jars des trois bibliothèques totalisent environ 2,9 Mo; le paquet garde chaque classe sous son nom d'origine, et le dex avec son pool de constantes partagé ainsi que la compression le rendent plus petit.",
+  "h3_faq": "FAQ",
+  "faq": [
+    {
+      "q": "Pourquoi AutoJs6 n'intègre-t-il plus ces bibliothèques?",
+      "a": "Seuls certains scripts les utilisent. Sous forme de plugin, elles allègent le paquet d'AutoJs6, et ceux qui en ont besoin installent le plugin. Les bibliothèques du plugin sont dans les versions qu'intégrait AutoJs6 6.7.0."
+    },
+    {
+      "q": "Pourquoi ne pas passer à des versions plus récentes des bibliothèques?",
+      "a": "Les versions plus récentes ne prennent plus en charge Android 7.x: Jackson exige Android 8.0 à partir de 2.14, et les versions plus récentes de Commons IO échouent sous Android 7.x. Pour fonctionner sur tous les appareils pris en charge par AutoJs6 et rester identique pour les scripts existants, le plugin garde les versions d'AutoJs6 6.7.0."
+    },
+    {
+      "q": "Le plugin se connecte-t-il à Internet ou tourne-t-il en arrière-plan?",
+      "a": "Non. Le plugin ne demande aucune autorisation, et exécuter un script ne démarre jamais le processus du plugin; les classes s'exécutent dans AutoJs6, qui exécute le script."
+    },
+    {
+      "q": "L'erreur indique que le plugin doit être autorisé. Que faire?",
+      "a": "La version publiée, installée depuis le Centre des plugins d'AutoJs6 ou depuis les Releases de ce projet, n'a besoin d'aucune autorisation. Une version compilée soi-même a une autre signature et doit d'abord être autorisée dans le Centre des plugins, comme indiqué."
+    },
+    {
+      "q": "D'autres bibliothèques qu'AutoJs6 n'intègre plus (comme ICU4J) rejoindront-elles ce plugin?",
+      "a": "Pas pour l'instant. ICU4J est très volumineux et la plupart de ses usages peuvent passer à `android.icu` du système, et Log4j 1.x n'est plus maintenu. Quand un script utilise ces bibliothèques, AutoJs6 explique qu'elles ne sont plus intégrées."
+    }
+  ],
+  "h3_plugin_interface": "Interface Du Plugin",
+  "p_plugin_interface": "Les informations suivantes s'adressent aux développeurs de l'hôte AutoJs6 et de plugins; l'hôte utilise ces identifiants pour découvrir le plugin et charger ses classes",
+  "h3_roadmap": "Feuille De Route",
+  "p_roadmap": "La liste de contrôle avant publication, les décisions et les étapes de publication sont suivies dans ROADMAP.md; l'hôte charge les classes avec le paquet `org.autojs.autojs.core.plugin.javapackage` du dépôt AutoJs6.",
+  "text_link_roadmap": "Voir ROADMAP.md",
+  "h3_release_history": "Historique Des Versions",
+  "h5_for_more_release_history": "Pour plus d'historique des versions",
+  "h3_build": "Compilation",
+  "p_build_intro": "Cette section s'adresse aux développeurs souhaitant compiler le plugin depuis les sources.",
+  "h3_license": "Licence",
+  "p_license": "Le code du plugin est sous [Apache License 2.0]({{ license_url }}). Les trois bibliothèques sont elles aussi sous Apache License 2.0, avec leurs fichiers NOTICE dans [THIRD_PARTY_NOTICES.md]({{ notices_url }}); le paquet contient aussi le runtime du core library desugaring d'Android (GNU GPL v2 avec la Classpath Exception).",
+  "h3_links": "Liens",
+  "text_link_autojs6": "Projet AutoJs6",
+  "text_link_notices": "Mentions des tiers",
+  "p_instruction_more": "Le code source, l'historique des versions et les licences tierces se trouvent sur la [page du projet]({{ repo_url }})."
+}

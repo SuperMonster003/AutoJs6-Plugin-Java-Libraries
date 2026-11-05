@@ -1,0 +1,86 @@
+{
+  "$name": "日本語",
+  "text_current_lowercase": "現在",
+  "text_plugin_synopsis": "AutoJs6 スクリプトから Java クラスとして直接使える Apache Commons Lang3, Commons IO, Jackson",
+  "h3_languages_with_ascii": "言語 (Languages)",
+  "p_languages_all_supported_for_readme": "現在の README.md は次の言語に対応しています",
+  "h3_introduction": "概要",
+  "p_introduction_what": "Java Libraries は, かつて AutoJs6 に内蔵されていた 3 つの Java ライブラリ, Apache Commons Lang3, Apache Commons IO, Jackson を端末に戻します. AutoJs6 6.8.0 以降, これらのライブラリは AutoJs6 のパッケージに含まれていません. AutoJs6 {{ required_host_version_name }} 以降でこのプラグインをインストールして有効にすると, スクリプトは `org.apache.commons.lang3.StringUtils`, `org.apache.commons.io.IOUtils`, `com.fasterxml.jackson.databind.ObjectMapper` などのクラスを完全名でこれまでどおり使えます. 書き方は AutoJs6 6.7.0 以前と同じです.",
+  "p_introduction_how": "プラグイン自体はリソースパッケージにすぎません. AutoJs6 はプラグインのパッケージから直接クラスを読み込み, スクリプトの実行中にプラグインのプロセスが起動することはなく, プラグインは権限を一切要求しません. これらのクラスを参照しないスクリプトには影響がなく, 使われないクラスは読み込まれず, パッケージの容量を占めるだけです.",
+  "h3_libraries": "収録ライブラリ",
+  "p_libraries_intro": "各ライブラリのクラスは下表の Java パッケージにあり, バージョンは AutoJs6 6.7.0 に内蔵されていたものと同じです. 各ライブラリのライセンスと NOTICE ファイルは [THIRD_PARTY_NOTICES.md]({{ notices_url }}) にあり, プラグインのページにも表示されます.",
+  "th_library": "ライブラリ",
+  "th_artifacts": "Maven アーティファクトとバージョン",
+  "th_package": "Java パッケージ",
+  "th_license": "ライセンス",
+  "h3_usage": "使用方法",
+  "usage_steps": [
+    "AutoJs6 {{ required_host_version_name }} (ビルド {{ required_host_version_code }}) 以降を使います.",
+    "AutoJs6 のプラグインセンターから Java Libraries をインストールし ([Releases]({{ repo_url }}/releases) から APK をダウンロードしても構いません), プラグインが有効になっていることを確認します.",
+    "スクリプトでライブラリのクラスを完全名で使います (先に `importClass` や `importPackage` を使っても構いません). 例:"
+  ],
+  "p_usage_note": "パッケージはネイティブライブラリを含まない汎用版の 1 つだけで, Android {{ min_android_version }} (API {{ android_min_sdk }}) 以降の端末に対応します.",
+  "h3_packaged_apps": "パッケージ化したアプリ",
+  "p_packaged_apps_intro": "AutoJs6 でスクリプトを独立したアプリにパッケージ化するとき, このプラグインのクラスを一緒に取り込めます. パッケージ化したアプリは, このプラグインがない端末でもこれらのライブラリを使えます",
+  "packaged_points": [
+    "パッケージ化の際, AutoJs6 はプロジェクトのスクリプトを走査し, {{ exported_packages }} で始まる名前を見つけると自動で取り込みます (暗号化されたスクリプトと 4 MB を超えるファイルは走査しません).",
+    "名前を文字列の連結で組み立てていて走査で見つからない場合は, パッケージ化ページのライブラリ一覧で Java Libraries にチェックを入れます.",
+    "取り込むには, パッケージ化に使う端末にこのプラグインがインストールされ有効になっている必要があります. 取り込めない場合もパッケージ化は完了し, 完了ダイアログに取り込めなかったプラグインと対処方法が表示されます.",
+    "パッケージ化したアプリは取り込んだコピーを優先して使い, 取り込んでいない場合は端末にインストールされたこのプラグインを使います."
+  ],
+  "h3_unavailable": "プラグインを使えないとき",
+  "p_unavailable_intro": "プラグインが未インストール, 未承認, プラグインセンターで無効, または古すぎる場合, スクリプトはこれらのクラスを使えません",
+  "unavailable_points": [
+    "クラス名を参照しただけではエラーになりません (Rhino は見つからない名前を Java パッケージとして扱います). メソッドの呼び出し, オブジェクトの生成, `importClass` の時点でエラーになります.",
+    "スクリプトがこの種のエラーで終了すると, AutoJs6 はコンソールのエラーの後に, プラグインのインストール, 承認, 有効化, 更新のどれが必要かを案内します. スクリプト自身が `catch` したエラーには案内が付きません.",
+    "パッケージ化したアプリが取り込んだコピーを持たず, 端末にも使えるプラグインがない場合, 案内は端末でこのプラグインをインストールして有効にするよう伝えます."
+  ],
+  "h3_compatibility": "互換性",
+  "compatibility_points": [
+    "AutoJs6 {{ required_host_version_name }} (ビルド {{ required_host_version_code }}) 以降が必要です. AutoJs6 6.7.0 以前はこれらのライブラリを内蔵しているためこのプラグインは不要で, AutoJs6 6.8.0 ではこのプラグインを使えません.",
+    "Android {{ min_android_version }} (API {{ android_min_sdk }}) 以降に対応し, 1 つのパッケージですべてのプロセッサアーキテクチャに対応します.",
+    "ライブラリのバージョンは AutoJs6 6.7.0 に内蔵されていたものと同じなので, 既存のスクリプトを変更する必要はありません.",
+    "AutoJs6 6.7.0 と同じく, これらのライブラリには core library desugaring が適用されています. 引数や戻り値が `java.time` 型のメソッドは, desugaring 後の `j$.time` 型を使います.",
+    "`java.lang.Class.forName` で名前から検索しても, このプラグインのクラスは見つかりません. 完全名で参照するか `importClass` を使ってください."
+  ],
+  "h3_size": "パッケージサイズ",
+  "p_size": "release パッケージは約 {{ release_apk_size_mb }} MB です. 3 つのライブラリの jar は合計約 2.9 MB で, パッケージではすべてのクラスを元の名前のまま保持していますが, dex の共有定数プールと圧縮により小さくなります.",
+  "h3_faq": "よくある質問",
+  "faq": [
+    {
+      "q": "なぜ AutoJs6 はこれらのライブラリを内蔵しなくなったのですか?",
+      "a": "これらのライブラリを使うスクリプトは一部だけです. プラグインに移すことで AutoJs6 のパッケージが小さくなり, 必要な人はプラグインをインストールすれば済みます. プラグインのライブラリは AutoJs6 6.7.0 に内蔵されていたものと同じバージョンです."
+    },
+    {
+      "q": "なぜライブラリを新しいバージョンに更新しないのですか?",
+      "a": "新しいバージョンは Android 7.x に対応していません. Jackson は 2.14 から Android 8.0 を必要とし, より新しい Commons IO は Android 7.x でエラーになります. AutoJs6 が対応するすべての端末で使えるよう, また既存のスクリプトとの一貫性を保つため, AutoJs6 6.7.0 のバージョンを引き継いでいます."
+    },
+    {
+      "q": "プラグインはネットワークに接続したり, バックグラウンドで動いたりしますか?",
+      "a": "しません. プラグインは権限を一切要求せず, スクリプトの実行時にプラグインのプロセスが起動することもありません. クラスはスクリプトを実行している AutoJs6 の中で動きます."
+    },
+    {
+      "q": "プラグインの承認が必要というエラーが出たらどうすればよいですか?",
+      "a": "AutoJs6 のプラグインセンターまたはこのプロジェクトの Releases からインストールした正式版は承認不要です. 自分でビルドした版は署名が異なるため, 先にプラグインセンターで案内に従って承認してください."
+    },
+    {
+      "q": "AutoJs6 が内蔵しなくなったほかのライブラリ (ICU4J など) もこのプラグインに加わりますか?",
+      "a": "今のところ予定はありません. ICU4J は非常に大きく, ほとんどの用途はシステムの `android.icu` で代替でき, Log4j 1.x はメンテナンスが終了しています. スクリプトがこれらのライブラリを使うと, AutoJs6 はもう内蔵していないことを説明します."
+    }
+  ],
+  "h3_plugin_interface": "プラグインインターフェース",
+  "p_plugin_interface": "以下の情報は AutoJs6 ホストとプラグインの開発者向けです. ホストはこれらの識別子でプラグインを見つけ, そのクラスを読み込みます",
+  "h3_roadmap": "開発ロードマップ",
+  "p_roadmap": "リリース前のチェックリスト, 決定事項, リリース手順は ROADMAP.md に記録しています. ホストがこれらのクラスを読み込む仕組みは AutoJs6 リポジトリの `org.autojs.autojs.core.plugin.javapackage` パッケージにあります.",
+  "text_link_roadmap": "ROADMAP.md を見る",
+  "h3_release_history": "リリース履歴",
+  "h5_for_more_release_history": "その他のリリース履歴は以下を参照",
+  "h3_build": "ビルド",
+  "p_build_intro": "この節はソースからプラグインをビルドしたい開発者向けです.",
+  "h3_license": "ライセンス",
+  "p_license": "プラグインのコードは [Apache License 2.0]({{ license_url }}) です. 収録した 3 つのライブラリも Apache License 2.0 で, その NOTICE ファイルは [THIRD_PARTY_NOTICES.md]({{ notices_url }}) にあります. パッケージには Android の core library desugaring ランタイム (GNU GPL v2 と Classpath Exception) も含まれます.",
+  "h3_links": "関連リンク",
+  "text_link_autojs6": "AutoJs6 プロジェクト",
+  "text_link_notices": "サードパーティ通知",
+  "p_instruction_more": "ソースコード, リリース履歴, サードパーティのライセンスは [プロジェクトページ]({{ repo_url }}) にあります."
+}

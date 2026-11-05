@@ -1,0 +1,27 @@
+{
+  "changelog_label_hint": "Hint",
+  "changelog_label_feature": "Feature",
+  "changelog_label_fix": "Fix",
+  "changelog_label_improvement": "Improvement",
+  "changelog_label_dependency": "Dependency",
+  "$data": {
+    "v1.0.0": {
+      "released_date": "2026/11/05",
+      "hint": [
+        "Requires AutoJs6 {{ required_host_version_name }} (build {{ required_host_version_code }}) or later",
+        "Starting with AutoJs6 6.8.0, Apache Commons Lang3, Commons IO and Jackson are no longer built in; with this plugin installed and enabled, scripts use the classes of these libraries by their full names as with AutoJs6 6.7.0, and existing scripts need no change"
+      ],
+      "feature": [
+        "Apache Commons Lang3 3.18.0, Apache Commons IO 2.8.0 and Jackson 2.13.4.2 (core and annotations 2.13.4), the versions AutoJs6 6.7.0 included",
+        "The plugin is only a resource package: AutoJs6 loads the classes straight from the plugin, running scripts never starts the plugin process, and the plugin asks for no permission",
+        "Apps packaged with AutoJs6 can carry these classes (found by scanning the scripts, or ticked in the list of libraries) and then use them on devices without the plugin",
+        "The plugin page shows the version, license and Java package of each library, an example, the NOTICE files and the release history",
+        "The plugin page follows the language, night mode and theme color of AutoJs6, and the system when AutoJs6 is not installed or its settings cannot be read"
+      ],
+      "dependency": [
+        "Attach AutoJs6 Common Plugin API",
+        "Attach desugar_jdk_libs_nio 2.1.5"
+      ]
+    }
+  }
+}

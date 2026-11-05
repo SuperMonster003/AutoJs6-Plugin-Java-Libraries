@@ -1,0 +1,72 @@
+name: Build integrity
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-build:
+    name: Repository checks, unit tests and APKs
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          # check_repository.py compares VERSION_BUILD with the full commit count.
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: gradle
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Verify the repository contract and generated documents
+        run: |
+          python .python/check_repository.py
+          python .python/generate_markdown.py --check
+
+      - name: Run unit tests, assemble APKs and lint
+        run: |
+          chmod +x gradlew
+          # verifyExportedLibraryVersions runs before every build. The release APK is built explicitly: R8 failures only
+          # surface there, and verifyReleaseDexClasses checks that its dex keeps the exported classes under their names.
+          # It stays unsigned on CI; the signed release gate (verifySignedReleaseArtifacts) runs locally.
+          ./gradlew :app:testDebugUnitTest :app:assembleDebug :app:assembleRelease :app:verifyReleaseDexClasses :app:lintDebug -Pautojs.gradle.build.number.auto.increment.enabled=false -Pautojs.gradle.build.time.update.enabled=false --console=plain --stacktrace
+
+      - name: Upload debug and release APKs
+        uses: actions/upload-artifact@v7
+        with:
+          name: java-libraries-apks
+          path: app/build/outputs/apk
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Upload test and lint reports after failure
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: reports
+          path: |
+            app/build/reports/
+            app/build/test-results/
+          if-no-files-found: ignore
+          retention-days: 7

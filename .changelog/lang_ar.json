@@ -1,0 +1,27 @@
+{
+  "changelog_label_hint": "تلميح",
+  "changelog_label_feature": "ميزة",
+  "changelog_label_fix": "إصلاح",
+  "changelog_label_improvement": "تحسين",
+  "changelog_label_dependency": "تبعية",
+  "$data": {
+    "v1.0.0": {
+      "released_date": "2026/11/05",
+      "hint": [
+        "يتطلب AutoJs6 {{ required_host_version_name }} (البناء {{ required_host_version_code }}) أو أحدث",
+        "بدءا من AutoJs6 6.8.0 لم تعد Apache Commons Lang3 وCommons IO وJackson مدمجة; ومع تثبيت هذا المكون وتفعيله تستخدم السكربتات أصناف هذه المكتبات بأسمائها الكاملة كما في AutoJs6 6.7.0, ولا تحتاج السكربتات الحالية إلى أي تعديل"
+      ],
+      "feature": [
+        "Apache Commons Lang3 3.18.0 وApache Commons IO 2.8.0 وJackson 2.13.4.2 (core وannotations بالإصدار 2.13.4), وهي الإصدارات التي كان AutoJs6 6.7.0 يتضمنها",
+        "المكون مجرد حزمة موارد: يحمل AutoJs6 الأصناف مباشرة من المكون, وتشغيل السكربتات لا يشغل عملية المكون أبدا, ولا يطلب المكون أي إذن",
+        "يمكن للتطبيقات المحزمة بـ AutoJs6 أن تحمل هذه الأصناف (يعثر عليها بفحص السكربتات أو تحدد في قائمة المكتبات) ثم تستخدمها على الأجهزة التي لا يوجد فيها المكون",
+        "تعرض صفحة المكون إصدار كل مكتبة وترخيصها وحزمة Java الخاصة بها ومثالا وملفات NOTICE وسجل الإصدارات",
+        "تتبع صفحة المكون لغة AutoJs6 ووضعه الليلي ولون سمته, وتتبع النظام عندما لا يكون AutoJs6 مثبتا أو تتعذر قراءة إعداداته"
+      ],
+      "dependency": [
+        "إرفاق AutoJs6 Common Plugin API",
+        "إرفاق desugar_jdk_libs_nio 2.1.5"
+      ]
+    }
+  }
+}

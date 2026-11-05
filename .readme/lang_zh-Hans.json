@@ -1,0 +1,86 @@
+{
+  "$name": "简体中文",
+  "text_current_lowercase": "当前",
+  "text_plugin_synopsis": "供 AutoJs6 脚本以 Java 类直接调用的 Apache Commons Lang3, Commons IO 与 Jackson",
+  "h3_languages_with_ascii": "语言 (Languages)",
+  "p_languages_all_supported_for_readme": "当前 README.md 支持以下语言",
+  "h3_introduction": "简介",
+  "p_introduction_what": "Java Libraries 把 AutoJs6 过去内置的三个 Java 库装回设备: Apache Commons Lang3, Apache Commons IO 与 Jackson. 自 AutoJs6 6.8.0 起, 这些库不再随 AutoJs6 安装包提供; 在 AutoJs6 {{ required_host_version_name }} 或更高版本中安装并启用本插件后, 脚本照常以全名使用 `org.apache.commons.lang3.StringUtils`, `org.apache.commons.io.IOUtils`, `com.fasterxml.jackson.databind.ObjectMapper` 等类, 写法与 AutoJs6 6.7.0 及更早版本相同.",
+  "p_introduction_how": "插件本身只是一个资源包: AutoJs6 直接从插件的安装包加载这些类, 脚本运行时不会启动插件进程, 插件也不申请任何权限. 不引用这些类的脚本不受影响, 用不到的类不会被加载, 只占用安装包体积.",
+  "h3_libraries": "收录的库",
+  "p_libraries_intro": "各库的类位于下表的 Java 包中, 版本与 AutoJs6 6.7.0 内置的相同. 各库的许可证与 NOTICE 文件详见 [THIRD_PARTY_NOTICES.md]({{ notices_url }}), 插件页面也会显示.",
+  "th_library": "库",
+  "th_artifacts": "Maven 构件与版本",
+  "th_package": "Java 包",
+  "th_license": "许可证",
+  "h3_usage": "使用方法",
+  "usage_steps": [
+    "使用 AutoJs6 {{ required_host_version_name }} (构建 {{ required_host_version_code }}) 或更高版本.",
+    "在 AutoJs6 的插件中心安装 Java Libraries (也可以从 [Releases]({{ repo_url }}/releases) 下载 APK 安装), 并确认插件处于启用状态.",
+    "在脚本中以全名使用库中的类 (也可以先 `importClass` 或 `importPackage`), 例如:"
+  ],
+  "p_usage_note": "插件只有一个通用安装包, 不含原生库, 支持 Android {{ min_android_version }} (API {{ android_min_sdk }}) 及以上的设备.",
+  "h3_packaged_apps": "打包应用",
+  "p_packaged_apps_intro": "用 AutoJs6 把脚本打包成独立应用时, 可以把本插件的类一并带入, 打包后的应用在没有安装本插件的设备上也能使用这些库",
+  "packaged_points": [
+    "打包时 AutoJs6 扫描项目中的脚本, 发现以 {{ exported_packages }} 开头的名字即自动带入 (加密的脚本与 4 MB 以上的文件不扫描).",
+    "名字由字符串拼接而成, 扫描不到时, 可以在打包页的库列表中勾选 Java Libraries.",
+    "带入要求打包所用的设备上已安装并启用本插件; 无法带入时打包照常完成, 完成对话框会列出未带入的插件与做法.",
+    "打包应用优先使用带入的副本, 没有带入时使用设备上已安装的本插件."
+  ],
+  "h3_unavailable": "插件不可用时",
+  "p_unavailable_intro": "插件未安装, 未授权, 在插件中心被停用, 或版本过旧时, 脚本无法使用这些类",
+  "unavailable_points": [
+    "引用类名本身不会立即出错 (Rhino 把找不到的名字当作 Java 包), 调用方法, 构造对象或 `importClass` 时才出错.",
+    "脚本因这类错误结束时, AutoJs6 在控制台的错误信息之后给出指引, 说明需要安装, 授权, 启用还是更新插件; 脚本自己 `catch` 的错误不附指引.",
+    "打包应用既没有带入的副本, 所在设备上也没有可用的本插件时, 指引会说明需要在设备上安装并启用本插件."
+  ],
+  "h3_compatibility": "兼容性",
+  "compatibility_points": [
+    "需要 AutoJs6 {{ required_host_version_name }} (构建 {{ required_host_version_code }}) 或更高版本. AutoJs6 6.7.0 及更早版本自带这些库, 不需要本插件; AutoJs6 6.8.0 不能使用本插件.",
+    "支持 Android {{ min_android_version }} (API {{ android_min_sdk }}) 及以上, 一个安装包适用于所有处理器架构.",
+    "库的版本与 AutoJs6 6.7.0 内置的相同, 原有脚本无需修改.",
+    "与 AutoJs6 6.7.0 相同, 这些库经过 core library desugaring: 参数或返回值为 `java.time` 类型的方法使用的是脱糖后的 `j$.time` 类型.",
+    "`java.lang.Class.forName` 按名字查找时找不到本插件的类, 请以全名引用或使用 `importClass`."
+  ],
+  "h3_size": "安装包体积",
+  "p_size": "release 安装包约 {{ release_apk_size_mb }} MB. 三个库的 jar 合计约 2.9 MB; 安装包中的类以原名完整保留, 经 dex 合并常量池与压缩后体积更小.",
+  "h3_faq": "常见问题",
+  "faq": [
+    {
+      "q": "为什么 AutoJs6 不再内置这些库?",
+      "a": "只有一部分脚本用到这些库. 移到插件后 AutoJs6 安装包更小, 需要的人安装插件即可. 插件中的库与 AutoJs6 6.7.0 内置的版本相同."
+    },
+    {
+      "q": "为什么不升级到这些库的新版本?",
+      "a": "新版本不再支持 Android 7.x: Jackson 2.14 起要求 Android 8.0, 更新的 Commons IO 在 Android 7.x 上会出错. 为了让 AutoJs6 支持的所有设备都能使用, 并与原有脚本保持一致, 版本沿用 AutoJs6 6.7.0."
+    },
+    {
+      "q": "插件会联网或在后台运行吗?",
+      "a": "不会. 插件不申请任何权限, 脚本运行时也不会启动插件进程; 这些类在运行脚本的 AutoJs6 中执行."
+    },
+    {
+      "q": "错误提示需要授权插件怎么办?",
+      "a": "从 AutoJs6 插件中心或本项目 Releases 安装的正式版无需授权. 自行构建的版本签名不同, 需要先在插件中心按提示授权."
+    },
+    {
+      "q": "AutoJs6 不再内置的其他库 (如 ICU4J) 会加入本插件吗?",
+      "a": "目前不会. ICU4J 体积很大且多数用法可以改用系统的 `android.icu`, Log4j 1.x 已停止维护. 脚本用到这些库时, AutoJs6 会说明它们已不再内置."
+    }
+  ],
+  "h3_plugin_interface": "插件接口",
+  "p_plugin_interface": "以下信息面向 AutoJs6 宿主与插件开发者, 宿主通过这些标识发现插件并加载其中的类",
+  "h3_roadmap": "开发路线图",
+  "p_roadmap": "发布前清单, 决策与发布步骤记录在 ROADMAP.md 中; 宿主加载这些类的机制位于 AutoJs6 仓库的 `org.autojs.autojs.core.plugin.javapackage` 包.",
+  "text_link_roadmap": "查看 ROADMAP.md",
+  "h3_release_history": "发行历史",
+  "h5_for_more_release_history": "更多发行历史可参阅",
+  "h3_build": "构建",
+  "p_build_intro": "本节面向希望从源码构建插件的开发者.",
+  "h3_license": "许可",
+  "p_license": "插件代码使用 [Apache License 2.0]({{ license_url }}). 收录的三个库同样使用 Apache License 2.0, 其 NOTICE 文件详见 [THIRD_PARTY_NOTICES.md]({{ notices_url }}); 安装包另含 Android 的 core library desugaring 运行库 (GNU GPL v2 附 Classpath Exception).",
+  "h3_links": "相关链接",
+  "text_link_autojs6": "AutoJs6 项目",
+  "text_link_notices": "第三方声明",
+  "p_instruction_more": "源码, 发行历史与第三方许可证见 [项目主页]({{ repo_url }})."
+}

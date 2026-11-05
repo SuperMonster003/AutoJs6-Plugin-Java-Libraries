@@ -1,0 +1,86 @@
+{
+  "$name": "English",
+  "text_current_lowercase": "current",
+  "text_plugin_synopsis": "Apache Commons Lang3, Commons IO and Jackson for direct use as Java classes in AutoJs6 scripts",
+  "h3_languages_with_ascii": "Languages",
+  "p_languages_all_supported_for_readme": "The README.md file is currently available in the following languages",
+  "h3_introduction": "Introduction",
+  "p_introduction_what": "Java Libraries brings back the three Java libraries that used to be built into AutoJs6: Apache Commons Lang3, Apache Commons IO and Jackson. Starting with AutoJs6 6.8.0, the AutoJs6 package no longer includes them; with this plugin installed and enabled in AutoJs6 {{ required_host_version_name }} or later, scripts use classes such as `org.apache.commons.lang3.StringUtils`, `org.apache.commons.io.IOUtils` and `com.fasterxml.jackson.databind.ObjectMapper` by their full names, exactly as with AutoJs6 6.7.0 and earlier.",
+  "p_introduction_how": "The plugin is only a resource package: AutoJs6 loads the classes straight from the plugin package, scripts never start the plugin process, and the plugin asks for no permission. Scripts that do not refer to these classes are not affected, and classes nobody uses are never loaded; they only take up space in the package.",
+  "h3_libraries": "Included libraries",
+  "p_libraries_intro": "The classes of each library are in the Java package of the table below, in the versions AutoJs6 6.7.0 included. The licenses and NOTICE files of the libraries are in [THIRD_PARTY_NOTICES.md]({{ notices_url }}), and the plugin page shows them too.",
+  "th_library": "Library",
+  "th_artifacts": "Maven artifacts and versions",
+  "th_package": "Java package",
+  "th_license": "License",
+  "h3_usage": "Usage",
+  "usage_steps": [
+    "Use AutoJs6 {{ required_host_version_name }} (build {{ required_host_version_code }}) or later.",
+    "Install Java Libraries from the Plugin Center of AutoJs6 (or download the APK from [Releases]({{ repo_url }}/releases)) and make sure the plugin is enabled.",
+    "Use the classes of the libraries by their full names in scripts (or with `importClass` or `importPackage` first), for example:"
+  ],
+  "p_usage_note": "There is a single universal package without native libraries, for devices with Android {{ min_android_version }} (API {{ android_min_sdk }}) or later.",
+  "h3_packaged_apps": "Packaged apps",
+  "p_packaged_apps_intro": "When AutoJs6 packages scripts into a standalone app, it can take the classes of this plugin along, so the packaged app can use the libraries on devices without the plugin",
+  "packaged_points": [
+    "While packaging, AutoJs6 scans the scripts of the project and takes the classes along as soon as it finds a name that starts with {{ exported_packages }} (encrypted scripts and files over 4 MB are not scanned).",
+    "When a name is put together from strings and the scan cannot find it, tick Java Libraries in the list of libraries on the packaging page.",
+    "Taking the classes along needs the plugin installed and enabled on the device that packages the app; when it cannot be done, packaging still completes and the completion dialog lists the plugins left out and what to do.",
+    "The packaged app uses the copy it carries first, and the plugin installed on the device when it carries none."
+  ],
+  "h3_unavailable": "When the plugin is unavailable",
+  "p_unavailable_intro": "When the plugin is not installed, not authorized, disabled in the Plugin Center or too old, scripts cannot use these classes",
+  "unavailable_points": [
+    "Naming a class is not an error by itself (Rhino treats a name it cannot find as a Java package); the error comes when a script calls a method, constructs an object or passes the name to `importClass`.",
+    "When a script ends with such an error, AutoJs6 prints guidance after the error in the console, saying whether to install, authorize, enable or update the plugin; errors the script catches itself get no guidance.",
+    "When a packaged app carries no copy and its device has no usable plugin either, the guidance says to install and enable the plugin on the device."
+  ],
+  "h3_compatibility": "Compatibility",
+  "compatibility_points": [
+    "Requires AutoJs6 {{ required_host_version_name }} (build {{ required_host_version_code }}) or later. AutoJs6 6.7.0 and earlier include these libraries themselves and do not need the plugin; AutoJs6 6.8.0 cannot use the plugin.",
+    "Supports Android {{ min_android_version }} (API {{ android_min_sdk }}) or later, one package for all processor architectures.",
+    "The versions of the libraries are the ones AutoJs6 6.7.0 included, so existing scripts need no change.",
+    "As in AutoJs6 6.7.0, the libraries go through core library desugaring: methods with `java.time` parameters or results use the desugared `j$.time` types.",
+    "`java.lang.Class.forName` cannot find the classes of the plugin by name; refer to them by their full names or use `importClass`."
+  ],
+  "h3_size": "Package size",
+  "p_size": "The release package is about {{ release_apk_size_mb }} MB. The jars of the three libraries add up to about 2.9 MB; the package keeps every class under its original name, and dex with its shared constant pool and compression make it smaller.",
+  "h3_faq": "FAQ",
+  "faq": [
+    {
+      "q": "Why does AutoJs6 no longer include these libraries?",
+      "a": "Only some scripts use them. As a plugin they keep the AutoJs6 package smaller, and whoever needs them installs the plugin. The libraries in the plugin are the versions AutoJs6 6.7.0 included."
+    },
+    {
+      "q": "Why not upgrade to newer versions of the libraries?",
+      "a": "Newer versions no longer support Android 7.x: Jackson requires Android 8.0 from 2.14 on, and newer Commons IO versions fail on Android 7.x. To work on every device AutoJs6 supports and stay the same for existing scripts, the plugin keeps the versions of AutoJs6 6.7.0."
+    },
+    {
+      "q": "Does the plugin go online or run in the background?",
+      "a": "No. The plugin asks for no permission, and running a script never starts the plugin process; the classes run in AutoJs6, which runs the script."
+    },
+    {
+      "q": "The error says the plugin needs to be authorized. What should I do?",
+      "a": "The release from the Plugin Center of AutoJs6 or from the Releases of this project needs no authorization. A build of your own has a different signature and must first be authorized in the Plugin Center as prompted."
+    },
+    {
+      "q": "Will other libraries AutoJs6 no longer includes (such as ICU4J) join this plugin?",
+      "a": "Not for now. ICU4J is very large and most of its uses can switch to `android.icu` of the system, and Log4j 1.x is no longer maintained. When a script uses these libraries, AutoJs6 explains that they are no longer included."
+    }
+  ],
+  "h3_plugin_interface": "Plugin interface",
+  "p_plugin_interface": "The following information targets AutoJs6 host and plugin developers; the host uses these identifiers to discover the plugin and load its classes",
+  "h3_roadmap": "Roadmap",
+  "p_roadmap": "The pre-release checklist, the decisions and the release steps are tracked in ROADMAP.md; the host loads the classes with the package `org.autojs.autojs.core.plugin.javapackage` of the AutoJs6 repository.",
+  "text_link_roadmap": "View ROADMAP.md",
+  "h3_release_history": "Release history",
+  "h5_for_more_release_history": "For more release history, refer to",
+  "h3_build": "Build",
+  "p_build_intro": "This section targets developers who want to build the plugin from source.",
+  "h3_license": "License",
+  "p_license": "The plugin code is licensed under the [Apache License 2.0]({{ license_url }}). The three libraries use the Apache License 2.0 as well, with their NOTICE files in [THIRD_PARTY_NOTICES.md]({{ notices_url }}); the package also contains the core library desugaring runtime of Android (GNU GPL v2 with the Classpath Exception).",
+  "h3_links": "Related links",
+  "text_link_autojs6": "AutoJs6 project",
+  "text_link_notices": "Third-party notices",
+  "p_instruction_more": "The source code, release history and third-party licenses are on the [project page]({{ repo_url }})."
+}

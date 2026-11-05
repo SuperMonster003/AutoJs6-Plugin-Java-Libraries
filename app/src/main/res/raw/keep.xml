@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    AutoJs6 reads the Plugin Center instruction by name across packages (PluginInfo.instruction = "@raw/plugin_instruction"),
+    so resource shrinking must keep it.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@raw/plugin_instruction" />

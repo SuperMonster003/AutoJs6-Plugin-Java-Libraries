@@ -146,7 +146,7 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ## P0: 仓库骨架
 
-状态: 进行中 (子会话 jl-p0). P0.1 (3f30c15), P0.2 (890428d), P0.4 完成.
+状态: 进行中 (子会话 jl-p0). P0.1 (3f30c15), P0.2 (890428d), P0.4 (a4dcbb3), P0.5 完成.
 
 ### P0.1 依赖, keep 与导出声明 (D2, D9, D10, D11)
 
@@ -177,9 +177,12 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ### P0.5 测试, CI 与文档
 
-- [ ] (插件) 单元测试: 导出声明与 `libs.versions.toml` 版本一致, 发布历史解析, 外观解析 (照 Bundled Libraries); 仪器测试或 JVM 测试: 用插件 dex 的类跑 附录 C冒烟 (StringUtils, IOUtils, ObjectMapper 读写 JSON).
-- [ ] (插件) GitHub Actions (`build.yml`, `markdown.yml`, `icon-studio.yml`, 发布工作流) 照 Bundled Libraries; `.changelog/lang_*.json` 10 种语言与 `generate_markdown.py`, README 10 种语言 (简介, 收录的库, 用法, 打包应用, 体积, 许可证).
+- [x] (插件) 单元测试: 导出声明与 `libs.versions.toml` 版本一致, 发布历史解析, 外观解析 (照 Bundled Libraries); 仪器测试或 JVM 测试: 用插件 dex 的类跑 附录 C冒烟 (StringUtils, IOUtils, ObjectMapper 读写 JSON).
+  - 实现: `HostAppearanceTest` (3), `ReleaseHistoryTest` (4, 含 10 种语言资产都有 `1.0.0`), `JavaLibrariesCatalogTest` (6: 清单 meta-data / `EXPORTED_PACKAGES` / `-keep` 规则三处一致, 版本与 `libs.versions.toml` 一致, NOTICE 与 `THIRD_PARTY_NOTICES.md` 一致), `JavaLibrariesSmokeTest` (5: 附录 C 的类可加载, 启动页示例逐行执行且注释里的输出与实际一致). 冒烟用 JVM 测试 (同一批构件), release dex 里的类另由 `verifyReleaseDexClasses` 核对.
+- [x] (插件) GitHub Actions (`build.yml`, `markdown.yml`, `icon-studio.yml`, 发布工作流) 照 Bundled Libraries; `.changelog/lang_*.json` 10 种语言与 `generate_markdown.py`, README 10 种语言 (简介, 收录的库, 用法, 打包应用, 体积, 许可证).
+  - 实现: `build.yml` 跑单测 / debug / 未签名 release / `verifyReleaseDexClasses` / lint, `markdown.yml` 照抄; `icon-studio.yml` 随 P0.3 的图标提交加入 (它校验的 `.icons/recipe.json` 那时才有); 发布工作流未加, 按 Q3 (a) 先行 (本地签名发布, 附录 D). `generate_markdown.py` 从 `libs.versions.toml`, 清单 meta-data 与 `JavaLibraries.EXAMPLE` 取库版本, 导出包与示例, 三者与 `.readme/common.json` 不一致即报错; 生成 36 份 (README 11, CHANGELOG 14, 插件说明 11). README 含简介, 收录的库, 用法, 打包应用 (按 P2 的设计写, P2 完成后复核), 不可用时, 兼容性, 体积, 常见问题, 插件接口, 许可证. changelog 1.0.0 的 `released_date` 暂填 2026/11/05, 发布时 (P3.4) 改为实际日期.
 - 验收: `./gradlew test` 通过; `generate_markdown.py --check` 与 `check_repository.py` 无错误; 提交前 `VERSION_BUILD` = 提交数 + 1.
+  - 结果 (2026-11-05): 单测 18 / 18 通过; `assembleDebug` / `assembleRelease` / `verifyReleaseDexClasses` / `lintDebug` 通过 (release 未签名 1052371 B, 1997 个类, 附录 C 的 10 个代表类都在; debug 3184756 B; lint 0 错误, 18 个警告与 Bundled Libraries 同类, 另有 `MissingApplicationIcon` 待 P0.3); `generate_markdown.py --check` 输出 `MARKDOWN_OK languages=10 artifacts=36`; `check_repository.py` 只剩 `Missing app/src/main/res/mipmap/ic_launcher.png` (P0.3 生成图标后清零, 在 P0.3 结果里复核), `prepush_check.py` 6 项中失败的 2 项也都是图标 (`icon resources`, `repository contract`). P0.4 的设备检查用新 debug 包在 G8441 (BH900ASK9E) 上复测 34 / 34 PASS (发行历史正文 3 项已过), 宿主偏好 md5 还原一致, 宿主 5935 APK 未变, 插件已卸载. `VERSION_BUILD` = 5.
 
 ---
 
@@ -264,3 +267,4 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 - Q1 图标源图 | (a) 维护者提供亮 / 暗两张源图, 子会话用 Icon Studio 生成 (推荐, 与 3-Tally Sheet 等一致) / (b) 子会话以文字标志派生一版, 维护者验收 | 影响: P0.3 | 改选返工: 小 | 状态: 已拍板 (2026-11-05, 维护者选: 由子会话设计并用 Icon Studio 生成, 维护者验收)
 - Q2 打包扫描的范围 | (a) 通用于登记表中全部导出插件 (Pinyin4j 1.4.0 也随之可带入; 载荷含 Java 资源, pinyin4j 的拼音数据在其中) (推荐) / (b) 只做 Java Libraries | 影响: P2.1, P2.3 | 改选返工: 小 (过滤条件一处, 用例少一组) | 状态: 已拍板 (2026-11-05, 维护者选 (a) 通用于登记表全部导出插件)
+- Q3 是否加 tag 触发的 CI 发布工作流 | (a) 照 Bundled Libraries: 本地签名发布 (`verifySignedReleaseArtifacts` / `appendDigestToReleasedFiles`, 再 `gh release create` 上传摘要包), CI 只构建未签名 release 并校验 dex (推荐, 已先行) / (b) 加 tag 触发的发布工作流, 由 CI 签名并创建 Release (需在 GitHub 配置签名 secrets, 维护者建仓后设置) | 影响: P0.5, P3.4 | 改选返工: 小 (照 ImGui 的 tag 工作流加一个 workflow 文件, 配 4 个 secrets) | 状态: 需拍板 (jl-p0 按 (a) 先行, 未加发布工作流)
