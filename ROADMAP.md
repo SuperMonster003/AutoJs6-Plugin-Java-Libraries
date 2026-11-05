@@ -219,9 +219,10 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ### P2.1 打包流程 (D13, D15, D16)
 
-- [ ] (宿主) `ApkBuildLibrary.JAVA_LIBRARIES` (D16); Java 包扫描器 (D15, 照 `ScriptModuleUsageScanner` 的扫描范围与上限); 载荷生成 (D13): 从已安装插件 APK 读取, 校验插件状态 (授权, 开关, 导出), 写 zip 与 json.
-- [ ] (宿主) `RemoteApkBuildRequestPreparer.writeBuildInputsArchive` 写入 `assets/java-packages/`; 成功对话框提示 (插件缺失 / 未授权 / 关闭 / 版本无导出时列出未带入的插件与做法, 10 种语言).
+- [x] (宿主) `ApkBuildLibrary.JAVA_LIBRARIES` (D16); Java 包扫描器 (D15, 照 `ScriptModuleUsageScanner` 的扫描范围与上限); 载荷生成 (D13): 从已安装插件 APK 读取, 校验插件状态 (授权, 开关, 导出), 写 zip 与 json.
+- [x] (宿主) `RemoteApkBuildRequestPreparer.writeBuildInputsArchive` 写入 `assets/java-packages/`; 成功对话框提示 (插件缺失 / 未授权 / 关闭 / 版本无导出时列出未带入的插件与做法, 10 种语言).
 - 验收: 单元测试覆盖扫描 (`.` 边界, 注释与字符串中的名字都算, 加密与超限文件跳过), 载荷内容 (排除项, SHA-256), 勾选与扫描的合并.
+- 结果 (2026-11-05, 宿主 acc80bf6bb): 扫描器 `JavaPackageUsageScanner` 复用 `ScriptModuleUsageScanner.scripts` (同一扫描范围, 4 MB 上限, 跳过加密脚本), 前后不得是 Java 标识符字符 (`[\w$]`), 所以 `org.apache.commons.lang3x` 与 `$net...` 不算; 载荷与说明在 `PackagedJavaPackages`: zip 只收 `classes*.dex` 与 Java 资源 (另排除 `lib/`, `META-INF/com/android/build/`, `stamp-cert-sha256`, `META-INF/MANIFEST.MF` 与不安全的条目名), 条目按名排序, 固定时间戳, 同一 APK 两次生成字节相同; 说明 json 含 format 1, 导出包, versionName / versionCode, SHA-256 与大小. 插件可用但读不出载荷时按 "版本无导出" 提示. 5 条提示文案 10 种语言. Node / Bun 引擎项目不扫 (除非勾选 Java Libraries), 与 P7.1 一致. 单元测试 8 项 (扫描 3, 载荷 / 合并 / 状态 5) 与静态引用守卫通过.
 
 ### P2.2 打包应用运行时 (D14)
 
