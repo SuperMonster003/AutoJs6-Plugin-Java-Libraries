@@ -1,0 +1,53 @@
+[versions]
+
+# The Java libraries this plugin exports to AutoJs6 scripts (ROADMAP.md D2): the versions AutoJs6 6.7.0 included, pinned
+# with strictly() in app/build.gradle.kts so no transitive dependency can raise them (verifyExportedLibraryVersions).
+# The launch page, the README and JavaLibrariesCatalogTest read them from here.
+
+#strictly : 3.18.0
+#purpose  : The version AutoJs6 6.7.0 included (ROADMAP.md D2)
+#noinspection NewerVersionAvailable
+commons-lang3 = "3.18.0"
+
+#strictly : 2.8.0
+#purpose  : Compatibility for Android API Level < 26 (Android 8.0) [O]
+#because  : Exception on newer versions: 'NoClassDefFoundError: org.apache.commons.io.IObuildUtils'
+#noinspection NewerVersionAvailable
+commons-io = "2.8.0"
+
+#strictly : 2.13.4.2 (databind), 2.13.4 (core, annotations)
+#purpose  : Compatibility for Android API Level < 26 (Android 8.0) [O]
+#because  : Exception on 2.14.x: 'No virtual method getParameterCount()I in class Ljava/lang/reflect/Method'
+#noinspection NewerVersionAvailable
+jackson-databind = "2.13.4.2"
+#noinspection NewerVersionAvailable
+jackson-core = "2.13.4"
+#noinspection NewerVersionAvailable
+jackson-annotations = "2.13.4"
+
+# Core library desugaring as in AutoJs6 6.7.0 (ROADMAP.md D11): java.time and java.nio.file in these libraries behave
+# as they did when AutoJs6 included them.
+desugar = "2.1.5"
+
+# Used by build-logic (archive helpers of the convention plugins), as in the other official plugins.
+commons-compress = "1.28.0"
+xz = "1.10"
+
+foojay-resolver-convention = "1.0.0"
+junit = "4.13.2"
+
+[libraries]
+
+apache-commons-compress = { module = "org.apache.commons:commons-compress", version.ref = "commons-compress" }
+commons-io ={ module = "commons-io:commons-io", version.ref = "commons-io" }
+commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3" }
+desugar = { module = "com.android.tools:desugar_jdk_libs_nio", version.ref = "desugar" }
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson-annotations" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson-core" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson-databind" }
+junit = { module = "junit:junit", version.ref = "junit" }
+tukaani-xz = { module = "org.tukaani:xz", version.ref = "xz" }
+
+[plugins]
+
+foojay-resolver-convention = { id = "org.gradle.toolchains.foojay-resolver-convention", version.ref = "foojay-resolver-convention" }

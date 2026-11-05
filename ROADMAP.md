@@ -74,7 +74,7 @@
 
 ### 4.3 外部事实
 
-- jar 体积: commons-lang3 3.18.0 688 KB, commons-io 2.8.0 280 KB, jackson-databind 2.13.4.2 约 1.5 MB, jackson-core 2.13.4 约 370 KB, jackson-annotations 2.13.4 约 75 KB. 预计 release APK 2 - 2.5 MB (以 P0.1 实测为准).
+- jar 体积: commons-lang3 3.18.0 688 KB, commons-io 2.8.0 280 KB, jackson-databind 2.13.4.2 约 1.5 MB, jackson-core 2.13.4 约 370 KB, jackson-annotations 2.13.4 约 75 KB. 预计 release APK 2 - 2.5 MB (以 P0.1 实测为准; P0.1 实测约 0.95 MB, 见 P0.1).
 - 宿主 6.7.0 的 release 构建未开启 R8 (`isMinifyEnabled` 关), 这些库当年以原名完整存在; 本插件靠 D10 的 keep 规则达到同样效果.
 - Apache-2.0 第 4 (d) 条要求随分发附带 NOTICE 内容.
 
@@ -115,7 +115,7 @@
 
 | 阶段 | 版本 | 主题 | 状态 |
 | --- | --- | --- | --- |
-| P0 | 插件 1.0.0 | 仓库骨架: 依赖与 keep, 身份与信息服务, 启动页与图标, 测试与 CI, README / changelog | 未开始 |
+| P0 | 插件 1.0.0 | 仓库骨架: 依赖与 keep, 身份与信息服务, 启动页与图标, 测试与 CI, README / changelog | 进行中 (jl-p0) |
 | P1 | 宿主 6.8.1 | 登记表 `Entry` 与 `RETIRED` 调整, 指引与测试, 设备 `states` 用例扩到 Java Libraries, changelog | 未开始 |
 | P2 | 宿主 6.8.1 | 打包带入: 扫描与勾选, 载荷 zip, 成功对话框提示, 打包应用运行时加载, 设备检查 | 未开始 |
 | P3 | 插件 1.0.0 | 文档, 索引登记, 最低宿主回填, 发布 (等宿主 6.8.1) | 未开始 |
@@ -146,14 +146,15 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ## P0: 仓库骨架
 
-状态: 未开始.
+状态: 进行中 (子会话 jl-p0). P0.1 完成.
 
 ### P0.1 依赖, keep 与导出声明 (D2, D9, D10, D11)
 
-- [ ] (插件) 按 `AUTOJS6_PLUGIN_NEW_REPO_AGENTS.md` 建立 Gradle 工程 (`settings.gradle.kts`, `build-logic`, `gradle/libs.versions.toml`, `version.properties`, `app/`), 填 5.1 节身份; `libs/common-plugin-api.aar` 取自宿主当前产物.
-- [ ] (插件) 依赖 D2 三个库 (版本锁死, 依赖树里不得被传递依赖升级), core library desugaring (D11); application meta-data `org.autojs.plugin.javaPackages.EXPORTS` (D9); `proguard-rules.pro` 按 D10.
-- [ ] (插件) 发布校验: Gradle 任务或 `.python` 脚本读取签名 APK 的 dex, 确认 附录 C代表类以原名存在, 并输出 dex 与 APK 体积; 接入 `appendDigestToReleasedFiles` 之前.
+- [x] (插件) 按 `AUTOJS6_PLUGIN_NEW_REPO_AGENTS.md` 建立 Gradle 工程 (`settings.gradle.kts`, `build-logic`, `gradle/libs.versions.toml`, `version.properties`, `app/`), 填 5.1 节身份; `libs/common-plugin-api.aar` 取自宿主当前产物 (`plugin-api/common-plugin-api` release aar, 与 Bundled Libraries 所带 API 一致).
+- [x] (插件) 依赖 D2 三个库 (版本锁死, 依赖树里不得被传递依赖升级), core library desugaring (D11); application meta-data `org.autojs.plugin.javaPackages.EXPORTS` (D9); `proguard-rules.pro` 按 D10. 依赖以 `strictly()` 声明, `verifyExportedLibraryVersions` (挂在 `preBuild`) 核对 debug / release 运行时类路径, 依赖树确认无升级; R8 另需 `-dontwarn` 三个 Android 没有的类 (`java.beans.ConstructorProperties`, `java.beans.Transient`, `java.lang.invoke.MethodHandleProxies`, 与 6.7.0 行为相同).
+- [x] (插件) 发布校验: Gradle 任务或 `.python` 脚本读取签名 APK 的 dex, 确认 附录 C代表类以原名存在, 并输出 dex 与 APK 体积; 接入 `appendDigestToReleasedFiles` 之前. 实现为 `verifyReleaseDexClasses` (读 release APK 的 `classes*.dex` 的 class_defs, 拒绝 `lib/` 与 `.so`), 签名门禁 `verifySignedReleaseArtifacts` 依赖它, `appendDigestToReleasedFiles` 依赖签名门禁.
 - 验收: `./gradlew assembleDebug assembleRelease` 通过, 发布校验通过; APK 内无 `.so`; 体积写进本条.
+  - 结果 (2026-11-05, P0.1 骨架, 尚无启动页与图标): release APK 992,176 字节 (约 0.95 MB, 官方签名, apksigner 校验通过), `classes.dex` 2,234,360 字节 (压缩后 867,236), `classes2.dex` 257,696 字节 (压缩后 104,250, 脱糖库 `j$` 250 个类与 `java.nio.file` 回移类); debug APK 3,112,493 字节. 附录 C 10 个代表类原名都在; 另与 Maven 缓存中的五个 jar 逐类比对, lang3 413 / io 182 / databind 707 / core 127 / annotations 71 个类全部以原名存在于 dex. 比第 4 节估计的 2 - 2.5 MB 小: dex 共享常量池, 比 jar 中逐类的 class 文件紧凑, 再经 zip 压缩.
 
 ### P0.2 身份, 信息服务与许可证 (D8, D18)
 
@@ -258,5 +259,5 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 格式: 编号, 问题, 选项 (推荐项标 "(推荐)", 已先行的标 "(已先行)"), 影响, 改选返工. 拍板后在此改写结论与日期, 同步看板.
 
-- Q1 图标源图 | (a) 维护者提供亮 / 暗两张源图, 子会话用 Icon Studio 生成 (推荐, 与 3-Tally Sheet 等一致) / (b) 子会话以文字标志派生一版, 维护者验收 | 影响: P0.3 | 改选返工: 小 | 状态: 需拍板 (P0.3 前)
-- Q2 打包扫描的范围 | (a) 通用于登记表中全部导出插件 (Pinyin4j 1.4.0 也随之可带入; 载荷含 Java 资源, pinyin4j 的拼音数据在其中) (推荐) / (b) 只做 Java Libraries | 影响: P2.1, P2.3 | 改选返工: 小 (过滤条件一处, 用例少一组) | 状态: 需拍板 (P2 前)
+- Q1 图标源图 | (a) 维护者提供亮 / 暗两张源图, 子会话用 Icon Studio 生成 (推荐, 与 3-Tally Sheet 等一致) / (b) 子会话以文字标志派生一版, 维护者验收 | 影响: P0.3 | 改选返工: 小 | 状态: 已拍板 (2026-11-05, 维护者选: 由子会话设计并用 Icon Studio 生成, 维护者验收)
+- Q2 打包扫描的范围 | (a) 通用于登记表中全部导出插件 (Pinyin4j 1.4.0 也随之可带入; 载荷含 Java 资源, pinyin4j 的拼音数据在其中) (推荐) / (b) 只做 Java Libraries | 影响: P2.1, P2.3 | 改选返工: 小 (过滤条件一处, 用例少一组) | 状态: 已拍板 (2026-11-05, 维护者选 (a) 通用于登记表全部导出插件)
