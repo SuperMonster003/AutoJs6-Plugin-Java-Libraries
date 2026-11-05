@@ -215,7 +215,7 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ## P2: 打包带入
 
-状态: 进行中 (子会话 jl-p2, 2026-11-05 起). 附录 D Q2 已拍板 (a), 扫描通用于登记表全部导出插件.
+状态: 完成 (2026-11-05, 子会话 jl-p2). 附录 D Q2 已拍板 (a), 扫描通用于登记表全部导出插件.
 
 ### P2.1 打包流程 (D13, D15, D16)
 
@@ -233,8 +233,9 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ### P2.3 设备检查
 
-- [ ] (测试) 照 `device_packaged_libraries_check.py` 写打包用例: 本地 `:app:generateRuntimeKit` 构建 Runtime Kit, 模板仓库 `-Pautojs.apkBuilder.templatePlugin.runtimeKitDir` 构建 debug 模板; 应用 a (扫描命中), b (勾选), c (插件未安装时打包); 安装后在插件未安装 / 已安装时运行, 核对冒烟结果与缺失时的消息.
+- [x] (测试) 照 `device_packaged_libraries_check.py` 写打包用例: 本地 `:app:generateRuntimeKit` 构建 Runtime Kit, 模板仓库 `-Pautojs.apkBuilder.templatePlugin.runtimeKitDir` 构建 debug 模板; 应用 a (扫描命中), b (勾选), c (插件未安装时打包); 安装后在插件未安装 / 已安装时运行, 核对冒烟结果与缺失时的消息.
 - 验收: 一台真机全部通过, 结果写进宿主证据文档; 装回原宿主, 测试包与模板并核对 md5.
+- 结果 (2026-11-05, 宿主 ca0bf63529 / 78e47fa37c): `PackagedJavaPackagesProducerDeviceTest` 用真实打包流程生成应用 a (按类名, 扫描命中), b (拼接名字, 勾选 Java Libraries), c (Java Libraries 未安装时打包), d (Pinyin4j); `tools/augment/device_packaged_java_packages_check.py` 安装后在两个插件都未安装 / 都已安装时各运行一次. XQ-AT72 (debug 宿主 6640, 同一克隆的 Runtime Kit 与 debug 模板, 本仓库 debug 包, Pinyin4j 1.4.0 发布包) PASS: Java Libraries 载荷 2861745 字节 (15 个条目, 5 个 dex), 扫描 0 - 2 ms, 生成载荷约 350 ms; a / b / d 两态都用带入副本 (`DexClassLoader`, 只读), c 无插件时以打包应用指引结束 (含最低版本 1.0.0, 不指向插件中心), 有插件时用已安装插件; 原宿主 md5 一致, 其余包均已卸载. 首轮发现打包应用的未捕获错误不经过 `ScriptEngineService.onException`, 指引 (以及 "已不再内置" 的说明) 在打包应用中从未显示, 已由 ca0bf63529 修复 (`ScriptRuntime.popException` 带指引). 本机插件中心关闭了模板插件, 脚本经 `run-as` 临时打开并按原字节还原. 本仓库 README "打包应用" 一节与实现一致, 不需要修改. 证据为宿主 `docs/dev/evidence/plugin-java-packages-pilot-20261103.md` 第 6 节.
 
 ---
 
