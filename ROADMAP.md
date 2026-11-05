@@ -1,6 +1,6 @@
 # Java Libraries 插件路线图
 
-更新: 2026-11-05 (P0 - P2 完成, P3.1 / P3.2 完成, P3.3 / P3.4 等宿主 6.8.1 定版与建仓). 本文件是 `AutoJs6-Plugin-Java-Libraries` (显示名 `Java Libraries`) 的唯一进度与决策记录. 插件把 AutoJs6 6.8.0 移除的纯 Java 库 (Apache Commons Lang3, Commons IO, Jackson) 装回设备, 让脚本再次直接使用 `org.apache.commons.lang3.StringUtils`, `com.fasterxml.jackson.databind.ObjectMapper` 等类, 写法与 6.8.0 之前相同.
+更新: 2026-11-05 (P0 - P3 全部完成: 1.0.0 已发布并登记官方索引, 最低宿主 6641; 新待决 Q8 属宿主). 本文件是 `AutoJs6-Plugin-Java-Libraries` (显示名 `Java Libraries`) 的唯一进度与决策记录. 插件把 AutoJs6 6.8.0 移除的纯 Java 库 (Apache Commons Lang3, Commons IO, Jackson) 装回设备, 让脚本再次直接使用 `org.apache.commons.lang3.StringUtils`, `com.fasterxml.jackson.databind.ObjectMapper` 等类, 写法与 6.8.0 之前相同.
 
 立项基线: 宿主 AutoJs6 `master` `e195d5c7f8` (2026-11-05, `VERSION_NAME` 6.8.1 未发布, `VERSION_BUILD` 6640). 宿主已有 "官方插件导出 Java 包" 机制 (本地提交 `392746d017`, 第 4 节), 试点为 Pinyin4j 1.4.0 (插件本地提交 `c82d82e`, 等宿主 6.8.1 发布). 证据: 宿主 `docs/dev/evidence/plugin-java-packages-pilot-20261103.md`.
 
@@ -118,7 +118,7 @@
 | P0 | 插件 1.0.0 | 仓库骨架: 依赖与 keep, 身份与信息服务, 启动页与图标, 测试与 CI, README / changelog | 完成 (jl-p0, 2026-11-05) |
 | P1 | 宿主 6.8.1 | 登记表 `Entry` 与 `RETIRED` 调整, 指引与测试, 设备 `states` 用例扩到 Java Libraries, changelog | 完成 (jl-p1, 宿主 4af7048853 / 72fb799256) |
 | P2 | 宿主 6.8.1 | 打包带入: 扫描与勾选, 载荷 zip, 成功对话框提示, 打包应用运行时加载, 设备检查 | 完成 (jl-p2, 宿主 acc80bf6bb / 105dde572a / ca0bf63529 / 78e47fa37c) |
-| P3 | 插件 1.0.0 | 文档, 索引登记, 最低宿主回填, 发布 (等宿主 6.8.1) | 进行中: P3.1 / P3.2 完成 (jl-p3), P3.3 / P3.4 等宿主 6.8.1 定版与建仓 |
+| P3 | 插件 1.0.0 | 文档, 索引登记, 最低宿主回填, 发布 (等宿主 6.8.1) | 完成 (jl-p3 P3.1 / P3.2, jl-p4 P3.3 / P3.4; v1.0.0 = 4798a89, 索引 aba01db) |
 
 依赖顺序:
 
@@ -241,7 +241,7 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ## P3: 文档与发布
 
-状态: 进行中: P3.1 / P3.2 完成, P3.3 / P3.4 等宿主 6.8.1 定版 (D7, D17) 与维护者建仓.
+状态: 完成 (2026-11-05): P3.1 / P3.2 (jl-p3), P3.3 / P3.4 (jl-p4). 1.0.0 已发布 (tag `v1.0.0` = `4798a89`) 并登记官方索引 (`aba01db`); 最低宿主 6641 (附录 D Q7), 宿主 6.8.1 尚未公开发布.
 
 ### P3.1 文档
 
@@ -260,7 +260,20 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ### P3.4 发布
 
-- [ ] (发布) 维护者在 GitHub 建仓后推送; 按第 6 节发布门禁发布 1.0.0, 登记索引.
+- [x] (发布) 维护者在 GitHub 建仓后推送; 按第 6 节发布门禁发布 1.0.0, 登记索引.
+- 结果 (2026-11-05, jl-p4; 按附录 D Q4 由子会话全程做): 已发布 1.0.0, versionCode 14. 插件标签 `v1.0.0` = `4798a897711cdc5834d1c9190c5d961cabab6920`. Release: https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries/releases/tag/v1.0.0, 资源为 `autojs6-plugin-java-libraries-v1.0.0-universal-2b9f53e3.apk` (1210067 字节, SHA-256 `cb4e5efebef05273865aa15b6dee0b6a71aba3220e76b1047520b479a8d299b0`, 官方签名者 `31a681fc...c213`, 无 `lib/` 与 `.so`) 与 `SHA256SUMS`; README 的 1.2 MB 不变. master 与 tag 上的 CI (build / markdown / icon-studio) 均通过.
+  - 索引: 提交 `aba01db` (`feat(index): admit Java Libraries v1.0.0`, 16 个文件), 已推送 main (8d19caa..aba01db). 内容: 仓库清单 52 -> 53, 目录图标, 准入清单 `14.json`, 生成文件. 生成文件共 80 个条目, 只新增 Java Libraries, 字段与 P3.2 演练一致 (`requiresHostVersion` 6641). `plugin-index.yml` 与 markdown CI 通过, 机器人未再生成提交.
+  - 门禁 1: 插件单测 18 / 18, `prepush_check.py` 6 / 6, `check_repository.py` 0 错误, `index_rehearsal.py` 20 / 20; 宿主隔离克隆 javapackage 单测 39 / 0 失败.
+  - 门禁 2: `device_java_packages_check.py java-libraries` 38 项 ok, `retired` 5 项 ok, 在 G8441 (Android 9) 与 OPD2413 (Android 15) 上通过; 打包用例已由 P2.3 在 XQ-AT72 通过.
+  - 门禁 3 - 5 通过.
+  - 第 8 步收尾冒烟 (附录 D Q6): 在 XQ-AT72 上用隔离克隆的 debug 宿主 6641, 新增 `.python/device_release_smoke.py` (本提交) 做检查.
+    - 插件中心从线上索引列出条目: Java Libraries 1.0.0 (14), `requiresHostVersion` 6641, 图标 `f3809b8f...`, APK 摘要与大小与 Release 一致.
+    - 维护者从插件中心下载安装. 安装的 APK 与发布资源一致, 开关为开.
+    - 启动页 "在脚本中使用" 的示例输出 5 / 5 与注释一致, 附录 C 的 10 个类全部可用.
+    - 随后 `device_java_packages_check.py java-libraries` 38 项 ok.
+    - 第一次运行失败: 示例报 `isBlank is not a function`, 提示插件已关闭. 原因是脚本在安装后 3 - 6 s 就结束了宿主, 而插件中心对全新安装先把开关写为关闭, 约 1 - 2 s 后自动启用才写为打开; 宿主在这之间被结束, 插件就保持关闭 (登记为附录 D Q8). 脚本改为等开关打开 (最多 60 s) 后再继续, 第二次运行全部通过.
+    - 冒烟后已装回原宿主 5935 (md5 `b958b465` 一致), 插件已卸载.
+  - 附录 D Q5 的文档修正: 文档站 `6ab1244` / `dc6b375`, Offline Docs `8620243`, 均为本地提交, 未推送.
 - 步骤清单 (jl-p3 2026-11-05 拟定, 照 Bundled Libraries 1.0.0 的发布与索引提交 9b5976f). 前提: 宿主 6.8.1 已定版, P3.3 已完成, 第 6 节发布门禁 1 - 3 已通过. 标 "(维护者)" 的步骤由维护者做, 或经维护者逐次授权后做.
   1. 定版提交 (本地): 10 个 `.changelog/lang_*.json` 中 1.0.0 的 `released_date` 改为发布日 (现为占位 2026/11/05), 运行 `.python/generate_markdown.bat`; `VERSION_BUILD` = 提交后的可达提交数 (容差 10); `python .python/check_repository.py` 与 `python .python/index_rehearsal.py` 都通过 (演练中 `requiresHostVersion` 应已是 6.8.1 的 versionCode) 后提交. 此后到打标签前不再改 `version.properties`.
   2. (维护者) 建仓与推送: 在 GitHub 建公开仓库 `SuperMonster003/AutoJs6-Plugin-Java-Libraries` (默认分支 `master`, 与 `.readme/common.json` 中的链接一致); 本地 `git remote add origin https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries.git`, 在 `D:/idea-projects` 运行 `py prepush_check.py AutoJs6-Plugin-Java-Libraries`, 通过后 `git push -u origin master`, 等 `build.yml` / `markdown.yml` / `icon-studio.yml` 通过.
@@ -296,3 +309,4 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 - Q5 jl-p3 发现的两处原有文档疑点 (文档站 `api/plugins.md` 表中 mail 模块的插件写 "Angus Mail", 是否应为 3-Stamp Mail; `api/scriptingJava.md` 原有 `typeof File === 'object'` 一句疑有误) | (a) 并入批次 4 顺带核实修正 (推荐) / (b) 维护者自己处理 / (c) 暂缓 | 影响: 文档站, Offline Docs | 改选返工: 小 (各一笔本地提交) | 状态: 已拍板 2026-11-05: (a), 文档站与 Offline Docs 各一笔本地提交, 不推送
 - Q6 P3.4 第 8 步收尾冒烟用哪个宿主 | (a) 隔离克隆构建 debug 宿主装到真机, 冒烟后装回原宿主 (推荐) / (b) 只在 5935 宿主核对条目 / (c) 维护者提供 6.8.1 候选 APK | 影响: P3.4 | 改选返工: 无 | 状态: 已拍板 2026-11-05: (a) (按 Q7, 克隆中临时把宿主 `VERSION_BUILD` 改为 6641 构建, 不提交)
 - Q7 `requiresHostVersion` 的值. jl-p4 核实: 公开的 AutoJs6 6.8.0 的 versionCode 也是 6640 (宿主 `ef27581df9` 把 1652 的偏移并入 `VERSION_BUILD`, versionCode 不变), 而 6.8.0 没有 Java 包导出机制 (`v6.8.0` 中无 `PluginJavaPackageCatalog`); 填 6640 时 6.8.0 用户在插件中心能装上, 但插件对他们无效 | (a) 6641: 6.8.0 显示需要更高版本, 6.8.1 发布时 versionCode 必不小于 6641 (推荐) / (b) 保持 6640 / (c) 推迟到 6.8.1 定版, 用其实际 versionCode | 影响: P3.3, P3.4; 现有 debug 6640 宿主也会把 1.0.0 判为需要更高版本, 直到宿主 `VERSION_BUILD` 升到 6641 (宿主一行改动, 维护者待办) | 改选返工: 发布后改选要发 1.0.1 (改一处常量, 再生成 README 与 changelog, 重新发布与登记) | 状态: 已拍板 2026-11-05: (a) 6641
+- Q8 全新安装后插件开关被短暂写为关闭 (宿主问题, jl-p4 发布冒烟发现). 现象: 在插件中心安装后约 0.6 s 开关记录被写为关闭, 约 1.7 s 后插件中心的安装后自动启用再写为打开; 宿主进程在这之间被结束时插件保持关闭, 脚本中显示 "插件已关闭" 的指引, 用户需手动打开. 疑为 `PluginCenterViewModel` 约第 797 行: 信任信息解析失败时回退为 `REQUIRED`, 随后把已启用的插件写为关闭 (未核实) | (a) 宿主另开卡片: 全新安装后不写永久关闭 (改用暂停态), 加单元测试 (推荐) / (b) 保持现状, 记为已知行为 | 影响: 宿主插件中心 (全部官方插件), 不影响插件 1.0.0 | 改选返工: 小 | 状态: 需拍板 (未先行)
