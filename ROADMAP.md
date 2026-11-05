@@ -1,6 +1,6 @@
 # Java Libraries 插件路线图
 
-更新: 2026-11-05 (P0 / P1 完成, P2 进行中). 本文件是 `AutoJs6-Plugin-Java-Libraries` (显示名 `Java Libraries`) 的唯一进度与决策记录. 插件把 AutoJs6 6.8.0 移除的纯 Java 库 (Apache Commons Lang3, Commons IO, Jackson) 装回设备, 让脚本再次直接使用 `org.apache.commons.lang3.StringUtils`, `com.fasterxml.jackson.databind.ObjectMapper` 等类, 写法与 6.8.0 之前相同.
+更新: 2026-11-05 (P0 - P2 完成, P3.1 / P3.2 完成, P3.3 / P3.4 等宿主 6.8.1 定版与建仓). 本文件是 `AutoJs6-Plugin-Java-Libraries` (显示名 `Java Libraries`) 的唯一进度与决策记录. 插件把 AutoJs6 6.8.0 移除的纯 Java 库 (Apache Commons Lang3, Commons IO, Jackson) 装回设备, 让脚本再次直接使用 `org.apache.commons.lang3.StringUtils`, `com.fasterxml.jackson.databind.ObjectMapper` 等类, 写法与 6.8.0 之前相同.
 
 立项基线: 宿主 AutoJs6 `master` `e195d5c7f8` (2026-11-05, `VERSION_NAME` 6.8.1 未发布, `VERSION_BUILD` 6640). 宿主已有 "官方插件导出 Java 包" 机制 (本地提交 `392746d017`, 第 4 节), 试点为 Pinyin4j 1.4.0 (插件本地提交 `c82d82e`, 等宿主 6.8.1 发布). 证据: 宿主 `docs/dev/evidence/plugin-java-packages-pilot-20261103.md`.
 
@@ -117,8 +117,8 @@
 | --- | --- | --- | --- |
 | P0 | 插件 1.0.0 | 仓库骨架: 依赖与 keep, 身份与信息服务, 启动页与图标, 测试与 CI, README / changelog | 完成 (jl-p0, 2026-11-05) |
 | P1 | 宿主 6.8.1 | 登记表 `Entry` 与 `RETIRED` 调整, 指引与测试, 设备 `states` 用例扩到 Java Libraries, changelog | 完成 (jl-p1, 宿主 4af7048853 / 72fb799256) |
-| P2 | 宿主 6.8.1 | 打包带入: 扫描与勾选, 载荷 zip, 成功对话框提示, 打包应用运行时加载, 设备检查 | 进行中 (jl-p2) |
-| P3 | 插件 1.0.0 | 文档, 索引登记, 最低宿主回填, 发布 (等宿主 6.8.1) | 未开始 |
+| P2 | 宿主 6.8.1 | 打包带入: 扫描与勾选, 载荷 zip, 成功对话框提示, 打包应用运行时加载, 设备检查 | 完成 (jl-p2, 宿主 acc80bf6bb / 105dde572a / ca0bf63529 / 78e47fa37c) |
+| P3 | 插件 1.0.0 | 文档, 索引登记, 最低宿主回填, 发布 (等宿主 6.8.1) | 进行中: P3.1 / P3.2 完成 (jl-p3), P3.3 / P3.4 等宿主 6.8.1 定版与建仓 |
 
 依赖顺序:
 
@@ -241,15 +241,17 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ## P3: 文档与发布
 
-状态: 未开始. P3.3 / P3.4 等宿主 6.8.1 定版 (D7, D17).
+状态: 进行中: P3.1 / P3.2 完成, P3.3 / P3.4 等宿主 6.8.1 定版 (D7, D17) 与维护者建仓.
 
 ### P3.1 文档
 
-- [ ] (文档) 文档站与 Offline Docs 中 Java 交互相关页加一节: 官方插件导出的 Java 包 (Pinyin4j, Java Libraries), 已不再内置的库与替代, 打包应用的带入方式.
+- [x] (文档) 文档站与 Offline Docs 中 Java 交互相关页加一节: 官方插件导出的 Java 包 (Pinyin4j, Java Libraries), 已不再内置的库与替代, 打包应用的带入方式.
+- 结果 (2026-11-05, jl-p3; 文档站 18c41b2 / f4fc070, Offline Docs 7707927, 均只本地提交, 未推送): 文档站 `api/scriptingJava.md` 新增 "官方插件导出的 Java 包" 一节 (标 `6.8.1`): 4 行表 (Pinyin4j 1.4.0 及以上: Pinyin4j 2.5.1, `net.sourceforge.pinyin4j`; Java Libraries 1.0.0 及以上: Commons Lang3 3.18.0, Commons IO 2.8.0, Jackson 2.13.4.2, 各列附录 C 的代表类) 与示例, 以及三小节: 插件不可用时 (缺失 / 未授权 / 关闭 / 版本过低的提示与做法), 已不再内置的库 (12 行, 替代模块与插件名同宿主 `PluginJavaPackageCatalog.RETIRED`: 3-Hanzi CC, ML Kit Barcode, ML Kit OCR (Chinese), 3-Stamp Mail 等), 打包的应用 (按 P2 实现: 扫描或勾选带入, 打包时插件不可用则照常成功并在成功对话框列出). 版本, 类名与指引文字已对照宿主 `PluginJavaPackageCatalog` / `PluginJavaPackageMessages`. `plugins.md` / `pinyin4j.md` 加入指向该节的链接; changelog (`api/changelog.md` 与 10 个 `.changelog/lang_*.json`), `progress.md` (注明 6.8.1 与插件 1.0.0 尚未发布) 与 README 派生文件同步; f4fc070 重新生成 html / json / 搜索索引 (`project.json` versionCode 185 -> 186). Offline Docs 7707927 照常同步 (6 个页面与搜索索引资产, 两份 `SOURCE_PROVENANCE.md` 基准改为 18c41b2, README 指纹 246 个文件 / 18137498 字节, `VERSION_BUILD` 262). 检查: `normalize-markdown.py --check`, 两仓库 `generate_markdown.py --check`, `auto-generate-for-autojs6.bat --verify-offline` (`testDebugUnitTest` + `verifyOfflineDocsApks`, `--no-daemon`) 与两仓库 `prepush_check.py --no-gradle` 通过. 顺带发现两处原有文字可能有误, 未改, 列为维护者待办: `api/plugins.md` 插件表中 mail 模块的插件写作 "Angus Mail" (mail.md 与宿主文案为 "3-Stamp Mail"); `scriptingJava.md` 原有的 `typeof File === 'object'` 一句疑与实际不符.
 
 ### P3.2 索引草稿
 
-- [ ] (索引) 准备 AutoJs6-Official-Plugins-Index 登记所需的元数据 (按索引生成器的 flavor 要求), 推送后再生成.
+- [x] (索引) 准备 AutoJs6-Official-Plugins-Index 登记所需的元数据 (按索引生成器的 flavor 要求), 推送后再生成.
+- 结果 (2026-11-05, jl-p3; 本提交): 元数据无缺项, 插件资源未改. 对照生成器 (`tools/generate_official_plugin_index.py`) 从发行标签读取的文件逐项核对: `version.properties` (1.0.0 / `VERSION_BUILD`); 清单 `android:label="@string/app_name"`, `org.autojs.plugin.info.AUTHOR` = SuperMonster003, `NATIVE_PAGE_ALIGNMENT` = 0 (纯 Java, 不声明 ABI), application 与 service 的 `requiresHostVersion` 占位; `app/build.gradle.kts` 的 resValue `plugin_engine` / `plugin_id` = `java-libraries`, `plugin_variant` = `default`, `plugin_requires_host_version` (现为 6640, P3.3 回填); 11 个 values 目录的 `app_name` (不翻译) / `plugin_description` / `plugin_instruction`, 11 份 `res/raw*/plugin_instruction.md`; `mipmap` / `mipmap-night` 的 `ic_plugin_center.png` (432 x 432 RGBA, 日夜同图, SHA-256 `f3809b8fc216672115c61df2bd9847459ea17dc0d75e658725203b0a2aaf7948`); 发行文件名 `autojs6-plugin-java-libraries-v1.0.0-universal-<crc32>.apk` (生成器按 `universal` 识别通用包). 新增 `.python/index_rehearsal.py` 做本地演练: 从索引仓库 HEAD 取生成器到临时目录, 以本仓库 HEAD 与合成的 Release / 准入清单 (摘要与大小为占位值) 调用 `build_entries_from_release` 与 `apply_catalog_presentation`, 不联网, 不写索引仓库. 在 8eedd1f 上 20 / 20 PASS (索引 8d19caa): 标题 Java Libraries, engine / variant / engineId = `java-libraries` / `default` / `java-libraries`, `requiresHostVersion` 6640, `featured`, versionCode 10, `nativePageAlignment` 0 (declared), 无 `supportedAbis` / `runtimeComponent`, 11 种描述与说明页, 图标 URL 指向标签内的 `ic_plugin_center.png` (登记目录图标前), 准入清单绑定 sourceCommit 与签名者, `forceIgnoreLocalIcon`. 生成的条目字段集合与索引中 Bundled Libraries 1.0.0 完全相同, 与 Pinyin4j 1.4.0 相比只多 `requiresHostVersion` (Pinyin4j 未声明最低宿主). 索引仓库未改动. `check_repository.py`, `generate_markdown.py --check` 与 `prepush_check.py` 通过. P3.4 的登记步骤清单见下.
 
 ### P3.3 最低宿主回填 (D17)
 
@@ -258,6 +260,19 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 ### P3.4 发布
 
 - [ ] (发布) 维护者在 GitHub 建仓后推送; 按第 6 节发布门禁发布 1.0.0, 登记索引.
+- 步骤清单 (jl-p3 2026-11-05 拟定, 照 Bundled Libraries 1.0.0 的发布与索引提交 9b5976f). 前提: 宿主 6.8.1 已定版, P3.3 已完成, 第 6 节发布门禁 1 - 3 已通过. 标 "(维护者)" 的步骤由维护者做, 或经维护者逐次授权后做.
+  1. 定版提交 (本地): 10 个 `.changelog/lang_*.json` 中 1.0.0 的 `released_date` 改为发布日 (现为占位 2026/11/05), 运行 `.python/generate_markdown.bat`; `VERSION_BUILD` = 提交后的可达提交数 (容差 10); `python .python/check_repository.py` 与 `python .python/index_rehearsal.py` 都通过 (演练中 `requiresHostVersion` 应已是 6.8.1 的 versionCode) 后提交. 此后到打标签前不再改 `version.properties`.
+  2. (维护者) 建仓与推送: 在 GitHub 建公开仓库 `SuperMonster003/AutoJs6-Plugin-Java-Libraries` (默认分支 `master`, 与 `.readme/common.json` 中的链接一致); 本地 `git remote add origin https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries.git`, 在 `D:/idea-projects` 运行 `py prepush_check.py AutoJs6-Plugin-Java-Libraries`, 通过后 `git push -u origin master`, 等 `build.yml` / `markdown.yml` / `icon-studio.yml` 通过.
+  3. 签名构建 (官方密钥 `sign.properties` 已在本地, 不入库): `gradlew :app:appendDigestToReleasedFiles -Pautojs.gradle.build.number.auto.increment.enabled=false -Pautojs.gradle.build.time.update.enabled=false --no-daemon`. 它先运行 `verifyReleaseDexClasses` (附录 C 代表类) 与 `verifySignedReleaseArtifacts` (签名凭据完整, 只有一个通用 APK, apksigner 校验通过), 再输出 `releases/autojs6-plugin-java-libraries-v1.0.0-universal-<crc32>.apk`. 记下 APK 字节数与 SHA-256 (`sha256sum`); `apksigner verify --print-certs` 的签名者 SHA-256 应为 `31a681fcfffb3e428420cae280ded89292b12a3b0f59e19b7a73e32a8ae4c213` (与索引中 Bundled Libraries / Pinyin4j 相同); `unzip -l` 中没有 `lib/` 与 `.so`. 字节数四舍五入后与 `.readme/common.json` 的 `release_apk_size_mb` (现 1.2) 不符时, 只改这个值, 重新生成 README, 单独提交并推送 (不动 `version.properties`; APK 内的插件说明不含体积, 不必重新构建).
+  4. (维护者) 发布: `git tag v1.0.0` 并 `git push origin v1.0.0`; `gh release create v1.0.0 releases/autojs6-plugin-java-libraries-v1.0.0-universal-<crc32>.apk --repo SuperMonster003/AutoJs6-Plugin-Java-Libraries --title v1.0.0 --notes-file <说明文件>` (说明取 `app/src/main/assets/doc/CHANGELOG-en.md` 与 `CHANGELOG-zh-Hans.md` 的 1.0.0 一节). 发布后用 `gh release view v1.0.0 --repo SuperMonster003/AutoJs6-Plugin-Java-Libraries --json assets` 核对资源的 `size` 与 `digest` 和第 3 步一致.
+  5. 索引登记 (`AutoJs6-Official-Plugins-Index`; 先 `git pull --rebase`, 以下改动放同一个提交):
+     - `official-repositories.json` 加入 `AutoJs6-Plugin-Java-Libraries` (52 -> 53), 运行 `python .python/generate_markdown.py` 更新 README 中的项目数 (Bundled Libraries 那次改了 10 份 `.readme/README-*.md` 与 `README.md` 各 1 行).
+     - `catalog-icons.json` 的 `icons` 加 `io.github.supermonster003.autojs6.plugin.java.libraries`: `repository` 为本仓库名, `sourceCommit` 为标签提交 (40 位), `sourceDirty` false, `recipeSha256` 为标签处 `.icons/recipe.json` 的 SHA-256 (当前 `f8c574975818d3384d016a6dc0dba8ce0210e3df744fc2bc6d95d19afcba048f`), `generatorVersion` "1.4.0" (取自 recipe), `backgrounds` 的 day / night 都是 `transparent` (非 Three 系列), `day` / `night` 都指向 `icons/io.github.supermonster003.autojs6.plugin.java.libraries/f3809b8fc216672115c61df2bd9847459ea17dc0d75e658725203b0a2aaf7948.png`. 该 PNG 从标签处的 `app/src/main/res/mipmap/ic_plugin_center.png` 原样复制 (432 px RGBA, 20629 字节, 日夜同图); 图标在发布前若改过, 按新图重算文件名与摘要.
+     - `release-manifests/io.github.supermonster003.autojs6.plugin.java.libraries/<versionCode>.json`: 结构照 Bundled Libraries 的 `7.json`: `schemaVersion` 1, `owner` `SuperMonster003`, `repository`, `releaseTag` `v1.0.0`, `sourceCommit` 标签提交, `packageName`, `versionName` `1.0.0`, `versionCode` (标签处的 `VERSION_BUILD`), `signerSha256` (第 3 步), `artifacts` 的 `name` / `sha256` / `sizeBytes` 取第 4 步核对过的 GitHub 资源.
+     - `plugins.official.generated.json` 只由下一步生成, 不手改.
+  6. 测试与生成 (需要网络; 令牌取自 `GITHUB_TOKEN` 或 `GH_TOKEN`, 可用 `gh auth token` 提供): `python -m unittest discover -s tools -p 'test_*.py' -v`, `python tools/generate_official_plugin_index.py`, `python .python/generate_markdown.py --check`, `python -m unittest discover -s .python/tests`. `git diff plugins.official.generated.json` 应只新增 Java Libraries 一个条目, 字段与第 1 步的演练一致 (engine `java-libraries`, `requiresHostVersion` 为 6.8.1 的 versionCode, 图标 URL 指向 `icons/` 中的 PNG, 资源带 `signerSha256` 与 `sourceCommit`); 其他条目若也有变化, 逐条确认是其他插件新发布的结果.
+  7. (维护者) 推送前比对: 提交信息 `feat(index): admit Java Libraries v1.0.0`. 索引仓库多会话共用, CI 机器人也会在推送后重新生成, 所以推送前先 `git fetch` 并变基; `plugins.official.generated.json` 冲突时用自己重新生成的文件, 与远端版本逐条目比对 (除 Java Libraries 外应一致) 后再推送. 推送后确认 `plugin-index.yml` 通过, 机器人重新生成的提交中 Java Libraries 条目不变.
+  8. 收尾: 在宿主 6.8.1 的插件中心核对条目, 下载安装, 并用启动页 "在脚本中使用" 的示例 (附录 C 的类) 做一次冒烟; 勾选 P3.4 并写结果 (versionCode, APK 字节数与 SHA-256, 插件标签提交, 索引提交).
 
 ---
 
