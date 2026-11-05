@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="plugin_description">AutoJs6 스크립트에서 Java 클래스로 바로 쓸 수 있는 Apache Commons Lang3, Commons IO, Jackson</string>
+</resources>

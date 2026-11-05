@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="plugin_description">Apache Commons Lang3, Commons IO y Jackson para usar directamente como clases Java en scripts de AutoJs6</string>
+</resources>

@@ -18,9 +18,6 @@ gradlew text eol=lf
 *.jks binary
 *.png binary
 
-# The module files are read by AutoJs6 as they are: keep them byte for byte (they match AutoJs6 assets/modules).
-app/src/main/assets/modules/** -text
-
 # Icon Studio reproducible assets
 .icons/assets/** binary
 .icons/recipe.json text eol=lf

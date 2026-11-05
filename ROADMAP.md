@@ -146,7 +146,7 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ## P0: 仓库骨架
 
-状态: 进行中 (子会话 jl-p0). P0.1 完成.
+状态: 进行中 (子会话 jl-p0). P0.1 (3f30c15), P0.2 完成.
 
 ### P0.1 依赖, keep 与导出声明 (D2, D9, D10, D11)
 
@@ -158,9 +158,10 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ### P0.2 身份, 信息服务与许可证 (D8, D18)
 
-- [ ] (插件) `JavaLibrariesContract` (ID, engine, 指引引用), `JavaLibrariesInfoService` (照 `BundledLibrariesInfoService`), Manifest (`org.autojs.permission.PLUGIN`, 宿主 queries, `WAKE_ACTIVITY`, `requiresHostVersion`), 资源 `plugin_id` / `plugin_engine` / `plugin_variant` / `plugin_requires_host_version`.
-- [ ] (插件) `LICENSE` (Apache-2.0), `THIRD_PARTY_NOTICES.md` (三个库的许可证与 NOTICE), `.gitattributes`, `.editorconfig`, `AGENTS.md`, `prepush_check.py` 接入.
+- [x] (插件) `JavaLibrariesContract` (ID, engine, 指引引用), `JavaLibrariesInfoService` (照 `BundledLibrariesInfoService`), Manifest (`org.autojs.permission.PLUGIN`, 宿主 queries, `WAKE_ACTIVITY`, `requiresHostVersion`), 资源 `plugin_id` / `plugin_engine` / `plugin_variant` / `plugin_requires_host_version`.
+- [x] (插件) `LICENSE` (Apache-2.0), `THIRD_PARTY_NOTICES.md` (三个库的许可证与 NOTICE), `.gitattributes`, `.editorconfig`, `AGENTS.md`, `prepush_check.py` 接入.
 - 验收: debug 包装到一台设备后插件中心列出 `Java Libraries` 并默认启用 (官方签名或 debug 签名按宿主现行规则).
+  - 结果 (2026-11-05): `.python/device_plugin_center_check.py` 在 G8441 (BH900ASK9E, Android 9) 上全部 PASS: 宿主临时换装 6.8.1 debug (versionCode 6640, 测完装回 5935, md5 一致), INFO 服务经包管理器解析到 `JavaLibrariesInfoService`, 签名状态 OFFICIAL, 默认启用策略 true, 打开插件中心后无关闭记录; 截图中 `Java Libraries 1.0.0 (2)` 置顶 (新安装), 开关为开. 注意: 低于 6640 的宿主会把插件标为需要更高版本并写入关闭记录 (宿主现行规则), 设备检查须用 6640 及以上的宿主, 脚本的 `--host-apk` 负责临时换装与还原. `check_repository.py` 与 `prepush_check.py` 已接入, 但要等 P0.5 的 README / changelog 与 P0.3 的图标齐备后才能无错误通过.
 
 ### P0.3 图标 (附录 D Q1)
 

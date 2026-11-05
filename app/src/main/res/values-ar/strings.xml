@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="plugin_description">مكتبات Java من Apache Commons Lang3 وCommons IO وJackson للاستخدام المباشر في سكربتات AutoJs6</string>
+</resources>

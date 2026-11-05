@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="plugin_description">供 AutoJs6 脚本以 Java 类直接调用的 Apache Commons Lang3, Commons IO 与 Jackson</string>
+</resources>
