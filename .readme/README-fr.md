@@ -63,7 +63,7 @@ Les classes de chaque bibliothèque se trouvent dans le paquet Java du tableau c
 
 ******
 
-1. Utilisez AutoJs6 6.8.1 (build 6640) ou ultérieur.
+1. Utilisez AutoJs6 6.8.1 (build 6641) ou ultérieur.
 2. Installez Java Libraries depuis le Centre des plugins d'AutoJs6 (ou téléchargez l'APK depuis [Releases](https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries/releases)) et vérifiez que le plugin est activé.
 3. Utilisez les classes des bibliothèques par leur nom complet dans les scripts (ou après `importClass` ou `importPackage`), par exemple:
 
@@ -115,7 +115,7 @@ Quand le plugin n'est pas installé, pas autorisé, désactivé dans le Centre d
 
 ******
 
-- Nécessite AutoJs6 6.8.1 (build 6640) ou ultérieur. AutoJs6 6.7.0 et les versions antérieures intègrent eux-mêmes ces bibliothèques et n'ont pas besoin du plugin; AutoJs6 6.8.0 ne peut pas utiliser le plugin.
+- Nécessite AutoJs6 6.8.1 (build 6641) ou ultérieur. AutoJs6 6.7.0 et les versions antérieures intègrent eux-mêmes ces bibliothèques et n'ont pas besoin du plugin; AutoJs6 6.8.0 ne peut pas utiliser le plugin.
 - Prend en charge Android 7.0 (API 24) ou ultérieur, avec un seul paquet pour toutes les architectures de processeur.
 - Les versions des bibliothèques sont celles qu'intégrait AutoJs6 6.7.0: les scripts existants n'ont rien à changer.
 - Comme dans AutoJs6 6.7.0, les bibliothèques passent par le core library desugaring: les méthodes avec des paramètres ou résultats `java.time` utilisent les types désucrés `j$.time`.
@@ -170,7 +170,7 @@ engine: java-libraries
 info service: org.autojs.plugin.INFO (category java-libraries)
 exported packages: meta-data org.autojs.plugin.javaPackages.EXPORTS = org.apache.commons.lang3,org.apache.commons.io,com.fasterxml.jackson
 wake action: org.autojs.plugin.action.WAKE
-minimum host build: 6640
+minimum host build: 6641
 native library: none (all ABIs)
 ```
 
@@ -194,7 +194,7 @@ La liste de contrôle avant publication, les décisions et les étapes de public
 
 _2026/11/05_
 
-- `Note` Nécessite AutoJs6 6.8.1 (build 6640) ou ultérieur
+- `Note` Nécessite AutoJs6 6.8.1 (build 6641) ou ultérieur
 - `Note` Depuis AutoJs6 6.8.0, Apache Commons Lang3, Commons IO et Jackson ne sont plus intégrés; avec ce plugin installé et activé, les scripts utilisent les classes de ces bibliothèques par leur nom complet comme avec AutoJs6 6.7.0, et les scripts existants n'ont rien à changer
 - `Fonctionnalité` Apache Commons Lang3 3.18.0, Apache Commons IO 2.8.0 et Jackson 2.13.4.2 (core et annotations 2.13.4), les versions qu'intégrait AutoJs6 6.7.0
 - `Fonctionnalité` Le plugin n'est qu'un paquet de ressources: AutoJs6 charge les classes directement depuis le plugin, exécuter un script ne démarre jamais le processus du plugin, et le plugin ne demande aucune autorisation

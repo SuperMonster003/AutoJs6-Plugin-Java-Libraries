@@ -18,12 +18,14 @@ plugins {
 
 val globalApplicationId = "io.github.supermonster003.autojs6.plugin.java.libraries"
 
-// The AutoJs6 build that loads exported Java packages from official plugins (ROADMAP.md D17). 6640 is the build number of
-// AutoJs6 6.8.1 under development; when 6.8.1 is final, set its build number here and in .readme/common.json before the
-// first release (ROADMAP.md P3.3; .python/check_repository.py keeps the two equal).
-// zh-CN: 能从官方插件加载导出 Java 包的 AutoJs6 构建 (ROADMAP.md D17). 6640 是开发中的 AutoJs6 6.8.1 的构建号; 6.8.1 定版后,
-// 首次发布前把这里与 .readme/common.json 改为其构建号 (ROADMAP.md P3.3; .python/check_repository.py 保证两处一致).
-val requiredHostVersionCode = 6640L
+// The AutoJs6 build that loads exported Java packages from official plugins (ROADMAP.md D17, appendix D Q7). The released
+// AutoJs6 6.8.0 is build 6640 and has no Java package exports, so the minimum is 6641: 6.8.0 lists the plugin as needing
+// a newer host, and 6.8.1 is released with a larger build number. .python/check_repository.py keeps this value equal to
+// .readme/common.json.
+// zh-CN: 能从官方插件加载导出 Java 包的 AutoJs6 构建 (ROADMAP.md D17, 附录 D Q7). 已发布的 AutoJs6 6.8.0 构建号为 6640,
+// 没有 Java 包导出, 所以最低为 6641: 6.8.0 把本插件列为需要更高版本, 6.8.1 发布时构建号更大. .python/check_repository.py
+// 保证此值与 .readme/common.json 一致.
+val requiredHostVersionCode = 6641L
 
 /**
  * The libraries AutoJs6 loads from this APK (ROADMAP.md D2), with the versions of gradle/libs.versions.toml. They are

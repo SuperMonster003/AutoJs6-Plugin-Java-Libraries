@@ -39,7 +39,7 @@
 | D14 | 打包应用运行时: `PluginJavaPackages` 在打包应用中先找带入的 zip, 首次使用时按 SHA-256 解出到 `noBackupFilesDir/java-packages/`, 设为只读 (Android 14 起动态加载的代码文件必须只读) 后用父加载器为启动类加载器的 `DexClassLoader` 加载; 没有带入时退回已安装插件 (与 P7.1 Q187 一致); 两者都没有时给现有的打包应用指引 | P2.2 前 |
 | D15 | 扫描: 对项目脚本做静态文本扫描, 命中登记表任一导出 `Entry` 前缀 (按 `.` 边界) 即带入对应插件; 加密脚本与 4 MB 以上的文件不扫 (与 P7.1 `ScriptModuleUsageScanner` 一致). 插件缺失, 未授权, 关闭或版本无导出时打包照常成功, 成功对话框列出未带入的插件与做法 (与 P7.1 Q186 一致). 是否通用于 Pinyin4j 等全部导出插件见附录 D Q2 | P2.1 前 |
 | D16 | 打包页 "库" 中新增 `ApkBuildLibrary.JAVA_LIBRARIES` (label `Java Libraries`, 别名 `java-libraries` / `java_libraries` / `javalibraries`), 勾选即带入整个插件, 不按库拆分 | P2.1 前 |
-| D17 | 最低宿主: `requiresHostVersion` 填宿主 6.8.1 定版时的 versionCode (宿主 `VERSION_BUILD` 即 versionCode, 6.8.1 发布前尚未确定); 开发期先填当前 6640 并在 P3.3 回填, `check_repository.py` 保证 `app/build.gradle.kts` 与 `.readme/common.json` 两处一致 | P3.3 |
+| D17 | 最低宿主: `requiresHostVersion` 填宿主 6.8.1 定版时的 versionCode (宿主 `VERSION_BUILD` 即 versionCode, 6.8.1 发布前尚未确定); 开发期先填当前 6640 并在 P3.3 回填 (P3.3 按附录 D Q7 填 6641: 公开 6.8.0 也是 6640), `check_repository.py` 保证 `app/build.gradle.kts` 与 `.readme/common.json` 两处一致 | P3.3 |
 | D18 | 许可证: 插件本身 Apache-2.0; 三个库均为 Apache-2.0, 附带各自的 NOTICE 内容, 写进 `THIRD_PARTY_NOTICES.md` 与启动页 | P0.2 |
 
 ## 3. 范围与非目标
@@ -255,7 +255,8 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ### P3.3 最低宿主回填 (D17)
 
-- [ ] (插件) 宿主 6.8.1 定版后把 `requiresHostVersion` 改为其 versionCode, `.readme/common.json` 同步.
+- [x] (插件) 宿主 6.8.1 定版后把 `requiresHostVersion` 改为其 versionCode, `.readme/common.json` 同步.
+- 结果 (2026-11-05, jl-p4; 本提交): 按附录 D Q7 填 6641, 不是 6640: 公开的 6.8.0 的 versionCode 也是 6640 (宿主 `ef27581df9` 把偏移并入 `VERSION_BUILD`) 而没有 Java 包导出, 6641 使 6.8.0 把插件列为需要更高版本, 6.8.1 发布时构建号必然更大. 改动: `app/build.gradle.kts` 的 `requiredHostVersionCode` (清单 `requiresHostVersion` 占位与 resValue `plugin_requires_host_version` 都取它) 与注释, `.readme/common.json`, `.python/device_plugin_center_check.py` 的 `REQUIRED_HOST`; 再生成 README 11 份, changelog 资产 14 份与插件说明 (`MARKDOWN_OK languages=10 artifacts=36`). 单元测试中没有最低宿主断言 (`HostAppearanceTest` / `JavaLibrariesSmokeTest` 中的 6640 是样例数据), 未改. 验收: `:app:testDebugUnitTest --no-daemon` 18 / 18 通过, `check_repository.py` 0 错误, `prepush_check.py --no-gradle` 5 / 5. 注意: 现有 debug 6640 宿主也会把本插件判为需要更高版本, 直到宿主 `VERSION_BUILD` 升到 6641 (维护者待办).
 
 ### P3.4 发布
 

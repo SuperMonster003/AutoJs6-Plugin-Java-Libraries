@@ -8,7 +8,7 @@
 
 ###### 2026/11/05
 
-* `Aviso` Requiere AutoJs6 6.8.1 (build 6640) o posterior
+* `Aviso` Requiere AutoJs6 6.8.1 (build 6641) o posterior
 * `Aviso` Desde AutoJs6 6.8.0, Apache Commons Lang3, Commons IO y Jackson ya no vienen incluidos; con este plugin instalado y activado, los scripts usan las clases de estas bibliotecas por su nombre completo como con AutoJs6 6.7.0, y los scripts existentes no necesitan cambios
 * `Función` Apache Commons Lang3 3.18.0, Apache Commons IO 2.8.0 y Jackson 2.13.4.2 (core y annotations 2.13.4), las versiones que incluía AutoJs6 6.7.0
 * `Función` El plugin es solo un paquete de recursos: AutoJs6 carga las clases directamente del plugin, ejecutar scripts nunca inicia el proceso del plugin y el plugin no pide ningún permiso

@@ -2,7 +2,7 @@
 
     py -3.12 -I .python/device_plugin_center_check.py -s SERIAL --plugin-apk PLUGIN.apk --work DIR [--host-apk HOST.apk]
 
-The plugin needs host 6640 or later (requiresHostVersion, ROADMAP.md D17). On an older host Plugin Center lists it as
+The plugin needs host 6641 or later (requiresHostVersion, ROADMAP.md D17). On an older host Plugin Center lists it as
 needing a newer host and stores it as switched off, so give --host-apk (a debuggable AutoJs6 build of that version or
 later, signed like the installed one): the installed host is pulled to DIR, replaced for the check and installed back at
 the end, with the MD5 of the device copy compared to the backup.
@@ -26,7 +26,7 @@ import time
 HOST = "org.autojs.autojs6"
 PLUGIN = "io.github.supermonster003.autojs6.plugin.java.libraries"
 ENGINE = "java-libraries"
-REQUIRED_HOST = 6640
+REQUIRED_HOST = 6641
 RUN_ACTIVITY = "org.autojs.autojs.external.open.RunIntentActivity"
 DEVICE_DIR = "/sdcard/Download/aj6-java-libraries-check"
 MARK = "AJ6JL"

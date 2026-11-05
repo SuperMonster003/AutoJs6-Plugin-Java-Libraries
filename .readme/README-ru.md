@@ -63,7 +63,7 @@ Java Libraries возвращает на устройство три Java-биб
 
 ******
 
-1. Используйте AutoJs6 6.8.1 (сборка 6640) или новее.
+1. Используйте AutoJs6 6.8.1 (сборка 6641) или новее.
 2. Установите Java Libraries из Центра плагинов AutoJs6 (или скачайте APK из [Releases](https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries/releases)) и убедитесь, что плагин включён.
 3. Используйте классы библиотек в скриптах по полным именам (или после `importClass` или `importPackage`), например:
 
@@ -115,7 +115,7 @@ console.log(mapper.writeValueAsString(tree)); // {"name":"AutoJs6","version":6}
 
 ******
 
-- Требуется AutoJs6 6.8.1 (сборка 6640) или новее. AutoJs6 6.7.0 и более ранние версии сами содержат эти библиотеки и не нуждаются в плагине; AutoJs6 6.8.0 не может использовать плагин.
+- Требуется AutoJs6 6.8.1 (сборка 6641) или новее. AutoJs6 6.7.0 и более ранние версии сами содержат эти библиотеки и не нуждаются в плагине; AutoJs6 6.8.0 не может использовать плагин.
 - Поддерживается Android 7.0 (API 24) или новее, один пакет для всех архитектур процессора.
 - Версии библиотек те же, что входили в AutoJs6 6.7.0, поэтому существующие скрипты менять не нужно.
 - Как и в AutoJs6 6.7.0, библиотеки проходят core library desugaring: методы с параметрами или результатами типов `java.time` используют преобразованные типы `j$.time`.
@@ -170,7 +170,7 @@ engine: java-libraries
 info service: org.autojs.plugin.INFO (category java-libraries)
 exported packages: meta-data org.autojs.plugin.javaPackages.EXPORTS = org.apache.commons.lang3,org.apache.commons.io,com.fasterxml.jackson
 wake action: org.autojs.plugin.action.WAKE
-minimum host build: 6640
+minimum host build: 6641
 native library: none (all ABIs)
 ```
 
@@ -194,7 +194,7 @@ native library: none (all ABIs)
 
 _2026/11/05_
 
-- `Подсказка` Требуется AutoJs6 6.8.1 (сборка 6640) или новее
+- `Подсказка` Требуется AutoJs6 6.8.1 (сборка 6641) или новее
 - `Подсказка` Начиная с AutoJs6 6.8.0 Apache Commons Lang3, Commons IO и Jackson больше не встроены; с установленным и включённым плагином скрипты используют классы этих библиотек по полным именам, как в AutoJs6 6.7.0, и существующие скрипты менять не нужно
 - `Функция` Apache Commons Lang3 3.18.0, Apache Commons IO 2.8.0 и Jackson 2.13.4.2 (core и annotations 2.13.4) - те же версии, что входили в AutoJs6 6.7.0
 - `Функция` Плагин - лишь пакет ресурсов: AutoJs6 загружает классы прямо из плагина, запуск скриптов никогда не запускает процесс плагина, а плагин не запрашивает никаких разрешений

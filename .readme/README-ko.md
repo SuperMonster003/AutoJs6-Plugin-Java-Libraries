@@ -63,7 +63,7 @@ Java Libraries 는 예전에 AutoJs6 에 내장되어 있던 세 Java 라이브�
 
 ******
 
-1. AutoJs6 6.8.1 (빌드 6640) 이상을 사용합니다.
+1. AutoJs6 6.8.1 (빌드 6641) 이상을 사용합니다.
 2. AutoJs6 의 플러그인 센터에서 Java Libraries 를 설치하고 ([Releases](https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries/releases) 에서 APK 를 내려받아 설치해도 됩니다), 플러그인이 활성화되어 있는지 확인합니다.
 3. 스크립트에서 라이브러리의 클래스를 전체 이름으로 사용합니다 (먼저 `importClass` 나 `importPackage` 를 써도 됩니다). 예:
 
@@ -115,7 +115,7 @@ AutoJs6 로 스크립트를 독립 앱으로 패키징할 때 이 플러그인�
 
 ******
 
-- AutoJs6 6.8.1 (빌드 6640) 이상이 필요합니다. AutoJs6 6.7.0 이하는 이 라이브러리들을 내장하고 있어 이 플러그인이 필요 없으며, AutoJs6 6.8.0 에서는 이 플러그인을 쓸 수 없습니다.
+- AutoJs6 6.8.1 (빌드 6641) 이상이 필요합니다. AutoJs6 6.7.0 이하는 이 라이브러리들을 내장하고 있어 이 플러그인이 필요 없으며, AutoJs6 6.8.0 에서는 이 플러그인을 쓸 수 없습니다.
 - Android 7.0 (API 24) 이상을 지원하며, 패키지 하나로 모든 프로세서 아키텍처를 지원합니다.
 - 라이브러리 버전이 AutoJs6 6.7.0 에 내장되어 있던 것과 같으므로 기존 스크립트를 고칠 필요가 없습니다.
 - AutoJs6 6.7.0 과 마찬가지로 이 라이브러리들에는 core library desugaring 이 적용되어 있습니다. 매개변수나 반환값이 `java.time` 타입인 메서드는 desugaring 된 `j$.time` 타입을 사용합니다.
@@ -170,7 +170,7 @@ engine: java-libraries
 info service: org.autojs.plugin.INFO (category java-libraries)
 exported packages: meta-data org.autojs.plugin.javaPackages.EXPORTS = org.apache.commons.lang3,org.apache.commons.io,com.fasterxml.jackson
 wake action: org.autojs.plugin.action.WAKE
-minimum host build: 6640
+minimum host build: 6641
 native library: none (all ABIs)
 ```
 
@@ -194,7 +194,7 @@ native library: none (all ABIs)
 
 _2026/11/05_
 
-- `힌트` AutoJs6 6.8.1 (빌드 6640) 이상이 필요합니다
+- `힌트` AutoJs6 6.8.1 (빌드 6641) 이상이 필요합니다
 - `힌트` AutoJs6 6.8.0 부터 Apache Commons Lang3, Commons IO, Jackson 이 더 이상 내장되지 않습니다. 이 플러그인을 설치하고 활성화하면 스크립트는 AutoJs6 6.7.0 과 같이 이 라이브러리들의 클래스를 전체 이름으로 사용하며, 기존 스크립트를 고칠 필요가 없습니다
 - `기능` Apache Commons Lang3 3.18.0, Apache Commons IO 2.8.0, Jackson 2.13.4.2 (core 와 annotations 는 2.13.4). 버전은 AutoJs6 6.7.0 에 내장되어 있던 것과 같습니다
 - `기능` 플러그인은 리소스 패키지일 뿐입니다. AutoJs6 가 플러그인에서 직접 클래스를 불러오므로 스크립트를 실행해도 플러그인 프로세스가 시작되지 않고, 플러그인은 어떤 권한도 요청하지 않습니다

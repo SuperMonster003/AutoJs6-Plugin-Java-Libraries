@@ -8,7 +8,7 @@
 
 ###### 2026/11/05
 
-* `提示` 需要 AutoJs6 6.8.1 (構建 6640) 或更高版本
+* `提示` 需要 AutoJs6 6.8.1 (構建 6641) 或更高版本
 * `提示` AutoJs6 6.8.0 起不再內置 Apache Commons Lang3, Commons IO 與 Jackson; 安裝並啟用本插件後, 腳本照常以全名使用這些庫的類, 寫法與 AutoJs6 6.7.0 相同, 原有腳本無需修改
 * `新增` Apache Commons Lang3 3.18.0, Apache Commons IO 2.8.0 與 Jackson 2.13.4.2 (core 與 annotations 為 2.13.4), 版本與 AutoJs6 6.7.0 內置的相同
 * `新增` 插件只是一個資源包: AutoJs6 直接從插件載入這些類, 腳本運行時不啟動插件進程, 插件不申請任何權限

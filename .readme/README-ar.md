@@ -63,7 +63,7 @@
 
 ******
 
-1. استخدم AutoJs6 6.8.1 (البناء 6640) أو أحدث.
+1. استخدم AutoJs6 6.8.1 (البناء 6641) أو أحدث.
 2. ثبت Java Libraries من مركز الاضافات في AutoJs6 (أو نزل ملف APK من [Releases](https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries/releases)) وتأكد من أن المكون مفعل.
 3. استخدم أصناف المكتبات بأسمائها الكاملة في السكربتات (أو بعد `importClass` أو `importPackage`), مثلا:
 
@@ -115,7 +115,7 @@ console.log(mapper.writeValueAsString(tree)); // {"name":"AutoJs6","version":6}
 
 ******
 
-- يتطلب AutoJs6 6.8.1 (البناء 6640) أو أحدث. يتضمن AutoJs6 6.7.0 والإصدارات الأقدم هذه المكتبات بنفسه ولا يحتاج إلى المكون; ولا يستطيع AutoJs6 6.8.0 استخدام المكون.
+- يتطلب AutoJs6 6.8.1 (البناء 6641) أو أحدث. يتضمن AutoJs6 6.7.0 والإصدارات الأقدم هذه المكتبات بنفسه ولا يحتاج إلى المكون; ولا يستطيع AutoJs6 6.8.0 استخدام المكون.
 - يدعم Android 7.0 (API 24) أو أحدث, بحزمة واحدة لجميع معماريات المعالجات.
 - إصدارات المكتبات هي التي كان AutoJs6 6.7.0 يتضمنها, لذا لا تحتاج السكربتات الحالية إلى أي تعديل.
 - كما في AutoJs6 6.7.0 تمر المكتبات عبر core library desugaring: تستخدم الدوال ذات المعاملات أو النتائج من أنواع `java.time` الأنواع المحولة `j$.time`.
@@ -170,7 +170,7 @@ engine: java-libraries
 info service: org.autojs.plugin.INFO (category java-libraries)
 exported packages: meta-data org.autojs.plugin.javaPackages.EXPORTS = org.apache.commons.lang3,org.apache.commons.io,com.fasterxml.jackson
 wake action: org.autojs.plugin.action.WAKE
-minimum host build: 6640
+minimum host build: 6641
 native library: none (all ABIs)
 ```
 
@@ -194,7 +194,7 @@ native library: none (all ABIs)
 
 _2026/11/05_
 
-- `تلميح` يتطلب AutoJs6 6.8.1 (البناء 6640) أو أحدث
+- `تلميح` يتطلب AutoJs6 6.8.1 (البناء 6641) أو أحدث
 - `تلميح` بدءا من AutoJs6 6.8.0 لم تعد Apache Commons Lang3 وCommons IO وJackson مدمجة; ومع تثبيت هذا المكون وتفعيله تستخدم السكربتات أصناف هذه المكتبات بأسمائها الكاملة كما في AutoJs6 6.7.0, ولا تحتاج السكربتات الحالية إلى أي تعديل
 - `ميزة` Apache Commons Lang3 3.18.0 وApache Commons IO 2.8.0 وJackson 2.13.4.2 (core وannotations بالإصدار 2.13.4), وهي الإصدارات التي كان AutoJs6 6.7.0 يتضمنها
 - `ميزة` المكون مجرد حزمة موارد: يحمل AutoJs6 الأصناف مباشرة من المكون, وتشغيل السكربتات لا يشغل عملية المكون أبدا, ولا يطلب المكون أي إذن

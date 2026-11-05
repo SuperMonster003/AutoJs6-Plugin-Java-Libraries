@@ -8,7 +8,7 @@
 
 ###### 2026/11/05
 
-* `提示` 需要 AutoJs6 6.8.1 (建置 6640) 或更新版本
+* `提示` 需要 AutoJs6 6.8.1 (建置 6641) 或更新版本
 * `提示` AutoJs6 6.8.0 起不再內建 Apache Commons Lang3, Commons IO 與 Jackson; 安裝並啟用本外掛後, 腳本照常以全名使用這些函式庫的類別, 寫法與 AutoJs6 6.7.0 相同, 原有腳本無需修改
 * `新增` Apache Commons Lang3 3.18.0, Apache Commons IO 2.8.0 與 Jackson 2.13.4.2 (core 與 annotations 為 2.13.4), 版本與 AutoJs6 6.7.0 內建的相同
 * `新增` 外掛只是一個資源套件: AutoJs6 直接從外掛載入這些類別, 腳本執行時不啟動外掛處理程序, 外掛不要求任何權限

@@ -63,7 +63,7 @@ Java Libraries 把 AutoJs6 过去内置的三个 Java 库装回设备: Apache Co
 
 ******
 
-1. 使用 AutoJs6 6.8.1 (构建 6640) 或更高版本.
+1. 使用 AutoJs6 6.8.1 (构建 6641) 或更高版本.
 2. 在 AutoJs6 的插件中心安装 Java Libraries (也可以从 [Releases](https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries/releases) 下载 APK 安装), 并确认插件处于启用状态.
 3. 在脚本中以全名使用库中的类 (也可以先 `importClass` 或 `importPackage`), 例如:
 
@@ -115,7 +115,7 @@ console.log(mapper.writeValueAsString(tree)); // {"name":"AutoJs6","version":6}
 
 ******
 
-- 需要 AutoJs6 6.8.1 (构建 6640) 或更高版本. AutoJs6 6.7.0 及更早版本自带这些库, 不需要本插件; AutoJs6 6.8.0 不能使用本插件.
+- 需要 AutoJs6 6.8.1 (构建 6641) 或更高版本. AutoJs6 6.7.0 及更早版本自带这些库, 不需要本插件; AutoJs6 6.8.0 不能使用本插件.
 - 支持 Android 7.0 (API 24) 及以上, 一个安装包适用于所有处理器架构.
 - 库的版本与 AutoJs6 6.7.0 内置的相同, 原有脚本无需修改.
 - 与 AutoJs6 6.7.0 相同, 这些库经过 core library desugaring: 参数或返回值为 `java.time` 类型的方法使用的是脱糖后的 `j$.time` 类型.
@@ -170,7 +170,7 @@ engine: java-libraries
 info service: org.autojs.plugin.INFO (category java-libraries)
 exported packages: meta-data org.autojs.plugin.javaPackages.EXPORTS = org.apache.commons.lang3,org.apache.commons.io,com.fasterxml.jackson
 wake action: org.autojs.plugin.action.WAKE
-minimum host build: 6640
+minimum host build: 6641
 native library: none (all ABIs)
 ```
 
@@ -194,7 +194,7 @@ native library: none (all ABIs)
 
 _2026/11/05_
 
-- `提示` 需要 AutoJs6 6.8.1 (构建 6640) 或更高版本
+- `提示` 需要 AutoJs6 6.8.1 (构建 6641) 或更高版本
 - `提示` AutoJs6 6.8.0 起不再内置 Apache Commons Lang3, Commons IO 与 Jackson; 安装并启用本插件后, 脚本照常以全名使用这些库的类, 写法与 AutoJs6 6.7.0 相同, 原有脚本无需修改
 - `新增` Apache Commons Lang3 3.18.0, Apache Commons IO 2.8.0 与 Jackson 2.13.4.2 (core 与 annotations 为 2.13.4), 版本与 AutoJs6 6.7.0 内置的相同
 - `新增` 插件只是一个资源包: AutoJs6 直接从插件加载这些类, 脚本运行时不启动插件进程, 插件不申请任何权限
