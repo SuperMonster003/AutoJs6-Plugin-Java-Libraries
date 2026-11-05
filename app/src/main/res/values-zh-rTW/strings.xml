@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="plugin_description">供 AutoJs6 腳本以 Java 類別直接呼叫的 Apache Commons Lang3, Commons IO 與 Jackson</string>
+    <string name="text_group_libraries">函式庫</string>
+    <string name="text_group_notices">NOTICE 檔案</string>
+    <string name="text_group_usage">在腳本中使用</string>
+    <string name="text_library_artifacts">構件: %1$s</string>
+    <string name="text_library_license">授權: %1$s</string>
+    <string name="text_library_package">Java 套件: %1$s</string>
+    <string name="text_library_version">版本 %1$s</string>
+    <string name="text_release_history">發行記錄</string>
+    <string name="text_release_history_load_failed">無法載入發行記錄</string>
+    <string name="text_settings_summary">供 AutoJs6 腳本使用的 Java 函式庫. 本外掛已安裝並在外掛中心啟用時, 腳本以完整名稱使用其中的類別, 與 AutoJs6 6.7.0 及更早版本內建這些函式庫時相同.</string>
+    <string name="text_usage_summary">以完整名稱使用其中的類別, 註解為各行的輸出:</string>
 </resources>

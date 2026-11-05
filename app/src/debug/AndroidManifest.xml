@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application>
+
+        <!-- Debug builds only: the release history page from adb (am start), for .python/device_host_appearance_check.py. -->
+        <activity
+            android:name=".ReleaseHistoryActivity"
+            android:exported="true"
+            android:permission="android.permission.DUMP"
+            tools:replace="android:exported" />
+
+    </application>
+
+</manifest>

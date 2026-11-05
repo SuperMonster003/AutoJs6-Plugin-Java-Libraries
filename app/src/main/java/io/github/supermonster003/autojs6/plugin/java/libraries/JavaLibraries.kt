@@ -1,9 +1,10 @@
 package io.github.supermonster003.autojs6.plugin.java.libraries
 
 /**
- * A library of this plugin (ROADMAP.md D1, D2): its Maven artifacts with their versions, its license and the Java package
- * AutoJs6 scripts reach it by.
- * zh-CN: 本插件收录的一个库 (ROADMAP.md D1, D2): Maven 构件及其版本, 许可证, 以及 AutoJs6 脚本访问它所用的 Java 包.
+ * A library of this plugin (ROADMAP.md D1, D2): its Maven artifacts with their versions, its license, the Java package
+ * AutoJs6 scripts reach it by and the NOTICE file it ships (ROADMAP.md D18, as in THIRD_PARTY_NOTICES.md).
+ * zh-CN: 本插件收录的一个库 (ROADMAP.md D1, D2): Maven 构件及其版本, 许可证, AutoJs6 脚本访问它所用的 Java 包, 以及它随附的
+ * NOTICE 文件 (ROADMAP.md D18, 同 THIRD_PARTY_NOTICES.md).
  */
 internal data class Library(
     val name: String,
@@ -11,6 +12,7 @@ internal data class Library(
     val license: String,
     val exportedPackage: String,
     val url: String,
+    val notice: String,
 ) {
     data class Artifact(val module: String, val version: String)
 }
@@ -25,6 +27,47 @@ internal object JavaLibraries {
 
     const val LICENSE = "Apache-2.0"
 
+    // The NOTICE files as the libraries publish them (META-INF of each jar; jackson-databind and jackson-core ship the
+    // same text, jackson-annotations none). JavaLibrariesCatalogTest compares them with THIRD_PARTY_NOTICES.md.
+    // zh-CN: 各库发布的 NOTICE 文件原文 (各 jar 的 META-INF; jackson-databind 与 jackson-core 内容相同, jackson-annotations 没有).
+    // JavaLibrariesCatalogTest 将其与 THIRD_PARTY_NOTICES.md 比对.
+
+    private val NOTICE_COMMONS_LANG = """
+        Apache Commons Lang
+        Copyright 2001-2025 The Apache Software Foundation
+
+        This product includes software developed at
+        The Apache Software Foundation (https://www.apache.org/).
+    """.trimIndent()
+
+    private val NOTICE_COMMONS_IO = """
+        Apache Commons IO
+        Copyright 2002-2020 The Apache Software Foundation
+
+        This product includes software developed at
+        The Apache Software Foundation (https://www.apache.org/).
+    """.trimIndent()
+
+    private val NOTICE_JACKSON = """
+        # Jackson JSON processor
+
+        Jackson is a high-performance, Free/Open Source JSON processing library.
+        It was originally written by Tatu Saloranta (tatu.saloranta@iki.fi), and has
+        been in development since 2007.
+        It is currently developed by a community of developers.
+
+        ## Licensing
+
+        Jackson 2.x core and extension components are licensed under Apache License 2.0
+        To find the details that apply to this artifact see the accompanying LICENSE file.
+
+        ## Credits
+
+        A list of contributors may be found from CREDITS(-2.x) file, which is included
+        in some artifacts (usually source distributions); but is always available
+        from the source code management (SCM) system project uses.
+    """.trimIndent()
+
     val ALL = listOf(
         Library(
             name = "Apache Commons Lang",
@@ -32,6 +75,7 @@ internal object JavaLibraries {
             license = LICENSE,
             exportedPackage = "org.apache.commons.lang3",
             url = "https://commons.apache.org/proper/commons-lang/",
+            notice = NOTICE_COMMONS_LANG,
         ),
         Library(
             name = "Apache Commons IO",
@@ -39,6 +83,7 @@ internal object JavaLibraries {
             license = LICENSE,
             exportedPackage = "org.apache.commons.io",
             url = "https://commons.apache.org/proper/commons-io/",
+            notice = NOTICE_COMMONS_IO,
         ),
         Library(
             name = "Jackson",
@@ -50,6 +95,7 @@ internal object JavaLibraries {
             license = LICENSE,
             exportedPackage = "com.fasterxml.jackson",
             url = "https://github.com/FasterXML/jackson",
+            notice = NOTICE_JACKSON,
         ),
     )
 

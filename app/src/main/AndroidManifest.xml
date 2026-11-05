@@ -34,6 +34,23 @@
             android:name="org.autojs.plugin.javaPackages.EXPORTS"
             android:value="org.apache.commons.lang3,org.apache.commons.io,com.fasterxml.jackson" />
 
+        <!-- The launch page of the Plugin Center entry (ROADMAP.md D12): the libraries, their use and NOTICE files. -->
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="true"
+            android:theme="@style/Theme.JavaLibraries">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ReleaseHistoryActivity"
+            android:exported="false"
+            android:label="@string/text_release_history"
+            android:theme="@style/Theme.JavaLibraries" />
+
         <activity
             android:name=".WakeActivity"
             android:excludeFromRecents="true"

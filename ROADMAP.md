@@ -146,7 +146,7 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ## P0: 仓库骨架
 
-状态: 进行中 (子会话 jl-p0). P0.1 (3f30c15), P0.2 完成.
+状态: 进行中 (子会话 jl-p0). P0.1 (3f30c15), P0.2 (890428d), P0.4 完成.
 
 ### P0.1 依赖, keep 与导出声明 (D2, D9, D10, D11)
 
@@ -170,8 +170,10 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ### P0.4 启动页与发布历史 (D12)
 
-- [ ] (插件) 启动页 (三个库的版本, 许可证, 导出包, 示例), 发布历史页, 宿主外观跟随; 10 种语言字符串 (`plugin_description` 等), 按 name 排序, 半角标点.
+- [x] (插件) 启动页 (三个库的版本, 许可证, 导出包, 示例), 发布历史页, 宿主外观跟随; 10 种语言字符串 (`plugin_description` 等), 按 name 排序, 半角标点.
+  - 实现: `SettingsActivity` (说明, 库 (单构件显示版本, Jackson 列出三个构件与版本), 在脚本中使用 (附录 C 示例), NOTICE 文件 (与 `THIRD_PARTY_NOTICES.md` 一致, P0.5 测试核对), 发布历史入口); `HostAppearance` / `HostAppearanceActivity` / `AppearanceColors` / `ReleaseHistory` / `ReleaseHistoryActivity` 照 Bundled Libraries, 各节标题用可读化的宿主强调色 (本插件没有开关). 代码与 NOTICE 块等宽, 可选择, 横向滚动, 固定从左到右; 根视图段落方向按页面语言 (阿拉伯语为 RTL, 使拉丁文库名与版本标题也靠右; `TEXT_DIRECTION_LOCALE` 跟随系统语言, 不可用). 12 个字符串 x 10 种语言 (另 values 默认英语).
 - 验收: 亮暗主题与阿拉伯语 (RTL) 下页面正常.
+  - 结果 (2026-11-05): `.python/device_host_appearance_check.py` (照 Bundled Libraries, 不点按, 改宿主偏好后按字节还原) 在 G8441 (BH900ASK9E, Android 9, 宿主 debug 5935) 上 31 / 34 PASS: 阿拉伯语深色 (操作栏 / 状态栏 / 背景跟随, 标题强调色 #FF4081, 库名靠右, NOTICE 首行从左起), 简中亮色 (浅色强调色加深为 #998568, 库名靠左), 宿主停用时跟随系统亮色; 宿主偏好 md5 还原一致, 宿主重新启用, 插件已卸载. 未过的 3 项是发行历史正文 (`1.0.0`), 资产 `assets/doc/CHANGELOG-*.md` 由 P0.5 生成, 届时复测并写进 P0.5 结果. 截图已人工查看: RTL 下各行靠右, 双向文本次序正确.
 
 ### P0.5 测试, CI 与文档
 

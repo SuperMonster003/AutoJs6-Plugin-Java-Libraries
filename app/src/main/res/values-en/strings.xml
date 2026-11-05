@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="plugin_description">Apache Commons Lang3, Commons IO and Jackson for direct use as Java classes in AutoJs6 scripts</string>
+    <string name="text_group_libraries">Libraries</string>
+    <string name="text_group_notices">NOTICE files</string>
+    <string name="text_group_usage">Use in scripts</string>
+    <string name="text_library_artifacts">Artifacts: %1$s</string>
+    <string name="text_library_license">License: %1$s</string>
+    <string name="text_library_package">Java package: %1$s</string>
+    <string name="text_library_version">Version %1$s</string>
+    <string name="text_release_history">Release history</string>
+    <string name="text_release_history_load_failed">Unable to load the release history</string>
+    <string name="text_settings_summary">Java libraries for AutoJs6 scripts. While this plugin is installed and enabled in Plugin Center, scripts use their classes by full name, as with the libraries AutoJs6 6.7.0 and earlier included.</string>
+    <string name="text_usage_summary">Use the classes by their full names; the comments give what each line prints:</string>
 </resources>

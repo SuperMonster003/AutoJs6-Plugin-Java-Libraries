@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="plugin_description">AutoJs6 スクリプトから Java クラスとして直接使える Apache Commons Lang3, Commons IO, Jackson</string>
+    <string name="text_group_libraries">ライブラリ</string>
+    <string name="text_group_notices">NOTICE ファイル</string>
+    <string name="text_group_usage">スクリプトでの使い方</string>
+    <string name="text_library_artifacts">アーティファクト: %1$s</string>
+    <string name="text_library_license">ライセンス: %1$s</string>
+    <string name="text_library_package">Java パッケージ: %1$s</string>
+    <string name="text_library_version">バージョン %1$s</string>
+    <string name="text_release_history">リリース履歴</string>
+    <string name="text_release_history_load_failed">リリース履歴を読み込めません</string>
+    <string name="text_settings_summary">AutoJs6 スクリプト用の Java ライブラリ. このプラグインがインストールされ, プラグインセンターで有効な間, スクリプトはクラスを完全名で使えます. AutoJs6 6.7.0 以前に内蔵されていたときと同じです.</string>
+    <string name="text_usage_summary">クラスは完全名で使います. コメントは各行の出力です:</string>
 </resources>

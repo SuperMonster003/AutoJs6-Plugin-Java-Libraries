@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="plugin_description">供 AutoJs6 脚本以 Java 类直接调用的 Apache Commons Lang3, Commons IO 与 Jackson</string>
+    <string name="text_group_libraries">库</string>
+    <string name="text_group_notices">NOTICE 文件</string>
+    <string name="text_group_usage">在脚本中使用</string>
+    <string name="text_library_artifacts">构件: %1$s</string>
+    <string name="text_library_license">许可证: %1$s</string>
+    <string name="text_library_package">Java 包: %1$s</string>
+    <string name="text_library_version">版本 %1$s</string>
+    <string name="text_release_history">发行历史</string>
+    <string name="text_release_history_load_failed">无法加载发行历史</string>
+    <string name="text_settings_summary">供 AutoJs6 脚本使用的 Java 库. 本插件已安装并在插件中心启用时, 脚本以全名使用其中的类, 与 AutoJs6 6.7.0 及更早版本内置这些库时相同.</string>
+    <string name="text_usage_summary">以全名使用其中的类, 注释为各行的输出:</string>
 </resources>

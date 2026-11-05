@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="plugin_description">مكتبات Java من Apache Commons Lang3 وCommons IO وJackson للاستخدام المباشر في سكربتات AutoJs6</string>
+    <string name="text_group_libraries">المكتبات</string>
+    <string name="text_group_notices">ملفات NOTICE</string>
+    <string name="text_group_usage">الاستخدام في السكربتات</string>
+    <string name="text_library_artifacts">عناصر Maven: %1$s</string>
+    <string name="text_library_license">الترخيص: %1$s</string>
+    <string name="text_library_package">حزمة Java: %1$s</string>
+    <string name="text_library_version">الإصدار %1$s</string>
+    <string name="text_release_history">سجل الإصدارات</string>
+    <string name="text_release_history_load_failed">تعذر تحميل سجل الإصدارات</string>
+    <string name="text_settings_summary">مكتبات Java لسكربتات AutoJs6. ما دامت هذه الإضافة مثبتة ومفعلة في مركز الاضافات, تستخدم السكربتات فئاتها بأسمائها الكاملة, كما كانت مع المكتبات المضمنة في AutoJs6 6.7.0 والإصدارات الأقدم.</string>
+    <string name="text_usage_summary">استخدم الفئات بأسمائها الكاملة, وتبين التعليقات ما يطبعه كل سطر:</string>
 </resources>
