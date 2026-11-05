@@ -115,8 +115,8 @@
 
 | 阶段 | 版本 | 主题 | 状态 |
 | --- | --- | --- | --- |
-| P0 | 插件 1.0.0 | 仓库骨架: 依赖与 keep, 身份与信息服务, 启动页与图标, 测试与 CI, README / changelog | 进行中 (jl-p0) |
-| P1 | 宿主 6.8.1 | 登记表 `Entry` 与 `RETIRED` 调整, 指引与测试, 设备 `states` 用例扩到 Java Libraries, changelog | 未开始 |
+| P0 | 插件 1.0.0 | 仓库骨架: 依赖与 keep, 身份与信息服务, 启动页与图标, 测试与 CI, README / changelog | 完成 (jl-p0, 2026-11-05) |
+| P1 | 宿主 6.8.1 | 登记表 `Entry` 与 `RETIRED` 调整, 指引与测试, 设备 `states` 用例扩到 Java Libraries, changelog | 进行中 (P1.1 / P1.2 完成, 4af7048853; P1.3 待批次 2) |
 | P2 | 宿主 6.8.1 | 打包带入: 扫描与勾选, 载荷 zip, 成功对话框提示, 打包应用运行时加载, 设备检查 | 未开始 |
 | P3 | 插件 1.0.0 | 文档, 索引登记, 最低宿主回填, 发布 (等宿主 6.8.1) | 未开始 |
 
@@ -146,7 +146,7 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ## P0: 仓库骨架
 
-状态: 进行中 (子会话 jl-p0). P0.1 (3f30c15), P0.2 (890428d), P0.4 (a4dcbb3), P0.5 完成.
+状态: 完成 (子会话 jl-p0, 2026-11-05). P0.1 (3f30c15), P0.2 (890428d), P0.4 (a4dcbb3), P0.5 (8a15079), P0.3 (本阶段末提交).
 
 ### P0.1 依赖, keep 与导出声明 (D2, D9, D10, D11)
 
@@ -165,8 +165,10 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ### P0.3 图标 (附录 D Q1)
 
-- [ ] (插件) Icon Studio (`D:/webstorm-projects/AutoJs6-Icon-Studio`) 由源图生成全套资源与 `.icons/recipe.json`, 工程测试中的图标断言通过.
+- [x] (插件) Icon Studio (`D:/webstorm-projects/AutoJs6-Icon-Studio`) 由源图生成全套资源与 `.icons/recipe.json`, 工程测试中的图标断言通过.
+  - 实现: 子会话出三个候选 (A 花括号夹三块库模块, B 三个包裹, C 齿轮与花括号), 维护者 2026-11-05 选 A. 源图 `.icons/source/java-libraries.svg` (自包含路径与矩形, 彩色, 两主题共用); 照 Bundled Libraries, 先把 Icon Studio 的 1728 px 导入快照放成 `ic_plugin_center.png` 作初始图稿, 再由 Icon Studio 1.4.0 (catalog 配方, 色调模式 original, 背景亮 `#FAFAFA` / 暗 `#212121`, 不同步官方索引) 生成 15 个资源, `.icons/recipe.json` 与快照, 运行时 `.python/icon_studio_runtime.py` / `generate_icon_studio.py`, `.gitattributes` 条目, `icon-studio.yml` (用生成原样, 与 50 个插件仓库一致), 清单 `android:icon` / `roundIcon` = `@mipmap/ic_icon_studio_application`. README 图 `mipmap/ic_launcher.png` 为快照缩到 512 px (同 Bundled Libraries). `check_repository.py` 的图标检查 (README 图存在) 与 Bundled Libraries 相同, 无需另加.
 - 验收: 启动器与插件中心亮暗主题下图标可辨.
+  - 结果 (2026-11-05): `generate_icon_studio.py --check` 输出 `Verified 15 Icon Studio resources`; `check_repository.py` 0 错误; 单测 18 / 18, `assembleRelease` / `verifyReleaseDexClasses` / `lintDebug` 通过 (lint 0 错误, `MissingApplicationIcon` 消失, 新增 2 个 `IconDuplicatesConfig` 警告与 Bundled Libraries 相同); release 未签名 1210063 B (加入图标资源后比 P0.5 多 157692 B, README 体积改为约 1.2 MB), debug 3350759 B. 渲染核对: 圆形启动图标亮 / 暗, 自适应前景与单色层, 插件中心图在 `#FAFAFA` / `#212121` 上都清楚, 32 px 仍可辨. 真机: `device_plugin_center_check.py` 在 G8441 (BH900ASK9E) 上全部 PASS (宿主临时换装 6640, 测完装回 5935, md5 一致), 截图中插件中心亮色主题下新图标清晰; 暗色主题未在真机截图, 以渲染核对为准.
 
 ### P0.4 启动页与发布历史 (D12)
 
@@ -188,23 +190,26 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ## P1: 宿主登记表与指引
 
-状态: 未开始. 宿主工作区多会话共用: 只提交自己的文件, 不推送, 不切分支, 构建与其他会话错开.
+状态: 进行中. P1.1 / P1.2 完成 (宿主本地提交 4af7048853, 子会话 jl-p1, 未推送); P1.3 留给批次 2 (卡片 C). 宿主工作区多会话共用: 只提交自己的文件, 不推送, 不切分支, 构建与其他会话错开.
 
 ### P1.1 登记表 (D9)
 
-- [ ] (宿主) `PluginJavaPackageCatalog.ENTRIES` 加三条 `Entry(<前缀>, "io.github.supermonster003.autojs6.plugin.java.libraries", "java-libraries", "Java Libraries", "1.0.0")`; `RETIRED` 删去 `org.apache.commons.lang3`, `org.apache.commons.io`, `com.fasterxml.jackson` 三条; 静态引用白名单说明如需改动一并改.
-- [ ] (宿主) `PluginJavaPackageCatalogTest` / `PluginJavaPackageMessagesTest`: 三个前缀命中 `Entry`, 不再命中 `Retired`; 同一插件多前缀时 `unavailableReason` 各自判断导出 (插件只导出其中一个前缀的情况).
+- [x] (宿主) `PluginJavaPackageCatalog.ENTRIES` 加三条 `Entry(<前缀>, "io.github.supermonster003.autojs6.plugin.java.libraries", "java-libraries", "Java Libraries", "1.0.0")`; `RETIRED` 删去 `org.apache.commons.lang3`, `org.apache.commons.io`, `com.fasterxml.jackson` 三条; 静态引用白名单说明如需改动一并改.
+- [x] (宿主) `PluginJavaPackageCatalogTest` / `PluginJavaPackageMessagesTest`: 三个前缀命中 `Entry`, 不再命中 `Retired`; 同一插件多前缀时 `unavailableReason` 各自判断导出 (插件只导出其中一个前缀的情况).
 - 验收: `:app:testAppDebugUnitTest --tests 'org.autojs.autojs.core.plugin.javapackage.*' --tests '*StaticReferenceGuardTest'` 通过.
+  - 结果 (2026-11-05, jl-p1, 宿主 4af7048853): 登记表加三条 `Entry`, `RETIRED` 删三条, 静态引用白名单无需改; Catalog 10 / Messages 8 / StaticReferenceGuard 9 全过.
 
 ### P1.2 changelog
 
-- [ ] (宿主) 6.8.1 `feature` 条目改写为覆盖 Java Libraries (现有 "官方插件导出的 Java 类" 一条补上 Commons Lang3 / IO 与 Jackson), "已不再内置" 一条的举例去掉这三个库; 10 种语言, `generate_markdown.py` 与 `--check`, 翻译复核后 `check_translations.py --record-sync`.
+- [x] (宿主) 6.8.1 `feature` 条目改写为覆盖 Java Libraries (现有 "官方插件导出的 Java 类" 一条补上 Commons Lang3 / IO 与 Jackson), "已不再内置" 一条的举例去掉这三个库; 10 种语言, `generate_markdown.py` 与 `--check`, 翻译复核后 `check_translations.py --record-sync`.
 - 验收: `MARKDOWN_OK` 与 `CHANGELOG_TRANSLATIONS_OK`.
+  - 结果 (2026-11-05, jl-p1, 宿主 4af7048853): 10 种语言, `MARKDOWN_OK` / `CHANGELOG_TRANSLATIONS_OK`.
 
 ### P1.3 设备用例
 
 - [ ] (测试) `device_java_packages_check.py` 加 Java Libraries 的状态用例 (未安装 / 已启用 / 插件中心关闭 / 卸载后各写法, 已启用时冒烟: `StringUtils.isBlank`, `IOUtils.toString`, `ObjectMapper` 序列化与反序列化, 类与加载器来自插件 APK), `retired` 用例中的 Commons 写法换成仍在 `RETIRED` 的库 (如 ICU4J).
 - 验收: XQ-AT72 (或当时空闲的 API 31+ 真机) 全部通过; 结果写进宿主证据文档新的一节.
+  - 备注 (2026-11-05, jl-p1): 未做, 留给批次 2 (卡片 C). 现有 `retired call` 用例用的 `org.apache.commons.lang3.StringUtils.isBlank` 在含 4af7048853 的宿主上会改报 Java Libraries 指引而 FAIL, 须按本条换成 ICU4J. 插件 debug 包现可用 (`./gradlew :app:assembleDebug`).
 
 ---
 
@@ -265,6 +270,6 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 格式: 编号, 问题, 选项 (推荐项标 "(推荐)", 已先行的标 "(已先行)"), 影响, 改选返工. 拍板后在此改写结论与日期, 同步看板.
 
-- Q1 图标源图 | (a) 维护者提供亮 / 暗两张源图, 子会话用 Icon Studio 生成 (推荐, 与 3-Tally Sheet 等一致) / (b) 子会话以文字标志派生一版, 维护者验收 | 影响: P0.3 | 改选返工: 小 | 状态: 已拍板 (2026-11-05, 维护者选: 由子会话设计并用 Icon Studio 生成, 维护者验收)
+- Q1 图标源图 | (a) 维护者提供亮 / 暗两张源图, 子会话用 Icon Studio 生成 (推荐, 与 3-Tally Sheet 等一致) / (b) 子会话以文字标志派生一版, 维护者验收 | 影响: P0.3 | 改选返工: 小 | 状态: 已拍板 (2026-11-05, 维护者选: 由子会话设计并用 Icon Studio 生成, 维护者验收; 三个候选中维护者选 A 花括号夹三块库模块, 见 P0.3)
 - Q2 打包扫描的范围 | (a) 通用于登记表中全部导出插件 (Pinyin4j 1.4.0 也随之可带入; 载荷含 Java 资源, pinyin4j 的拼音数据在其中) (推荐) / (b) 只做 Java Libraries | 影响: P2.1, P2.3 | 改选返工: 小 (过滤条件一处, 用例少一组) | 状态: 已拍板 (2026-11-05, 维护者选 (a) 通用于登记表全部导出插件)
 - Q3 是否加 tag 触发的 CI 发布工作流 | (a) 照 Bundled Libraries: 本地签名发布 (`verifySignedReleaseArtifacts` / `appendDigestToReleasedFiles`, 再 `gh release create` 上传摘要包), CI 只构建未签名 release 并校验 dex (推荐, 已先行) / (b) 加 tag 触发的发布工作流, 由 CI 签名并创建 Release (需在 GitHub 配置签名 secrets, 维护者建仓后设置) | 影响: P0.5, P3.4 | 改选返工: 小 (照 ImGui 的 tag 工作流加一个 workflow 文件, 配 4 个 secrets) | 状态: 需拍板 (jl-p0 按 (a) 先行, 未加发布工作流)

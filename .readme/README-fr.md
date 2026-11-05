@@ -127,7 +127,7 @@ Quand le plugin n'est pas installé, pas autorisé, désactivé dans le Centre d
 
 ******
 
-Le paquet release fait environ 1.0 Mo. Les jars des trois bibliothèques totalisent environ 2,9 Mo; le paquet garde chaque classe sous son nom d'origine, et le dex avec son pool de constantes partagé ainsi que la compression le rendent plus petit.
+Le paquet release fait environ 1.2 Mo. Les jars des trois bibliothèques totalisent environ 2,9 Mo; le paquet garde chaque classe sous son nom d'origine, et le dex avec son pool de constantes partagé ainsi que la compression le rendent plus petit.
 
 ******
 

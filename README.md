@@ -127,7 +127,7 @@ console.log(mapper.writeValueAsString(tree)); // {"name":"AutoJs6","version":6}
 
 ******
 
-release 安装包约 1.0 MB. 三个库的 jar 合计约 2.9 MB; 安装包中的类以原名完整保留, 经 dex 合并常量池与压缩后体积更小.
+release 安装包约 1.2 MB. 三个库的 jar 合计约 2.9 MB; 安装包中的类以原名完整保留, 经 dex 合并常量池与压缩后体积更小.
 
 ******
 

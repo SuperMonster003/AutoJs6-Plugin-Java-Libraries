@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "generatorVersion": "1.4.0",
+  "profile": "catalog",
+  "repository": "AutoJs6-Plugin-Java-Libraries",
+  "packages": [
+    "io.github.supermonster003.autojs6.plugin.java.libraries"
+  ],
+  "launcher": true,
+  "params": {
+    "sources": {
+      "day": "d7f733e63e35b2ba62b58091188efcc2227dc21aa99141a0e3eb799736154f02",
+      "night": "d7f733e63e35b2ba62b58091188efcc2227dc21aa99141a0e3eb799736154f02",
+      "alphaMode": "alpha"
+    },
+    "geometry": {
+      "mode": "normalized",
+      "scale": 1.0,
+      "offsetX": 0.0,
+      "offsetY": 0.0
+    },
+    "day": {
+      "mode": "original",
+      "foreground": "#272727",
+      "brightness": 1.0,
+      "contrast": 1.0,
+      "gamma": 1.0,
+      "threshold": 128,
+      "invert": false
+    },
+    "night": {
+      "mode": "original",
+      "foreground": "#d8d8d8",
+      "brightness": 1.0,
+      "contrast": 1.0,
+      "gamma": 1.0,
+      "threshold": 128,
+      "invert": false
+    },
+    "backgrounds": {
+      "day": "#FAFAFA",
+      "night": "#212121"
+    }
+  },
+  "baseline": {
+    "params": {
+      "sources": {
+        "day": "d7f733e63e35b2ba62b58091188efcc2227dc21aa99141a0e3eb799736154f02",
+        "night": "d7f733e63e35b2ba62b58091188efcc2227dc21aa99141a0e3eb799736154f02",
+        "alphaMode": "alpha"
+      },
+      "geometry": {
+        "mode": "preserve",
+        "scale": 1.0,
+        "offsetX": 0.0,
+        "offsetY": 0.0
+      },
+      "day": {
+        "mode": "original",
+        "foreground": "#272727",
+        "brightness": 1.0,
+        "contrast": 1.0,
+        "gamma": 1.0,
+        "threshold": 128,
+        "invert": false
+      },
+      "night": {
+        "mode": "original",
+        "foreground": "#d8d8d8",
+        "brightness": 1.0,
+        "contrast": 1.0,
+        "gamma": 1.0,
+        "threshold": 128,
+        "invert": false
+      },
+      "backgrounds": {
+        "day": "transparent",
+        "night": "transparent"
+      }
+    },
+    "day": "d7f733e63e35b2ba62b58091188efcc2227dc21aa99141a0e3eb799736154f02",
+    "night": "d7f733e63e35b2ba62b58091188efcc2227dc21aa99141a0e3eb799736154f02"
+  },
+  "outputs": {
+    "app/src/main/res/mipmap/ic_plugin_center.png": {
+      "role": "ui-day",
+      "original": "d7f733e63e35b2ba62b58091188efcc2227dc21aa99141a0e3eb799736154f02"
+    },
+    "app/src/main/res/mipmap-night/ic_plugin_center.png": {
+      "role": "ui-night"
+    },
+    "app/src/main/res/raw/keep_plugin_center_icon.xml": {
+      "role": "keep-rule"
+    },
+    "app/src/main/res/values/icon_studio_backgrounds.xml": {
+      "role": "background-color",
+      "theme": "day"
+    },
+    "app/src/main/res/values-night/icon_studio_backgrounds.xml": {
+      "role": "background-color",
+      "theme": "night"
+    },
+    "app/src/main/res/raw/keep_icon_studio_background.xml": {
+      "role": "background-keep"
+    },
+    "app/src/main/res/mipmap/ic_icon_studio_application.png": {
+      "role": "legacy-day"
+    },
+    "app/src/main/res/mipmap-night/ic_icon_studio_application.png": {
+      "role": "legacy-night"
+    },
+    "app/src/main/res/mipmap/ic_icon_studio_application_foreground.png": {
+      "role": "adaptive-day"
+    },
+    "app/src/main/res/mipmap-night/ic_icon_studio_application_foreground.png": {
+      "role": "adaptive-night"
+    },
+    "app/src/main/res/mipmap/ic_icon_studio_application_monochrome.png": {
+      "role": "mono"
+    },
+    "app/src/main/res/mipmap-anydpi-v26/ic_icon_studio_application.xml": {
+      "role": "application-adaptive"
+    },
+    "app/src/main/res/mipmap-night-anydpi-v26/ic_icon_studio_application.xml": {
+      "role": "application-adaptive"
+    },
+    "app/src/main/res/raw/keep_icon_studio_application.xml": {
+      "role": "application-keep"
+    }
+  },
+  "assets": [
+    "d7f733e63e35b2ba62b58091188efcc2227dc21aa99141a0e3eb799736154f02"
+  ],
+  "legacyGenerator": null,
+  "backgroundDefaults": {
+    "day": "transparent",
+    "night": "transparent"
+  },
+  "systemIcon": true,
+  "systemIconMinSdk": 24,
+  "systemIconObsolete": [],
+  "originalSources": {}
+}

@@ -127,7 +127,7 @@ When the plugin is not installed, not authorized, disabled in the Plugin Center 
 
 ******
 
-The release package is about 1.0 MB. The jars of the three libraries add up to about 2.9 MB; the package keeps every class under its original name, and dex with its shared constant pool and compression make it smaller.
+The release package is about 1.2 MB. The jars of the three libraries add up to about 2.9 MB; the package keeps every class under its original name, and dex with its shared constant pool and compression make it smaller.
 
 ******
 

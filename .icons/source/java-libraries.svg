@@ -1,0 +1,16 @@
+<!-- Java Libraries icon source: three library blocks (Commons Lang, Commons IO, Jackson) held by a pair of braces, the
+     code of a script that uses them. Colored artwork for both themes (non-Three plugins may use color): Icon Studio
+     imports this file as a fixed 1728 px snapshot (.icons/assets) and the recipe keeps its colors (tone mode "original"). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <path d="M152 104C114 104 112 128 112 166V214C112 240 100 256 72 256C100 256 112 272 112 298V346C112 384 114 408 152 408" fill="none" stroke="#607D8B" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M360 104C398 104 400 128 400 166V214C400 240 412 256 440 256C412 256 400 272 400 298V346C400 384 398 408 360 408" fill="none" stroke="#607D8B" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="172" y="132" width="168" height="68" rx="14" fill="#EF6C00"/>
+  <rect x="192" y="156" width="44" height="20" rx="6" fill="#FFE0B2"/>
+  <rect x="252" y="160" width="68" height="12" rx="6" fill="#FFE0B2"/>
+  <rect x="172" y="222" width="168" height="68" rx="14" fill="#00897B"/>
+  <rect x="192" y="246" width="44" height="20" rx="6" fill="#B2DFDB"/>
+  <rect x="252" y="250" width="68" height="12" rx="6" fill="#B2DFDB"/>
+  <rect x="172" y="312" width="168" height="68" rx="14" fill="#3949AB"/>
+  <rect x="192" y="336" width="44" height="20" rx="6" fill="#C5CAE9"/>
+  <rect x="252" y="340" width="68" height="12" rx="6" fill="#C5CAE9"/>
+</svg>

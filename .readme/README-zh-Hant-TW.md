@@ -127,7 +127,7 @@ console.log(mapper.writeValueAsString(tree)); // {"name":"AutoJs6","version":6}
 
 ******
 
-release 安裝套件約 1.0 MB. 三個函式庫的 jar 合計約 2.9 MB; 安裝套件中的類別以原名完整保留, 經 dex 合併常數池與壓縮後更小.
+release 安裝套件約 1.2 MB. 三個函式庫的 jar 合計約 2.9 MB; 安裝套件中的類別以原名完整保留, 經 dex 合併常數池與壓縮後更小.
 
 ******
 

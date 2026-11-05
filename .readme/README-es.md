@@ -127,7 +127,7 @@ Cuando el plugin no está instalado, no está autorizado, está desactivado en e
 
 ******
 
-El paquete release ocupa unos 1.0 MB. Los jars de las tres bibliotecas suman unos 2,9 MB; el paquete conserva cada clase con su nombre original, y el dex con su conjunto de constantes compartido y la compresión lo hacen más pequeño.
+El paquete release ocupa unos 1.2 MB. Los jars de las tres bibliotecas suman unos 2,9 MB; el paquete conserva cada clase con su nombre original, y el dex con su conjunto de constantes compartido y la compresión lo hacen más pequeño.
 
 ******
 
