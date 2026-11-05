@@ -226,9 +226,10 @@ P0 (插件骨架)        P1 (宿主登记表) 与 P0 并行: 不同仓库; P1 �
 
 ### P2.2 打包应用运行时 (D14)
 
-- [ ] (宿主) `PluginJavaPackages` 在打包应用中先读 `assets/java-packages/<包名>.json` 与 zip, 解出, 只读, `DexClassLoader`; SHA-256 不符时重新解出; 没有带入时退回已安装插件; 状态与消息沿用 `PluginJavaPackageState` / `PluginJavaPackageMessages`.
-- [ ] (宿主) 静态引用白名单与 `RuntimeResourceScope` 规则检查 (进程级加载器按插件包名一个).
+- [x] (宿主) `PluginJavaPackages` 在打包应用中先读 `assets/java-packages/<包名>.json` 与 zip, 解出, 只读, `DexClassLoader`; SHA-256 不符时重新解出; 没有带入时退回已安装插件; 状态与消息沿用 `PluginJavaPackageState` / `PluginJavaPackageMessages`.
+- [x] (宿主) 静态引用白名单与 `RuntimeResourceScope` 规则检查 (进程级加载器按插件包名一个).
 - 验收: 单元测试覆盖解出与校验逻辑; `assembleInrtDebug` 通过.
+- 结果 (2026-11-05, 宿主 105dde572a): 解出与校验在 `PackagedJavaPackageAssets`: 先比大小再比 SHA-256, 已匹配的副本直接复用 (仍可写时补设只读); 否则经临时文件边读边算摘要 (超过说明中的大小即停止读取), 校验通过才换名为 `<插件包名>.zip` 并设只读, 不符时返回 null 且不动已有副本, 不留临时文件. 只在打包应用 (`BuildConfig.isInrt`) 中查带入的副本; 副本的状态为新的 `PluginJavaPackageState.Packaged` (versionCode / versionName / 导出包 / SHA-256), 只服务其导出的登记项, 其余登记项与未带入时都退回已安装插件 (`Loaded.fallback`). 进程级 `classLoaders` 表另以 `packaged:<插件包名>` 为键保存副本的 `DexClassLoader` (版本键为 SHA-256, 每个插件一个, 进程内保留; 父加载器同为启动类加载器, API 26 以下传 `codeCacheDir` 作优化目录), 白名单该行已补理由, 守卫生成列无变化. 资源读取失败或载荷不符时记日志并按未带入处理. 单元测试 4 项 (首次解出与复用, 损坏或更新后重新解出, 大小 / SHA-256 不符与超长流被拒, 副本只服务导出项); javapackage 全部 30 项, 静态引用守卫 9 项与 `assembleInrtDebug` 在隔离克隆中通过.
 
 ### P2.3 设备检查
 
