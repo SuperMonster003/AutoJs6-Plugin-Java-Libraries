@@ -190,6 +190,15 @@ The pre-release checklist, the decisions and the release steps are tracked in RO
 
 ******
 
+#### v1.0.1
+
+_2026/11/20_
+
+- `Improvement` The release history page now expands and collapses by version: a collapsed version shows its date and the number of entries per category, an expanded one names each category once; all versions can be expanded or collapsed at once, the newest one opens expanded and the subtitle shows the plugin name
+- `Improvement` Rewrote the instructions shown in Plugin Center in five parts: getting started, main features, using it in scripts, requirements and FAQ
+- `Dependency` Added Jetpack Compose BOM 2026.09.00 (release history page)
+- `Dependency` Upgraded shared build plugins version 1.9.1 -> 1.9.7
+
 #### v1.0.0
 
 _2026/11/05_

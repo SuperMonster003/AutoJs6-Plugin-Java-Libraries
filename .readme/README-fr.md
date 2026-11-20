@@ -190,6 +190,15 @@ La liste de contrôle avant publication, les décisions et les étapes de public
 
 ******
 
+#### v1.0.1
+
+_2026/11/20_
+
+- `Amélioration` La page d'historique des versions se développe ou se réduit désormais par version: une version réduite affiche sa date et le nombre d'entrées par catégorie, une version développée ne nomme chaque catégorie qu'une fois; toutes les versions peuvent être développées ou réduites d'un coup, la plus récente s'ouvre développée et le sous-titre affiche le nom du plugin
+- `Amélioration` Réécriture des instructions affichées dans le Centre des plugins en cinq parties: prise en main, fonctionnalités principales, utilisation dans les scripts, prérequis et questions fréquentes
+- `Dépendance` Ajout de Jetpack Compose BOM 2026.09.00 (page Historique des versions)
+- `Dépendance` Mise à niveau des plugins de compilation partagés version 1.9.1 -> 1.9.7
+
 #### v1.0.0
 
 _2026/11/05_
