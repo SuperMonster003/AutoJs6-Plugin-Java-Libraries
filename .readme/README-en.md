@@ -82,7 +82,7 @@ console.log(tree.get("version").asInt()); // 6
 console.log(mapper.writeValueAsString(tree)); // {"name":"AutoJs6","version":6}
 ```
 
-> There is a single universal package without native libraries, for devices with Android 7.0 (API 24) or later.
+> There is a single universal package, for devices with Android 7.0 (API 24) or later; its only native library is `libandroidx.graphics.path.so`, used by the plugin pages (one copy for each of the 4 ABIs).
 
 ******
 
@@ -171,7 +171,7 @@ info service: org.autojs.plugin.INFO (category java-libraries)
 exported packages: meta-data org.autojs.plugin.javaPackages.EXPORTS = org.apache.commons.lang3,org.apache.commons.io,com.fasterxml.jackson
 wake action: org.autojs.plugin.action.WAKE
 minimum host build: 6641
-native library: none (all ABIs)
+native library: libandroidx.graphics.path.so (Jetpack Compose, armeabi-v7a / arm64-v8a / x86 / x86_64, stored, 16 KB aligned)
 ```
 
 ******

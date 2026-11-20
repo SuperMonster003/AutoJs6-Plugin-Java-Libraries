@@ -82,7 +82,7 @@ console.log(tree.get("version").asInt()); // 6
 console.log(mapper.writeValueAsString(tree)); // {"name":"AutoJs6","version":6}
 ```
 
-> Есть только один универсальный пакет без нативных библиотек для устройств с Android 7.0 (API 24) или новее.
+> Есть только один универсальный пакет для устройств с Android 7.0 (API 24) или новее; единственная нативная библиотека в нём - `libandroidx.graphics.path.so` для страниц плагина (по одной копии для каждого из 4 ABI).
 
 ******
 
@@ -171,7 +171,7 @@ info service: org.autojs.plugin.INFO (category java-libraries)
 exported packages: meta-data org.autojs.plugin.javaPackages.EXPORTS = org.apache.commons.lang3,org.apache.commons.io,com.fasterxml.jackson
 wake action: org.autojs.plugin.action.WAKE
 minimum host build: 6641
-native library: none (all ABIs)
+native library: libandroidx.graphics.path.so (Jetpack Compose, armeabi-v7a / arm64-v8a / x86 / x86_64, stored, 16 KB aligned)
 ```
 
 ******

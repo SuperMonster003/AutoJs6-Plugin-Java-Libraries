@@ -82,7 +82,7 @@ console.log(tree.get("version").asInt()); // 6
 console.log(mapper.writeValueAsString(tree)); // {"name":"AutoJs6","version":6}
 ```
 
-> 패키지는 네이티브 라이브러리가 없는 범용 패키지 하나뿐이며, Android 7.0 (API 24) 이상의 기기를 지원합니다.
+> 패키지는 범용 패키지 하나뿐이며, Android 7.0 (API 24) 이상의 기기를 지원합니다. 포함된 네이티브 라이브러리는 플러그인 페이지가 사용하는 `libandroidx.graphics.path.so` 뿐입니다 (4 개 ABI 에 하나씩).
 
 ******
 
@@ -171,7 +171,7 @@ info service: org.autojs.plugin.INFO (category java-libraries)
 exported packages: meta-data org.autojs.plugin.javaPackages.EXPORTS = org.apache.commons.lang3,org.apache.commons.io,com.fasterxml.jackson
 wake action: org.autojs.plugin.action.WAKE
 minimum host build: 6641
-native library: none (all ABIs)
+native library: libandroidx.graphics.path.so (Jetpack Compose, armeabi-v7a / arm64-v8a / x86 / x86_64, stored, 16 KB aligned)
 ```
 
 ******

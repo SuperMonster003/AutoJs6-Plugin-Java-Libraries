@@ -19,7 +19,7 @@
     "ثبت Java Libraries من مركز الاضافات في AutoJs6 (أو نزل ملف APK من [Releases]({{ repo_url }}/releases)) وتأكد من أن المكون مفعل.",
     "استخدم أصناف المكتبات بأسمائها الكاملة في السكربتات (أو بعد `importClass` أو `importPackage`), مثلا:"
   ],
-  "p_usage_note": "توجد حزمة عامة واحدة فقط بلا مكتبات أصلية, للأجهزة التي تعمل بنظام Android {{ min_android_version }} (API {{ android_min_sdk }}) أو أحدث.",
+  "p_usage_note": "توجد حزمة عامة واحدة فقط, للأجهزة التي تعمل بنظام Android {{ min_android_version }} (API {{ android_min_sdk }}) أو أحدث; والمكتبة الأصلية الوحيدة فيها هي `libandroidx.graphics.path.so` التي تستخدمها صفحات المكون (نسخة لكل واحدة من معماريات ABI الأربع).",
   "h3_packaged_apps": "التطبيقات المحزمة",
   "p_packaged_apps_intro": "عندما يحزم AutoJs6 السكربتات في تطبيق مستقل يمكنه أن يأخذ أصناف هذا المكون معه, فيستطيع التطبيق المحزم استخدام المكتبات على الأجهزة التي لا يوجد فيها المكون",
   "packaged_points": [

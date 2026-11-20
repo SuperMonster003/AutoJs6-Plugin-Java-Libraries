@@ -19,7 +19,7 @@
     "Instale Java Libraries desde el Centro de plugins de AutoJs6 (o descargue el APK desde [Releases]({{ repo_url }}/releases)) y compruebe que el plugin está activado.",
     "Use las clases de las bibliotecas por su nombre completo en los scripts (o tras `importClass` o `importPackage`), por ejemplo:"
   ],
-  "p_usage_note": "Hay un único paquete universal, sin bibliotecas nativas, para dispositivos con Android {{ min_android_version }} (API {{ android_min_sdk }}) o posterior.",
+  "p_usage_note": "Hay un único paquete universal, para dispositivos con Android {{ min_android_version }} (API {{ android_min_sdk }}) o posterior; su única biblioteca nativa es `libandroidx.graphics.path.so`, que usan las páginas del plugin (una copia para cada una de las 4 ABI).",
   "h3_packaged_apps": "Aplicaciones empaquetadas",
   "p_packaged_apps_intro": "Cuando AutoJs6 empaqueta scripts en una aplicación independiente, puede llevar consigo las clases de este plugin, de modo que la aplicación empaquetada pueda usar las bibliotecas en dispositivos sin el plugin",
   "packaged_points": [

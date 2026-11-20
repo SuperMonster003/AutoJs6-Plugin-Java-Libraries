@@ -19,7 +19,7 @@
     "在 AutoJs6 的外掛中心安裝 Java Libraries (也可以從 [Releases]({{ repo_url }}/releases) 下載 APK 安裝), 並確認外掛處於啟用狀態.",
     "在腳本中以全名使用函式庫中的類別 (也可以先 `importClass` 或 `importPackage`), 例如:"
   ],
-  "p_usage_note": "外掛只有一個通用安裝套件, 不含原生函式庫, 支援 Android {{ min_android_version }} (API {{ android_min_sdk }}) 以上的裝置.",
+  "p_usage_note": "外掛只有一個通用安裝套件, 其中的原生函式庫只有外掛頁面使用的 `libandroidx.graphics.path.so` (4 個 ABI 各一份), 支援 Android {{ min_android_version }} (API {{ android_min_sdk }}) 以上的裝置.",
   "h3_packaged_apps": "打包的應用程式",
   "p_packaged_apps_intro": "用 AutoJs6 把腳本打包成獨立應用程式時, 可以把本外掛的類別一併帶入, 打包後的應用程式在沒有安裝本外掛的裝置上也能使用這些函式庫",
   "packaged_points": [

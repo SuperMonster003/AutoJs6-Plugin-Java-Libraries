@@ -118,7 +118,7 @@ info service: {{ info_action }} (category {{ plugin_engine }})
 exported packages: meta-data {{ exports_meta_data }} = {{ exports_value }}
 wake action: {{ wake_action }}
 minimum host build: {{ required_host_version_code }}
-native library: none (all ABIs)
+native library: libandroidx.graphics.path.so (Jetpack Compose, armeabi-v7a / arm64-v8a / x86 / x86_64, stored, 16 KB aligned)
 ```
 
 ******

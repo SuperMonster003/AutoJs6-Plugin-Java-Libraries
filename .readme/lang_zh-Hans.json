@@ -19,7 +19,7 @@
     "在 AutoJs6 的插件中心安装 Java Libraries (也可以从 [Releases]({{ repo_url }}/releases) 下载 APK 安装), 并确认插件处于启用状态.",
     "在脚本中以全名使用库中的类 (也可以先 `importClass` 或 `importPackage`), 例如:"
   ],
-  "p_usage_note": "插件只有一个通用安装包, 不含原生库, 支持 Android {{ min_android_version }} (API {{ android_min_sdk }}) 及以上的设备.",
+  "p_usage_note": "插件只有一个通用安装包, 其中的原生库只有插件页面使用的 `libandroidx.graphics.path.so` (4 个 ABI 各一份), 支持 Android {{ min_android_version }} (API {{ android_min_sdk }}) 及以上的设备.",
   "h3_packaged_apps": "打包应用",
   "p_packaged_apps_intro": "用 AutoJs6 把脚本打包成独立应用时, 可以把本插件的类一并带入, 打包后的应用在没有安装本插件的设备上也能使用这些库",
   "packaged_points": [

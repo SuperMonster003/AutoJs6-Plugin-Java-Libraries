@@ -82,7 +82,7 @@ console.log(tree.get("version").asInt()); // 6
 console.log(mapper.writeValueAsString(tree)); // {"name":"AutoJs6","version":6}
 ```
 
-> 插件只有一个通用安装包, 不含原生库, 支持 Android 7.0 (API 24) 及以上的设备.
+> 插件只有一个通用安装包, 其中的原生库只有插件页面使用的 `libandroidx.graphics.path.so` (4 个 ABI 各一份), 支持 Android 7.0 (API 24) 及以上的设备.
 
 ******
 
@@ -171,7 +171,7 @@ info service: org.autojs.plugin.INFO (category java-libraries)
 exported packages: meta-data org.autojs.plugin.javaPackages.EXPORTS = org.apache.commons.lang3,org.apache.commons.io,com.fasterxml.jackson
 wake action: org.autojs.plugin.action.WAKE
 minimum host build: 6641
-native library: none (all ABIs)
+native library: libandroidx.graphics.path.so (Jetpack Compose, armeabi-v7a / arm64-v8a / x86 / x86_64, stored, 16 KB aligned)
 ```
 
 ******

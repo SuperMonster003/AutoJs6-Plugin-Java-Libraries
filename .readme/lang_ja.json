@@ -19,7 +19,7 @@
     "AutoJs6 のプラグインセンターから Java Libraries をインストールし ([Releases]({{ repo_url }}/releases) から APK をダウンロードしても構いません), プラグインが有効になっていることを確認します.",
     "スクリプトでライブラリのクラスを完全名で使います (先に `importClass` や `importPackage` を使っても構いません). 例:"
   ],
-  "p_usage_note": "パッケージはネイティブライブラリを含まない汎用版の 1 つだけで, Android {{ min_android_version }} (API {{ android_min_sdk }}) 以降の端末に対応します.",
+  "p_usage_note": "パッケージは汎用版の 1 つだけで, Android {{ min_android_version }} (API {{ android_min_sdk }}) 以降の端末に対応します. 含まれるネイティブライブラリはプラグインのページが使う `libandroidx.graphics.path.so` だけです (4 つの ABI に 1 つずつ).",
   "h3_packaged_apps": "パッケージ化したアプリ",
   "p_packaged_apps_intro": "AutoJs6 でスクリプトを独立したアプリにパッケージ化するとき, このプラグインのクラスを一緒に取り込めます. パッケージ化したアプリは, このプラグインがない端末でもこれらのライブラリを使えます",
   "packaged_points": [
