@@ -204,7 +204,10 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.compose.animation)
     implementation(libs.compose.activity)
-    debugImplementation(libs.compose.ui.test.manifest)
+    // No ui-test-manifest: the Compose tests use createEmptyComposeRule and launch the real activities, while
+    // ui-test-manifest would merge an exported androidx.activity.ComponentActivity into the debug APK.
+    // zh-CN: 不引入 ui-test-manifest: Compose 测试用 createEmptyComposeRule 启动真实的页面, 而 ui-test-manifest 会往
+    // debug APK 合并一个导出的 androidx.activity.ComponentActivity.
     androidTestImplementation(libs.test.ext.junit)
     androidTestImplementation(libs.test.runner)
     androidTestImplementation(libs.test.espresso.core)
