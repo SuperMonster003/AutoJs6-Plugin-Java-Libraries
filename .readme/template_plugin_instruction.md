@@ -1,19 +1,29 @@
-{{ p_introduction_what }}
+{{ instruction_p_what }}
 
-{{ p_introduction_how }}
+### {{ instruction_h3_start }}
 
-{{ placeholder_libraries }}
+{{ placeholder_instruction_start_steps }}
 
-### {{ h3_usage }}
+### {{ instruction_h3_features }}
 
-```javascript
+{{ placeholder_instruction_features }}
+
+### {{ instruction_h3_script }}
+
+{{ instruction_p_script }}
+
+```js
 {{ placeholder_example }}
 ```
 
-### {{ h3_unavailable }}
+{{ placeholder_instruction_script_notes }}
 
-{{ p_unavailable_intro }}:
+### {{ instruction_h3_requirements }}
 
-{{ placeholder_unavailable_points }}
+{{ placeholder_instruction_requirements }}
 
-{{ p_instruction_more }}
+### {{ instruction_h3_faq }}
+
+{{ placeholder_instruction_faq }}
+
+{{ instruction_p_more }}

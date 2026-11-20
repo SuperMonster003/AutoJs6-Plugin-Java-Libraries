@@ -1,16 +1,22 @@
-Java Libraries 把 AutoJs6 過去內建的三個 Java 函式庫裝回裝置: Apache Commons Lang3, Apache Commons IO 與 Jackson. 自 AutoJs6 6.8.0 起, 這些函式庫不再隨 AutoJs6 安裝套件提供; 在 AutoJs6 6.8.1 或更新版本中安裝並啟用本外掛後, 腳本照常以全名使用 `org.apache.commons.lang3.StringUtils`, `org.apache.commons.io.IOUtils`, `com.fasterxml.jackson.databind.ObjectMapper` 等類別, 寫法與 AutoJs6 6.7.0 及更早版本相同.
+Java Libraries 為 AutoJs6 腳本提供 Apache Commons Lang3, Apache Commons IO 與 Jackson 三個 Java 函式庫. 啟用後腳本照常以全名使用其中的類別, 寫法與 AutoJs6 6.7.0 及更早版本相同.
 
-外掛本身只是一個資源套件: AutoJs6 直接從外掛的安裝套件載入這些類別, 腳本執行時不會啟動外掛處理程序, 外掛也不要求任何權限. 不引用這些類別的腳本不受影響, 用不到的類別不會被載入, 只佔用安裝套件的空間.
+### 開始使用
 
-| 函式庫 | Maven 構件與版本 | Java 套件 | 授權 |
-|---|---|---|---|
-| [Apache Commons Lang](https://commons.apache.org/proper/commons-lang/) | `org.apache.commons:commons-lang3` 3.18.0 | `org.apache.commons.lang3` | Apache-2.0 |
-| [Apache Commons IO](https://commons.apache.org/proper/commons-io/) | `commons-io:commons-io` 2.8.0 | `org.apache.commons.io` | Apache-2.0 |
-| [Jackson](https://github.com/FasterXML/jackson) | `com.fasterxml.jackson.core:jackson-databind` 2.13.4.2, `com.fasterxml.jackson.core:jackson-core` 2.13.4, `com.fasterxml.jackson.core:jackson-annotations` 2.13.4 | `com.fasterxml.jackson` | Apache-2.0 |
+1. 確認 AutoJs6 外掛中心裡本外掛已啟用.
+2. 在腳本中以全名使用函式庫中的類別, 例如 `org.apache.commons.io.IOUtils`, 範例見下文.
+3. 各函式庫的版本, Maven 構件與 Java 套件可以在外掛頁面查看; 外掛頁面從外掛中心或桌面上的 Java Libraries 圖示開啟.
 
-### 使用方法
+### 主要功能
 
-```javascript
+- **函式庫**: 外掛頁面列出 Apache Commons Lang3, Apache Commons IO 與 Jackson 的版本, Maven 構件, Java 套件與授權.
+- **在腳本中使用**: 外掛頁面提供一段可以直接執行的範例, 註解是各行的輸出.
+- **NOTICE 檔案**: 外掛頁面顯示各函式庫發布的 NOTICE 檔案原文.
+
+### 在指令碼中使用
+
+以全名使用其中的類別, 註解為各行的輸出:
+
+```js
 let StringUtils = org.apache.commons.lang3.StringUtils;
 console.log(StringUtils.isBlank("  ")); // true
 console.log(StringUtils.capitalize("autojs6")); // Autojs6
@@ -25,12 +31,22 @@ console.log(tree.get("version").asInt()); // 6
 console.log(mapper.writeValueAsString(tree)); // {"name":"AutoJs6","version":6}
 ```
 
-### 外掛無法使用時
+- 也可以先 `importClass(org.apache.commons.lang3.StringUtils)`, 之後直接寫 `StringUtils`.
+- 外掛無法使用時, 只引用類別名稱不會立即出錯 (Rhino 把找不到的名稱當作 Java 套件), 呼叫方法, 建構物件或 `importClass` 時才出錯.
 
-外掛未安裝, 未授權, 在外掛中心被停用, 或版本過舊時, 腳本無法使用這些類別:
+### 執行需求
 
-- 引用類別名稱本身不會立即出錯 (Rhino 把找不到的名稱當作 Java 套件), 呼叫方法, 建構物件或 `importClass` 時才出錯.
-- 腳本因這類錯誤結束時, AutoJs6 在主控台的錯誤訊息之後給出指引, 說明需要安裝, 授權, 啟用還是更新外掛; 腳本自己 `catch` 的錯誤不附指引.
-- 打包的應用程式既沒有帶入的副本, 所在裝置上也沒有可用的本外掛時, 指引會說明需要在裝置上安裝並啟用本外掛.
+- Android 7.0 或更新版本, AutoJs6 6.8.1 或更新版本.
+- 本外掛只是資源套件, 腳本執行時不啟動外掛處理程序, 也不需要任何權限; 不引用這些類別的腳本不受影響.
 
-原始碼, 發行歷史與第三方授權見 [專案首頁](https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries).
+### 常見問題
+
+**腳本無法使用這些類別時的處理**
+
+確認本外掛已安裝並在外掛中心啟用, 且 AutoJs6 為 6.8.1 或更新版本. 腳本因此出錯結束時, AutoJs6 會在主控台的錯誤訊息之後說明需要安裝, 授權, 啟用還是更新外掛; 腳本自己 `catch` 的錯誤不附這段說明.
+
+**在打包的應用程式中使用**
+
+用 AutoJs6 打包時, 腳本中出現以 `org.apache.commons.lang3`, `org.apache.commons.io`, `com.fasterxml.jackson` 開頭的名稱會自動帶入本外掛的類別, 掃描不到時可以在打包頁面的函式庫清單中勾選 Java Libraries. 帶入後的應用程式在未安裝本外掛的裝置上也能使用這些類別; 沒有帶入時使用裝置上已安裝的本外掛.
+
+原始碼與第三方授權見 [專案首頁](https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries).

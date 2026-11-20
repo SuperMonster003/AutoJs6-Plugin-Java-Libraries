@@ -82,5 +82,40 @@
   "h3_links": "Related links",
   "text_link_autojs6": "AutoJs6 project",
   "text_link_notices": "Third-party notices",
-  "p_instruction_more": "The source code, release history and third-party licenses are on the [project page]({{ repo_url }})."
+  "instruction_p_what": "Java Libraries provides three Java libraries for AutoJs6 scripts: Apache Commons Lang3, Apache Commons IO and Jackson. Once it is enabled, scripts keep using their classes by full name, just as in AutoJs6 6.7.0 and earlier.",
+  "instruction_h3_start": "Getting started",
+  "instruction_start_steps": [
+    "Make sure this plugin is enabled in the Plugin Center of AutoJs6.",
+    "In a script, use the classes of the libraries by their full names, for example `org.apache.commons.io.IOUtils`; see the example below.",
+    "The plugin page shows the version, Maven artifacts and Java packages of each library; it opens from the Plugin Center or the Java Libraries icon on the home screen."
+  ],
+  "instruction_h3_features": "Main features",
+  "instruction_features": [
+    "**Libraries**: the plugin page lists the version, Maven artifacts, Java packages and license of Apache Commons Lang3, Apache Commons IO and Jackson.",
+    "**Use in scripts**: the plugin page shows an example you can run as is, with the output of each line in comments.",
+    "**NOTICE files**: the plugin page shows the NOTICE files as the libraries publish them."
+  ],
+  "instruction_h3_script": "Using it in scripts",
+  "instruction_p_script": "Use the classes by their full names; the comments show the output of each line:",
+  "instruction_script_notes": [
+    "You can also call `importClass(org.apache.commons.lang3.StringUtils)` first and then write just `StringUtils`.",
+    "When the plugin is unavailable, naming a class is not an error by itself (Rhino treats a name it cannot find as a Java package); the error comes when a script calls a method, constructs an object or passes the name to `importClass`."
+  ],
+  "instruction_h3_requirements": "Requirements",
+  "instruction_requirements": [
+    "Android {{ min_android_version }} or later, and AutoJs6 {{ required_host_version_name }} or later.",
+    "This plugin is only a resource package: scripts never start its process, and it needs no permissions; scripts that do not refer to these classes are not affected."
+  ],
+  "instruction_h3_faq": "FAQ",
+  "instruction_faq": [
+    {
+      "q": "A script cannot use these classes",
+      "a": "Check that this plugin is installed and enabled in the Plugin Center, and that AutoJs6 is {{ required_host_version_name }} or later. When a script ends with such an error, AutoJs6 says after the error in the console whether to install, authorize, enable or update the plugin; errors the script handles itself with `catch` get no such note."
+    },
+    {
+      "q": "Using them in packaged apps",
+      "a": "When AutoJs6 packages a project, it takes the classes of this plugin along if the scripts contain a name that starts with {{ exported_packages }}; when the scan cannot find such a name, tick Java Libraries in the list of libraries on the packaging page. An app that carries them can use these classes on devices without this plugin; otherwise it uses the plugin installed on the device."
+    }
+  ],
+  "instruction_p_more": "Source code and third-party licenses are on the [project page]({{ repo_url }})."
 }

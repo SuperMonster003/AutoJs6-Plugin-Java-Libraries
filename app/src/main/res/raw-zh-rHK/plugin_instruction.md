@@ -1,16 +1,22 @@
-Java Libraries 把 AutoJs6 過去內置的三個 Java 庫裝回裝置: Apache Commons Lang3, Apache Commons IO 與 Jackson. 自 AutoJs6 6.8.0 起, 這些庫不再隨 AutoJs6 安裝包提供; 在 AutoJs6 6.8.1 或更高版本中安裝並啟用本插件後, 腳本照常以全名使用 `org.apache.commons.lang3.StringUtils`, `org.apache.commons.io.IOUtils`, `com.fasterxml.jackson.databind.ObjectMapper` 等類, 寫法與 AutoJs6 6.7.0 及更早版本相同.
+Java Libraries 為 AutoJs6 腳本提供 Apache Commons Lang3, Apache Commons IO 與 Jackson 三個 Java 庫. 啟用後腳本照常以全名使用其中的類, 寫法與 AutoJs6 6.7.0 及更早版本相同.
 
-插件本身只是一個資源包: AutoJs6 直接從插件的安裝包載入這些類, 腳本運行時不會啟動插件進程, 插件也不申請任何權限. 不引用這些類的腳本不受影響, 用不到的類不會被載入, 只佔用安裝包體積.
+### 開始使用
 
-| 庫 | Maven 構件與版本 | Java 包 | 授權 |
-|---|---|---|---|
-| [Apache Commons Lang](https://commons.apache.org/proper/commons-lang/) | `org.apache.commons:commons-lang3` 3.18.0 | `org.apache.commons.lang3` | Apache-2.0 |
-| [Apache Commons IO](https://commons.apache.org/proper/commons-io/) | `commons-io:commons-io` 2.8.0 | `org.apache.commons.io` | Apache-2.0 |
-| [Jackson](https://github.com/FasterXML/jackson) | `com.fasterxml.jackson.core:jackson-databind` 2.13.4.2, `com.fasterxml.jackson.core:jackson-core` 2.13.4, `com.fasterxml.jackson.core:jackson-annotations` 2.13.4 | `com.fasterxml.jackson` | Apache-2.0 |
+1. 確認 AutoJs6 插件中心裏本插件已啟用.
+2. 在腳本中以全名使用庫中的類, 例如 `org.apache.commons.io.IOUtils`, 示例見下文.
+3. 各庫的版本, Maven 構件與 Java 包可以在插件頁面查看; 插件頁面從插件中心或桌面上的 Java Libraries 圖示開啟.
 
-### 使用方法
+### 主要功能
 
-```javascript
+- **庫**: 插件頁面列出 Apache Commons Lang3, Apache Commons IO 與 Jackson 的版本, Maven 構件, Java 包與授權.
+- **在腳本中使用**: 插件頁面提供一段可以直接運行的示例, 注釋是各行的輸出.
+- **NOTICE 檔案**: 插件頁面顯示各庫發佈的 NOTICE 檔案原文.
+
+### 在腳本中使用
+
+以全名使用其中的類, 注釋為各行的輸出:
+
+```js
 let StringUtils = org.apache.commons.lang3.StringUtils;
 console.log(StringUtils.isBlank("  ")); // true
 console.log(StringUtils.capitalize("autojs6")); // Autojs6
@@ -25,12 +31,22 @@ console.log(tree.get("version").asInt()); // 6
 console.log(mapper.writeValueAsString(tree)); // {"name":"AutoJs6","version":6}
 ```
 
-### 插件不可用時
+- 也可以先 `importClass(org.apache.commons.lang3.StringUtils)`, 之後直接寫 `StringUtils`.
+- 插件不可用時, 只引用類名不會立即出錯 (Rhino 把找不到的名字當作 Java 包), 調用方法, 構造對象或 `importClass` 時才出錯.
 
-插件未安裝, 未授權, 在插件中心被停用, 或版本過舊時, 腳本無法使用這些類:
+### 運行要求
 
-- 引用類名本身不會立即出錯 (Rhino 把找不到的名字當作 Java 包), 調用方法, 構造對象或 `importClass` 時才出錯.
-- 腳本因這類錯誤結束時, AutoJs6 在控制台的錯誤信息之後給出指引, 說明需要安裝, 授權, 啟用還是更新插件; 腳本自己 `catch` 的錯誤不附指引.
-- 打包應用既沒有帶入的副本, 所在裝置上也沒有可用的本插件時, 指引會說明需要在裝置上安裝並啟用本插件.
+- Android 7.0 或更高版本, AutoJs6 6.8.1 或更高版本.
+- 本插件只是資源包, 腳本運行時不啟動插件進程, 也不需要任何權限; 不引用這些類的腳本不受影響.
 
-源碼, 發行歷史與第三方授權見 [項目主頁](https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries).
+### 常見問題
+
+**腳本無法使用這些類時的處理**
+
+確認本插件已安裝並在插件中心啟用, 且 AutoJs6 為 6.8.1 或更高版本. 腳本因此出錯結束時, AutoJs6 會在控制台的錯誤信息之後說明需要安裝, 授權, 啟用還是更新插件; 腳本自己 `catch` 的錯誤不附這段說明.
+
+**在打包應用中使用**
+
+用 AutoJs6 打包時, 腳本中出現以 `org.apache.commons.lang3`, `org.apache.commons.io`, `com.fasterxml.jackson` 開頭的名字會自動帶入本插件的類, 掃描不到時可以在打包頁的庫列表中勾選 Java Libraries. 帶入後的應用在未安裝本插件的裝置上也能使用這些類; 沒有帶入時使用裝置上已安裝的本插件.
+
+源碼與第三方授權見 [項目主頁](https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries).

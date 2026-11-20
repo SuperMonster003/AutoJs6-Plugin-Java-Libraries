@@ -82,5 +82,40 @@
   "h3_links": "関連リンク",
   "text_link_autojs6": "AutoJs6 プロジェクト",
   "text_link_notices": "サードパーティ通知",
-  "p_instruction_more": "ソースコード, リリース履歴, サードパーティのライセンスは [プロジェクトページ]({{ repo_url }}) にあります."
+  "instruction_p_what": "Java Libraries は AutoJs6 のスクリプトに Apache Commons Lang3, Apache Commons IO, Jackson の 3 つの Java ライブラリを提供します. 有効にすると, スクリプトはこれまでどおりそのクラスを完全名で使えます. 書き方は AutoJs6 6.7.0 以前と同じです.",
+  "instruction_h3_start": "はじめに",
+  "instruction_start_steps": [
+    "AutoJs6 のプラグインセンターでこのプラグインが有効になっていることを確認します.",
+    "スクリプトでライブラリのクラスを完全名で使います. 例えば `org.apache.commons.io.IOUtils` です. 例は下記を参照してください.",
+    "各ライブラリのバージョン, Maven アーティファクト, Java パッケージはプラグインのページで確認できます. このページはプラグインセンター, またはホーム画面の Java Libraries アイコンから開きます."
+  ],
+  "instruction_h3_features": "主な機能",
+  "instruction_features": [
+    "**ライブラリ**: プラグインのページに Apache Commons Lang3, Apache Commons IO, Jackson のバージョン, Maven アーティファクト, Java パッケージ, ライセンスを一覧表示します.",
+    "**スクリプトでの使い方**: プラグインのページにそのまま実行できる例があり, コメントは各行の出力です.",
+    "**NOTICE ファイル**: プラグインのページに各ライブラリが公開している NOTICE ファイルの原文を表示します."
+  ],
+  "instruction_h3_script": "スクリプトでの使い方",
+  "instruction_p_script": "クラスを完全名で使います. コメントは各行の出力です:",
+  "instruction_script_notes": [
+    "先に `importClass(org.apache.commons.lang3.StringUtils)` を呼べば, その後は `StringUtils` とだけ書けます.",
+    "プラグインが使えないとき, クラス名を参照しただけではエラーになりません (Rhino は見つからない名前を Java パッケージとして扱います). メソッドの呼び出し, オブジェクトの生成, `importClass` の時点でエラーになります."
+  ],
+  "instruction_h3_requirements": "動作要件",
+  "instruction_requirements": [
+    "Android {{ min_android_version }} 以降, AutoJs6 {{ required_host_version_name }} 以降.",
+    "このプラグインはリソースパッケージにすぎず, スクリプトの実行中にプロセスが起動することはなく, 権限も必要ありません. これらのクラスを参照しないスクリプトには影響がありません."
+  ],
+  "instruction_h3_faq": "よくある質問",
+  "instruction_faq": [
+    {
+      "q": "スクリプトでこれらのクラスが使えない場合",
+      "a": "このプラグインがインストールされ, プラグインセンターで有効になっていること, AutoJs6 が {{ required_host_version_name }} 以降であることを確認してください. スクリプトがこの種のエラーで終了すると, AutoJs6 はコンソールのエラーの後に, プラグインのインストール, 承認, 有効化, 更新のどれが必要かを案内します. スクリプト自身が `catch` したエラーには案内が付きません."
+    },
+    {
+      "q": "パッケージ化したアプリでの利用",
+      "a": "AutoJs6 でパッケージ化する際, スクリプトに {{ exported_packages }} で始まる名前があれば, このプラグインのクラスを自動で取り込みます. 走査で見つからない場合は, パッケージ化ページのライブラリ一覧で Java Libraries にチェックを入れます. 取り込んだアプリはこのプラグインがない端末でもこれらのクラスを使え, 取り込んでいない場合は端末にインストールされたこのプラグインを使います."
+    }
+  ],
+  "instruction_p_more": "ソースコードとサードパーティのライセンスは [プロジェクトページ]({{ repo_url }}) にあります."
 }

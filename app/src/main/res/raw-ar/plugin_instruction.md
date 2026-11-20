@@ -1,16 +1,22 @@
-يعيد Java Libraries إلى الجهاز مكتبات Java الثلاث التي كانت مدمجة في AutoJs6 سابقا: Apache Commons Lang3 وApache Commons IO وJackson. بدءا من AutoJs6 6.8.0 لم تعد حزمة AutoJs6 تتضمنها; وبعد تثبيت هذا المكون وتفعيله في AutoJs6 6.8.1 أو أحدث تستخدم السكربتات أصنافا مثل `org.apache.commons.lang3.StringUtils` و`org.apache.commons.io.IOUtils` و`com.fasterxml.jackson.databind.ObjectMapper` بأسمائها الكاملة كما في AutoJs6 6.7.0 والإصدارات الأقدم تماما.
+يوفر Java Libraries لسكربتات AutoJs6 ثلاث مكتبات Java: Apache Commons Lang3 و Apache Commons IO و Jackson. بعد تفعيله تواصل السكربتات استخدام أصنافها بأسمائها الكاملة, كما في AutoJs6 6.7.0 والإصدارات الأقدم.
 
-المكون مجرد حزمة موارد: يحمل AutoJs6 الأصناف مباشرة من حزمة المكون, ولا تشغل السكربتات عملية المكون أبدا, ولا يطلب المكون أي إذن. السكربتات التي لا تشير إلى هذه الأصناف لا تتأثر, والأصناف التي لا يستخدمها أحد لا تحمل أبدا, وإنما تشغل مساحة في الحزمة فقط.
+### البدء
 
-| المكتبة | عناصر Maven وإصداراتها | حزمة Java | الترخيص |
-|---|---|---|---|
-| [Apache Commons Lang](https://commons.apache.org/proper/commons-lang/) | `org.apache.commons:commons-lang3` 3.18.0 | `org.apache.commons.lang3` | Apache-2.0 |
-| [Apache Commons IO](https://commons.apache.org/proper/commons-io/) | `commons-io:commons-io` 2.8.0 | `org.apache.commons.io` | Apache-2.0 |
-| [Jackson](https://github.com/FasterXML/jackson) | `com.fasterxml.jackson.core:jackson-databind` 2.13.4.2, `com.fasterxml.jackson.core:jackson-core` 2.13.4, `com.fasterxml.jackson.core:jackson-annotations` 2.13.4 | `com.fasterxml.jackson` | Apache-2.0 |
+1. تأكد من أن هذا المكون مفعل في مركز الاضافات في AutoJs6.
+2. استخدم في السكربت أصناف المكتبات بأسمائها الكاملة, مثل `org.apache.commons.io.IOUtils`; انظر المثال أدناه.
+3. تعرض صفحة المكون إصدار كل مكتبة وعناصر Maven وحزم Java الخاصة بها, وتفتح من مركز الاضافات أو من أيقونة Java Libraries على الشاشة الرئيسية.
 
-### الاستخدام
+### الميزات الرئيسية
 
-```javascript
+- **المكتبات**: تعرض صفحة المكون لكل من Apache Commons Lang3 و Apache Commons IO و Jackson الإصدار وعناصر Maven وحزم Java والترخيص.
+- **الاستخدام في السكربتات**: تقدم صفحة المكون مثالا يمكن تشغيله كما هو, وتوضح التعليقات ناتج كل سطر.
+- **ملفات NOTICE**: تعرض صفحة المكون ملفات NOTICE كما تنشرها المكتبات.
+
+### الاستخدام في السكربتات
+
+استخدم الأصناف بأسمائها الكاملة; وتوضح التعليقات ناتج كل سطر:
+
+```js
 let StringUtils = org.apache.commons.lang3.StringUtils;
 console.log(StringUtils.isBlank("  ")); // true
 console.log(StringUtils.capitalize("autojs6")); // Autojs6
@@ -25,12 +31,22 @@ console.log(tree.get("version").asInt()); // 6
 console.log(mapper.writeValueAsString(tree)); // {"name":"AutoJs6","version":6}
 ```
 
-### عندما يكون المكون غير متاح
+- يمكنك أيضا استدعاء `importClass(org.apache.commons.lang3.StringUtils)` أولا ثم كتابة `StringUtils` فقط.
+- عندما يكون المكون غير متاح فإن ذكر اسم الصنف وحده ليس خطأ (يعامل Rhino الاسم الذي لا يجده كحزمة Java); يظهر الخطأ عندما يستدعي السكربت دالة أو ينشئ كائنا أو يمرر الاسم إلى `importClass`.
 
-عندما يكون المكون غير مثبت أو غير مصرح له أو معطلا في مركز الاضافات أو قديما جدا, لا تستطيع السكربتات استخدام هذه الأصناف:
+### المتطلبات
 
-- ذكر اسم الصنف وحده ليس خطأ (يعامل Rhino الاسم الذي لا يجده كحزمة Java); يظهر الخطأ عندما يستدعي السكربت دالة أو ينشئ كائنا أو يمرر الاسم إلى `importClass`.
-- عندما ينتهي السكربت بخطأ كهذا يعرض AutoJs6 في وحدة التحكم بعد الخطأ إرشادا يوضح هل يجب تثبيت المكون أو التصريح له أو تفعيله أو تحديثه; أما الأخطاء التي يلتقطها السكربت بنفسه فلا ترفق بإرشاد.
-- عندما لا يحمل التطبيق المحزم نسخة ولا يوجد على جهازه مكون صالح أيضا, يطلب الإرشاد تثبيت المكون وتفعيله على الجهاز.
+- Android 7.0 أو أحدث, و AutoJs6 6.8.1 أو أحدث.
+- هذا المكون مجرد حزمة موارد: لا تشغل السكربتات عمليته ولا يحتاج إلى أي إذن; والسكربتات التي لا تشير إلى هذه الأصناف لا تتأثر.
 
-الشيفرة المصدرية وسجل الإصدارات وتراخيص الأطراف الخارجية في [صفحة المشروع](https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries).
+### الأسئلة الشائعة
+
+**السكربت لا يستطيع استخدام هذه الأصناف**
+
+تأكد من أن هذا المكون مثبت ومفعل في مركز الاضافات, وأن إصدار AutoJs6 هو 6.8.1 أو أحدث. عندما ينتهي السكربت بخطأ كهذا يوضح AutoJs6 في وحدة التحكم بعد الخطأ هل يجب تثبيت المكون أو التصريح له أو تفعيله أو تحديثه; أما الأخطاء التي يلتقطها السكربت بنفسه باستخدام `catch` فلا ترفق بهذا الإرشاد.
+
+**الاستخدام في التطبيقات المحزمة**
+
+عند التحزيم يأخذ AutoJs6 أصناف هذا المكون معه إذا احتوت السكربتات على اسم يبدأ بـ `org.apache.commons.lang3`, `org.apache.commons.io`, `com.fasterxml.jackson`; وإذا لم يجد الفحص مثل هذا الاسم فحدد Java Libraries في قائمة المكتبات في صفحة التحزيم. التطبيق الذي يحملها يستطيع استخدام هذه الأصناف على الأجهزة التي لا تحتوي على هذا المكون, وإلا فإنه يستخدم المكون المثبت على الجهاز.
+
+الشيفرة المصدرية وتراخيص الأطراف الخارجية في [صفحة المشروع](https://github.com/SuperMonster003/AutoJs6-Plugin-Java-Libraries).

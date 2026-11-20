@@ -82,5 +82,40 @@
   "h3_links": "Liens",
   "text_link_autojs6": "Projet AutoJs6",
   "text_link_notices": "Mentions des tiers",
-  "p_instruction_more": "Le code source, l'historique des versions et les licences tierces se trouvent sur la [page du projet]({{ repo_url }})."
+  "instruction_p_what": "Java Libraries fournit trois bibliothèques Java aux scripts AutoJs6: Apache Commons Lang3, Apache Commons IO et Jackson. Une fois le plugin activé, les scripts continuent d'utiliser leurs classes par leur nom complet, comme dans AutoJs6 6.7.0 et les versions antérieures.",
+  "instruction_h3_start": "Prise en main",
+  "instruction_start_steps": [
+    "Vérifiez que ce plugin est activé dans le Centre des plugins d'AutoJs6.",
+    "Dans un script, utilisez les classes des bibliothèques par leur nom complet, par exemple `org.apache.commons.io.IOUtils`; voir l'exemple ci-dessous.",
+    "La page du plugin indique la version, les artefacts Maven et les paquets Java de chaque bibliothèque; elle s'ouvre depuis le Centre des plugins ou l'icône Java Libraries de l'écran d'accueil."
+  ],
+  "instruction_h3_features": "Fonctionnalités principales",
+  "instruction_features": [
+    "**Bibliothèques**: la page du plugin liste la version, les artefacts Maven, les paquets Java et la licence d'Apache Commons Lang3, d'Apache Commons IO et de Jackson.",
+    "**Utilisation dans les scripts**: la page du plugin propose un exemple exécutable tel quel, avec la sortie de chaque ligne en commentaire.",
+    "**Fichiers NOTICE**: la page du plugin affiche les fichiers NOTICE tels que les bibliothèques les publient."
+  ],
+  "instruction_h3_script": "Utilisation dans les scripts",
+  "instruction_p_script": "Utilisez les classes par leur nom complet; les commentaires indiquent la sortie de chaque ligne:",
+  "instruction_script_notes": [
+    "Vous pouvez aussi appeler d'abord `importClass(org.apache.commons.lang3.StringUtils)`, puis écrire simplement `StringUtils`.",
+    "Quand le plugin n'est pas disponible, nommer une classe n'est pas une erreur en soi (Rhino traite un nom introuvable comme un paquet Java); l'erreur survient quand un script appelle une méthode, construit un objet ou passe le nom à `importClass`."
+  ],
+  "instruction_h3_requirements": "Prérequis",
+  "instruction_requirements": [
+    "Android {{ min_android_version }} ou version ultérieure, et AutoJs6 {{ required_host_version_name }} ou version ultérieure.",
+    "Ce plugin n'est qu'un paquet de ressources: les scripts ne démarrent jamais son processus et il ne demande aucune autorisation; les scripts qui n'utilisent pas ces classes ne sont pas concernés."
+  ],
+  "instruction_h3_faq": "Questions fréquentes",
+  "instruction_faq": [
+    {
+      "q": "Un script ne peut pas utiliser ces classes",
+      "a": "Vérifiez que ce plugin est installé et activé dans le Centre des plugins, et qu'AutoJs6 est en version {{ required_host_version_name }} ou ultérieure. Quand un script se termine sur une telle erreur, AutoJs6 indique dans la console, après l'erreur, s'il faut installer, autoriser, activer ou mettre à jour le plugin; les erreurs que le script intercepte lui-même avec `catch` n'ont pas cette indication."
+    },
+    {
+      "q": "Utilisation dans les applications empaquetées",
+      "a": "Quand AutoJs6 empaquette un projet, il emporte les classes de ce plugin si les scripts contiennent un nom qui commence par {{ exported_packages }}; si l'analyse ne trouve pas un tel nom, cochez Java Libraries dans la liste des bibliothèques de la page d'empaquetage. Une application qui les emporte peut utiliser ces classes sur les appareils sans ce plugin; sinon, elle utilise le plugin installé sur l'appareil."
+    }
+  ],
+  "instruction_p_more": "Le code source et les licences tierces se trouvent sur la [page du projet]({{ repo_url }})."
 }

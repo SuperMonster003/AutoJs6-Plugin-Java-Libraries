@@ -82,5 +82,40 @@
   "h3_links": "Enlaces",
   "text_link_autojs6": "Proyecto AutoJs6",
   "text_link_notices": "Avisos de terceros",
-  "p_instruction_more": "El código fuente, el historial de versiones y las licencias de terceros están en la [página del proyecto]({{ repo_url }})."
+  "instruction_p_what": "Java Libraries ofrece tres bibliotecas Java para los scripts de AutoJs6: Apache Commons Lang3, Apache Commons IO y Jackson. Una vez activado, los scripts siguen usando sus clases por su nombre completo, igual que en AutoJs6 6.7.0 y versiones anteriores.",
+  "instruction_h3_start": "Primeros pasos",
+  "instruction_start_steps": [
+    "Compruebe que este plugin está activado en el Centro de plugins de AutoJs6.",
+    "En un script, use las clases de las bibliotecas por su nombre completo, por ejemplo `org.apache.commons.io.IOUtils`; consulte el ejemplo más abajo.",
+    "La página del plugin muestra la versión, los artefactos Maven y los paquetes Java de cada biblioteca; se abre desde el Centro de plugins o con el icono Java Libraries de la pantalla de inicio."
+  ],
+  "instruction_h3_features": "Funciones principales",
+  "instruction_features": [
+    "**Bibliotecas**: la página del plugin indica la versión, los artefactos Maven, los paquetes Java y la licencia de Apache Commons Lang3, Apache Commons IO y Jackson.",
+    "**Uso en scripts**: la página del plugin incluye un ejemplo que se puede ejecutar tal cual, con la salida de cada línea en comentarios.",
+    "**Archivos NOTICE**: la página del plugin muestra los archivos NOTICE tal como los publican las bibliotecas."
+  ],
+  "instruction_h3_script": "Uso en scripts",
+  "instruction_p_script": "Use las clases por su nombre completo; los comentarios muestran la salida de cada línea:",
+  "instruction_script_notes": [
+    "También puede llamar primero a `importClass(org.apache.commons.lang3.StringUtils)` y después escribir solo `StringUtils`.",
+    "Cuando el plugin no está disponible, nombrar una clase no es un error por sí mismo (Rhino trata un nombre que no encuentra como un paquete Java); el error llega cuando un script llama a un método, construye un objeto o pasa el nombre a `importClass`."
+  ],
+  "instruction_h3_requirements": "Requisitos",
+  "instruction_requirements": [
+    "Android {{ min_android_version }} o posterior, y AutoJs6 {{ required_host_version_name }} o posterior.",
+    "Este plugin es solo un paquete de recursos: los scripts nunca inician su proceso y no necesita ningún permiso; los scripts que no usan estas clases no se ven afectados."
+  ],
+  "instruction_h3_faq": "Preguntas frecuentes",
+  "instruction_faq": [
+    {
+      "q": "Un script no puede usar estas clases",
+      "a": "Compruebe que este plugin está instalado y activado en el Centro de plugins, y que AutoJs6 es la versión {{ required_host_version_name }} o posterior. Cuando un script termina con un error así, AutoJs6 indica en la consola, después del error, si hay que instalar, autorizar, activar o actualizar el plugin; los errores que el propio script captura con `catch` no llevan esta indicación."
+    },
+    {
+      "q": "Uso en aplicaciones empaquetadas",
+      "a": "Cuando AutoJs6 empaqueta un proyecto, lleva consigo las clases de este plugin si los scripts contienen un nombre que empieza por {{ exported_packages }}; si el análisis no encuentra ese nombre, marque Java Libraries en la lista de bibliotecas de la página de empaquetado. Una aplicación que las lleva puede usar estas clases en dispositivos sin este plugin; si no, usa el plugin instalado en el dispositivo."
+    }
+  ],
+  "instruction_p_more": "El código fuente y las licencias de terceros están en la [página del proyecto]({{ repo_url }})."
 }
