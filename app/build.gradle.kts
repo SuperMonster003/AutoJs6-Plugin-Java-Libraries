@@ -5,6 +5,7 @@ import java.io.File
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.util.Properties
+import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 
 plugins {
@@ -14,6 +15,7 @@ plugins {
     id("org.autojs.build.signs")
     id("org.autojs.build.jvm-convention")
     id("com.android.application")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 val globalApplicationId = "io.github.supermonster003.autojs6.plugin.java.libraries"
@@ -72,6 +74,7 @@ android {
         targetSdk = versions.sdkVersionTarget
         versionCode = versions.appVersionCode
         versionName = versions.appVersionName
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "VERSION_DATE", "\"${utils.getDateString("MMM d, yyyy", "GMT+08:00")}\"")
         buildConfigField("long", "REQUIRED_HOST_VERSION_CODE", "${requiredHostVersionCode}L")
@@ -139,6 +142,7 @@ android {
 
     buildFeatures {
         buildConfig = true
+        compose = true
         resValues = true
     }
 
@@ -190,6 +194,22 @@ dependencies {
     coreLibraryDesugaring(libs.desugar)
 
     testImplementation(libs.junit)
+
+    // Jetpack Compose, only for the release history page (AUTOJS6_PLUGIN_RELEASE_HISTORY_AGENTS.md section 9).
+    // zh-CN: Jetpack Compose, 只用于发行历史页 (规范 AUTOJS6_PLUGIN_RELEASE_HISTORY_AGENTS.md 第 9 节).
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.runtime)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.animation)
+    implementation(libs.compose.activity)
+    debugImplementation(libs.compose.ui.test.manifest)
+    androidTestImplementation(libs.test.ext.junit)
+    androidTestImplementation(libs.test.runner)
+    androidTestImplementation(libs.test.espresso.core)
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.compose.ui.test.junit4)
 }
 
 /**
@@ -241,11 +261,17 @@ fun dexClassNames(bytes: ByteArray): Set<String> {
 }
 
 /**
- * The release check of D10 (ROADMAP.md P0.1): the release APK has no native library, and its dex files define every class
- * of appendix C under its original name. Prints the APK and dex sizes. Runs on the unsigned APK of CI as well; the signed
- * release gate depends on it.
- * zh-CN: D10 的发布校验 (ROADMAP.md P0.1): release APK 不含原生库, 其 dex 以原名定义附录 C 的每个类. 输出 APK 与 dex 体积.
- * 也能在 CI 的未签名 APK 上运行; 签名发布门禁依赖它.
+ * The native libraries of Jetpack Compose (the release history page, plugin-center P21.5), the only ones the APK may hold.
+ * zh-CN: Jetpack Compose 的原生库 (发行历史页, plugin-center P21.5), APK 只允许包含这些原生库.
+ */
+val allowedNativeLibraries = listOf("arm64-v8a", "armeabi-v7a", "x86_64", "x86").map { "lib/$it/libandroidx.graphics.path.so" }
+
+/**
+ * The release check of D10 (ROADMAP.md P0.1): the release APK has no native library of its own (exactly Compose's
+ * [allowedNativeLibraries], stored uncompressed), and its dex files define every class of appendix C under its original
+ * name. Prints the APK and dex sizes. Runs on the unsigned APK of CI as well; the signed release gate depends on it.
+ * zh-CN: D10 的发布校验 (ROADMAP.md P0.1): release APK 不含自己的原生库 (恰为 Compose 的 [allowedNativeLibraries] 且不压缩),
+ * 其 dex 以原名定义附录 C 的每个类. 输出 APK 与 dex 体积. 也能在 CI 的未签名 APK 上运行; 签名发布门禁依赖它.
  */
 val verifyReleaseDexClasses = tasks.register("verifyReleaseDexClasses") {
     group = "verification"
@@ -257,9 +283,11 @@ val verifyReleaseDexClasses = tasks.register("verifyReleaseDexClasses") {
             ?: throw GradleException("Expected one release APK in $directory")
         ZipFile(apk).use { zip ->
             val entries = zip.entries().asSequence().toList()
-            entries.firstOrNull { it.name.startsWith("lib/") || it.name.endsWith(".so") }?.let {
-                throw GradleException("The release APK must not contain native libraries: ${it.name}")
+            val natives = entries.filter { it.name.startsWith("lib/") || it.name.endsWith(".so") }
+            check(natives.map { it.name }.sorted() == allowedNativeLibraries.sorted()) {
+                "Unexpected native library set: ${natives.map { it.name }.sorted()}"
             }
+            check(natives.all { it.method == ZipEntry.STORED }) { "Native libraries must be stored uncompressed" }
             val dexEntries = entries.filter { Regex("classes\\d*\\.dex").matches(it.name) }.sortedBy { it.name }
             val defined = dexEntries.flatMapTo(HashSet()) { entry -> dexClassNames(zip.getInputStream(entry).use { it.readBytes() }) }
             val missing = representativeClasses.filterNot(defined::contains)
@@ -323,6 +351,6 @@ val verifySignedReleaseArtifacts = tasks.register("verifySignedReleaseArtifacts"
 }
 tasks.named("appendDigestToReleasedFiles") { dependsOn(verifySignedReleaseArtifacts) }
 
-// The plugin ships Java classes only.
-// zh-CN: 插件只包含 Java 类.
-nativeAlignment { expectNoNativeLibraries.set(true) }
+// The only native libraries are Compose's (allowedNativeLibraries above); the shared gate checks their 16 KB alignment.
+// zh-CN: 唯一的原生库来自 Compose (见上面的 allowedNativeLibraries); 共享门禁检查其 16 KB 对齐.
+nativeAlignment { expectNoNativeLibraries.set(false) }

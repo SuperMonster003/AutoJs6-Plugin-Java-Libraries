@@ -46,7 +46,7 @@ internal object AppearanceColors {
 
     fun withAlpha(color: Int, alpha: Int) = (color and 0xffffff) or (alpha shl 24)
 
-    private fun blend(from: Int, to: Int, ratio: Float): Int {
+    fun blend(from: Int, to: Int, ratio: Float): Int {
         fun mix(shift: Int) = ((from shr shift and 0xff) * (1 - ratio) + (to shr shift and 0xff) * ratio).roundToInt() shl shift
         return mix(24) or mix(16) or mix(8) or mix(0)
     }

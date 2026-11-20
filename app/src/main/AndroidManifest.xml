@@ -21,7 +21,7 @@
 
         <meta-data
             android:name="org.autojs.plugin.contract.NATIVE_PAGE_ALIGNMENT"
-            android:value="0" />
+            android:value="16384" />
 
         <meta-data android:name="org.autojs.plugin.WAKE_ACTIVITY" android:value=".WakeActivity" />
         <meta-data android:name="org.autojs.plugin.info.AUTHOR" android:value="SuperMonster003" />
@@ -47,11 +47,12 @@
             </intent-filter>
         </activity>
 
+        <!-- The release history page (Compose): it draws its own top bar in the settings page's colors. -->
         <activity
             android:name=".ReleaseHistoryActivity"
             android:exported="false"
             android:label="@string/text_release_history"
-            android:theme="@style/Theme.JavaLibraries" />
+            android:theme="@style/Theme.JavaLibraries.Page" />
 
         <activity
             android:name=".WakeActivity"

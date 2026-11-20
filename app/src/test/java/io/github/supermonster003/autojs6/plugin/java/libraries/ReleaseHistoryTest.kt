@@ -3,69 +3,124 @@ package io.github.supermonster003.autojs6.plugin.java.libraries
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
+import java.io.FileNotFoundException
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 import java.util.Locale
 
 class ReleaseHistoryTest {
+    private fun first(tag: String) = ReleaseHistoryAssetPolicy.candidatesFor(Locale.forLanguageTag(tag)).first()
 
-    private val assets = File("src/main/assets")
+    @Test fun mapsChineseLocalesAndFallsBackToEnglish() {
+        assertEquals("doc/CHANGELOG-zh-Hant-HK.md", first("zh-HK"))
+        assertEquals("doc/CHANGELOG-zh-Hant-HK.md", first("zh-Hant-MO"))
+        assertEquals("doc/CHANGELOG-zh-Hant-TW.md", first("zh-TW"))
+        assertEquals("doc/CHANGELOG-zh-Hant-TW.md", first("zh-Hant"))
+        assertEquals("doc/CHANGELOG-zh-Hans.md", first("zh-Hans-CN"))
+        assertEquals("doc/CHANGELOG-zh-Hans.md", first("zh-Hans-HK"))
+        assertEquals(listOf("doc/CHANGELOG-ar.md", "doc/CHANGELOG-en.md"), ReleaseHistoryAssetPolicy.candidatesFor(Locale.forLanguageTag("ar-EG")))
+        assertEquals(listOf("doc/CHANGELOG-en.md"), ReleaseHistoryAssetPolicy.candidatesFor(Locale.forLanguageTag("de-DE")))
+        assertEquals(listOf("doc/CHANGELOG-en.md"), ReleaseHistoryAssetPolicy.candidatesFor(Locale.ENGLISH))
+    }
 
-    @Test
-    fun everyLanguageOfThePluginReadsItsOwnChangelog() {
-        val expected = mapOf(
-            Locale.forLanguageTag("zh-CN") to "zh-Hans",
-            Locale.forLanguageTag("zh-Hans-SG") to "zh-Hans",
-            Locale.forLanguageTag("zh-HK") to "zh-Hant-HK",
-            Locale.forLanguageTag("zh-MO") to "zh-Hant-HK",
-            Locale.forLanguageTag("zh-TW") to "zh-Hant-TW",
-            Locale.forLanguageTag("zh-Hant") to "zh-Hant-TW",
-            Locale.forLanguageTag("en-US") to "en",
-            Locale.forLanguageTag("fr-CA") to "fr",
-            Locale.forLanguageTag("es-MX") to "es",
-            Locale.forLanguageTag("ja-JP") to "ja",
-            Locale.forLanguageTag("ko-KR") to "ko",
-            Locale.forLanguageTag("ru-RU") to "ru",
-            Locale.forLanguageTag("ar-EG") to "ar",
-        )
-        expected.forEach { (locale, tag) ->
-            val candidates = ReleaseHistory.candidates(locale)
-            assertEquals(locale.toLanguageTag(), "doc/CHANGELOG-$tag.md", candidates.first())
-            assertTrue(candidates.all { File(assets, it).isFile })
+    /** Every language of the plugin reads its own bundled changelog. */
+    @Test fun everyLanguageOfThePluginHasItsOwnChangelog() {
+        val doc = findProjectRoot().resolve("app/src/main/assets")
+        listOf("zh-CN", "zh-HK", "zh-TW", "en-US", "fr-CA", "es-MX", "ja-JP", "ko-KR", "ru-RU", "ar-EG").forEach { tag ->
+            val candidates = ReleaseHistoryAssetPolicy.candidatesFor(Locale.forLanguageTag(tag))
+            assertTrue(tag, candidates.all { Files.isRegularFile(doc.resolve(it)) })
         }
     }
 
-    @Test
-    fun otherLanguagesFallBackToEnglishThenTheDefaultCopy() {
+    /** A missing, blank or unparsable localized changelog falls back to English; nothing usable gives the empty state. */
+    @Test fun skipsMissingBlankOrUnparsableLocalizedAssetsAndReportsCompleteFailure() {
+        val candidates = ReleaseHistoryAssetPolicy.candidatesFor(Locale.FRANCE)
+        val english = "## v1.0.0\n\n###### 2026/10/04\n\n* `Feature` English note\n"
+        fun load(french: String?) = loadReleaseHistory(candidates) { path ->
+            when {
+                path.endsWith("-en.md") -> english
+                french == null -> throw FileNotFoundException(path)
+                else -> french
+            }
+        }
+        assertEquals("English note", load(null).single().items.single().text)
+        assertEquals("English note", load(" ").single().items.single().text)
+        assertEquals("English note", load("### Historique\n").single().items.single().text)
+        assertEquals("Note", load("## v1.0.0\n\n* `Nouveauté` Note\n").single().items.single().text)
+        assertTrue(loadReleaseHistory(candidates) { " " }.isEmpty())
+        assertTrue(loadReleaseHistory(candidates) { throw FileNotFoundException(it) }.isEmpty())
+    }
+
+    /** The bundled changelogs parse into every version they list, the same versions in both languages. */
+    @Test fun parsesEveryVersionOfTheBundledChangelogs() {
+        val doc = findProjectRoot().resolve("app/src/main/assets/doc")
+        val versionLine = Regex("^#{1,2}\\s+v\\S+\\s*$")
+        val versions = listOf("CHANGELOG-zh-Hans.md", "CHANGELOG-en.md").map { name ->
+            val markdown = String(Files.readAllBytes(doc.resolve(name)), Charsets.UTF_8)
+            val expected = markdown.lineSequence().count { versionLine.matches(it.trim()) }
+            val entries = ReleaseHistoryParser.parse(markdown)
+            assertTrue("$name lists no version", expected > 0)
+            assertEquals(name, expected, entries.size)
+            assertTrue("$name has a version without items", entries.all { it.items.isNotEmpty() && it.date != null })
+            entries.map { it.version }
+        }
+        assertEquals(versions[0], versions[1])
+    }
+
+    private fun findProjectRoot(): Path = generateSequence(Paths.get("").toAbsolutePath()) { it.parent }
+        .first { Files.isDirectory(it.resolve("app/src/main/assets/doc")) }
+}
+
+class ReleaseHistoryParserTest {
+    @Test fun parsesTheGeneratedChangelogDialect() {
+        val markdown = """
+            ******
+
+            ### Release History
+
+            ******
+
+            ## v2.1.0
+
+            ###### 2026/10/13
+
+            * `Hint` First note
+            * `Improved` Second note
+
+            ## v2.0.0
+
+            ###### 2026/10/04
+
+            * `Feature` Third note
+            * Untagged note
+        """.trimIndent()
+        val entries = ReleaseHistoryParser.parse(markdown)
+        assertEquals(listOf("v2.1.0", "v2.0.0"), entries.map { it.version })
+        assertEquals("2026/10/13", entries[0].date)
+        assertEquals(listOf("Hint" to "First note", "Improved" to "Second note"), entries[0].items.map { it.tag to it.text })
+        assertEquals(listOf("Feature" to "Third note", null to "Untagged note"), entries[1].items.map { it.tag to it.text })
+    }
+
+    @Test fun parsesTheSingleHashHeadingToo() {
+        val entries = ReleaseHistoryParser.parse("# v1.0.0\n\n* `Feature` Note\n")
+        assertEquals("v1.0.0", entries.single().version)
+        assertEquals(1, entries.single().items.size)
+    }
+
+    /** The page names each category once and lists its items beneath; the collapsed summary counts them. */
+    @Test fun groupsItemsByCategoryInTheOrderTheyFirstAppear() {
+        val entry = ReleaseHistoryParser.parse(
+            "## v1.2.0\n\n* `Hint` A\n* `Added` B\n* `Added` C\n* `Fixed` D\n* `Added` E\n* Untagged F\n",
+        ).single()
         assertEquals(
-            listOf("doc/CHANGELOG-en.md", "doc/CHANGELOG.md"),
-            ReleaseHistory.candidates(Locale.forLanguageTag("de-DE")),
+            listOf("Hint" to listOf("A"), "Added" to listOf("B", "C", "E"), "Fixed" to listOf("D"), null to listOf("Untagged F")),
+            entry.groups.map { it.tag to it.items },
         )
+        assertEquals(listOf("Hint" to 1, "Added" to 3, "Fixed" to 1), entry.categoryCounts)
     }
 
-    @Test
-    fun theGeneratedChangelogParsesIntoVersionsDatesAndLabelledItems() {
-        val lines = ReleaseHistory.parse(File(assets, "doc/CHANGELOG-en.md").readText())
-        assertEquals(ReleaseHistory.Line(ReleaseHistory.Kind.VERSION, "v1.0.0"), lines.first())
-        assertEquals(ReleaseHistory.Kind.DATE, lines[1].kind)
-        assertTrue(Regex("""\d{4}/\d{2}/\d{2}""").matches(lines[1].text))
-        val items = lines.filter { it.kind == ReleaseHistory.Kind.ITEM }
-        assertTrue(items.isNotEmpty())
-        assertTrue(items.all { it.label in setOf("Hint", "Feature", "Fix", "Improvement", "Dependency") })
-        assertTrue(lines.none { it.kind == ReleaseHistory.Kind.TEXT })
+    @Test fun ignoresSectionTitlesThatAreNotVersions() {
+        assertTrue(ReleaseHistoryParser.parse("### Release History\n\n* `Feature` Orphan\n").isEmpty())
     }
-
-    @Test
-    fun itemsWithoutALabelAndStrayTextAreKept() {
-        val lines = ReleaseHistory.parse("# v2.0.0\n\n###### 2026/01/02\n\n* plain item\nnote\n******\n### Release history\n")
-        assertEquals(
-            listOf(
-                ReleaseHistory.Line(ReleaseHistory.Kind.VERSION, "v2.0.0"),
-                ReleaseHistory.Line(ReleaseHistory.Kind.DATE, "2026/01/02"),
-                ReleaseHistory.Line(ReleaseHistory.Kind.ITEM, "plain item"),
-                ReleaseHistory.Line(ReleaseHistory.Kind.TEXT, "note"),
-            ),
-            lines,
-        )
-    }
-
 }

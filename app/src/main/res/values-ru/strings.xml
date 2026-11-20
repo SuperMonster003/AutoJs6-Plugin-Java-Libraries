@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="plugin_description">Apache Commons Lang3, Commons IO и Jackson для прямого использования Java-классов в скриптах AutoJs6</string>
+    <string name="text_back">Назад</string>
     <string name="text_group_libraries">Библиотеки</string>
     <string name="text_group_notices">Файлы NOTICE</string>
     <string name="text_group_usage">Использование в скриптах</string>
@@ -9,7 +10,13 @@
     <string name="text_library_package">Пакет Java: %1$s</string>
     <string name="text_library_version">Версия %1$s</string>
     <string name="text_release_history">История выпусков</string>
+    <string name="text_release_history_collapse_all">Свернуть всё</string>
+    <string name="text_release_history_collapsed">Свёрнуто</string>
+    <string name="text_release_history_expand_all">Развернуть всё</string>
+    <string name="text_release_history_expanded">Развёрнуто</string>
     <string name="text_release_history_load_failed">Не удалось загрузить историю выпусков</string>
+    <string name="text_release_history_summary">Открыть встроенную историю выпусков приложения</string>
+    <string name="text_settings_about">О приложении</string>
     <string name="text_settings_summary">Библиотеки Java для скриптов AutoJs6. Пока этот плагин установлен и включен в Центре плагинов, скрипты обращаются к их классам по полным именам, как к библиотекам, встроенным в AutoJs6 6.7.0 и более ранние версии.</string>
     <string name="text_usage_summary">Классы используются по полным именам; комментарии показывают вывод каждой строки:</string>
 </resources>

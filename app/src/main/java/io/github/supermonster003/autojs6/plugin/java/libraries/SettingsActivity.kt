@@ -1,6 +1,5 @@
 package io.github.supermonster003.autojs6.plugin.java.libraries
 
-import android.content.Intent
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -44,11 +43,8 @@ class SettingsActivity : HostAppearanceActivity() {
             content.addView(code(library.notice, 11f), MATCH_PARENT, WRAP_CONTENT)
         }
 
-        content.addView(heading(R.string.text_release_history).apply {
-            setPadding(0, dp(20), 0, dp(12))
-            setBackgroundResource(TypedValue().also { theme.resolveAttribute(android.R.attr.selectableItemBackground, it, true) }.resourceId)
-            setOnClickListener { startActivity(Intent(this@SettingsActivity, ReleaseHistoryActivity::class.java)) }
-        }, MATCH_PARENT, WRAP_CONTENT)
+        content.addView(heading(R.string.text_settings_about))
+        content.addView(releaseHistoryRow(), MATCH_PARENT, WRAP_CONTENT)
 
         val scroll = ScrollView(this).apply {
             // Code and NOTICE files keep left to right. zh-CN: 代码与 NOTICE 文件保持从左到右.
@@ -75,6 +71,19 @@ class SettingsActivity : HostAppearanceActivity() {
             getString(R.string.text_library_package, library.exportedPackage),
         )
         addView(text(details.joinToString("\n"), 13f, secondary = true), MATCH_PARENT, WRAP_CONTENT)
+    }
+
+    /** "About > Release history" (AUTOJS6_PLUGIN_RELEASE_HISTORY_AGENTS.md section 2). zh-CN: "关于 > 发行历史" (规范第 2 节). */
+    private fun releaseHistoryRow(): View = LinearLayout(this).apply {
+        orientation = LinearLayout.VERTICAL
+        tag = R.string.text_release_history
+        setPadding(0, dp(8), 0, dp(8))
+        isClickable = true
+        isFocusable = true
+        setBackgroundResource(TypedValue().also { theme.resolveAttribute(android.R.attr.selectableItemBackground, it, true) }.resourceId)
+        addView(text(getString(R.string.text_release_history), 16f), MATCH_PARENT, WRAP_CONTENT)
+        addView(text(getString(R.string.text_release_history_summary), 13f, secondary = true), MATCH_PARENT, WRAP_CONTENT)
+        setOnClickListener { openReleaseHistory() }
     }
 
     private fun heading(title: Int) = text(getString(title), 16f).apply {

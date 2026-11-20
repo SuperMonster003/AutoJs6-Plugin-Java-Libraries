@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.JavaLibraries" parent="@android:style/Theme.Material" />
+    <!-- The release history page (Compose): no action bar, it draws its own top bar. -->
+    <style name="Theme.JavaLibraries.Page" parent="@android:style/Theme.Material.NoActionBar" />
 </resources>

@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.JavaLibraries" parent="@android:style/Theme.Material.Light.DarkActionBar" />
+    <!-- The release history page (Compose): no action bar, it draws its own top bar. -->
+    <style name="Theme.JavaLibraries.Page" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <!-- The action bar colors of Theme.Material.Light.DarkActionBar, so the page reads the settings page's colors. -->
+        <item name="android:colorPrimary">#FF212121</item>
+        <item name="android:colorPrimaryDark">#FF000000</item>
+    </style>
 </resources>
